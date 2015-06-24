@@ -8,8 +8,12 @@
 #ifndef NUMBERS_NUMBER_H_
 #define NUMBERS_NUMBER_H_
 
+#include <string>
+
 namespace cm {
 namespace numb {
+
+typedef std::string NumberInString;
 
 /**
  * @brief
@@ -18,6 +22,8 @@ namespace numb {
 class Number {
 public:
 	/**
+	 * @{
+	 *
 	 * @brief
 	 * 	Method to get opposite value.
 	 *
@@ -89,8 +95,50 @@ public:
 	 *
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
+	 *
+	 *	@}
 	 */
 	virtual const Number *const getQuotient(const Number *const toDivide) const = 0;
+
+	/**
+	 * @{
+	 *
+	 * @brief
+	 * 	Method used to get stored value.
+	 *
+	 * @return
+	 * 	Binary representation of the stored value.
+	 */
+	virtual const NumberInString getAsBinary() const = 0;
+
+	/**
+	 * @brief
+	 * 	Method used to get stored value.
+	 *
+	 * @return
+	 * 	Octal representation of the stored value.
+	 */
+	virtual const NumberInString getAsOctal() const = 0;
+
+	/**
+	 * @brief
+	 * 	Method used to get stored value.
+	 *
+	 * @return
+	 *	Decimal representation of the stored value.
+	 */
+	virtual const NumberInString getAsDecimal() const = 0;
+
+	/**
+	 * @brief
+	 * 	Method used to get stored value.
+	 *
+	 * @return
+	 *	Hexadecimal representation of the stored value.
+	 *
+	 * @}
+	 */
+	virtual const NumberInString getAsHexadecimal() const = 0;
 
 	/**
 	 * @brief
