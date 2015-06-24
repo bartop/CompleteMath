@@ -10,11 +10,11 @@
 namespace cm{
 namespace numb{
 
-const Number *const Number::getDifference(const Number *const toSubtract) const{
+Number *const Number::getDifference(const Number *const toSubtract) const{
 	return this->getSum(toSubtract->getNegation());
 }
 
-const Number *const Number::getQuotient(const Number *const toDivide) const{
+Number *const Number::getQuotient(const Number *const toDivide) const{
 	return this->getProduct(toDivide->getInversion());
 }
 

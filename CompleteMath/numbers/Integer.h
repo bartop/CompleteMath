@@ -12,7 +12,10 @@
 
 namespace cm {
 namespace numb {
-
+/**
+ * @brief
+ * 	Interface for integer values.
+ */
 class Integer: public RealNumber {
 public:
 	/**
@@ -25,7 +28,7 @@ public:
 	 * @return
 	 * 	Quotient of @c *this and @c toDivide.
 	 */
-	virtual const Integer *const getIntegerQuotient(const Integer *const toDivide) const = 0;
+	virtual Integer *const getIntegerQuotient(const Integer *const toDivide) const = 0;
 
 	/**
 	 * @brief
@@ -37,7 +40,7 @@ public:
 	 * @return
 	 * 	Remainder of @c *this and @c toDivide division.
 	 */
-	virtual const Integer *const getRemainder(const Integer *const toDivide) const = 0;
+	virtual Integer *const getRemainder(const Integer *const toDivide) const = 0;
 
 	/**
 	 * @brief

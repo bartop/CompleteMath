@@ -15,6 +15,11 @@ namespace numb {
 
 typedef std::string NumberInString;
 
+class Complex;
+class FloatingPoint;
+class Signed;
+class Unsigned;
+
 /**
  * @brief
  *	Polymorphic interface for all numbers.
@@ -30,7 +35,7 @@ public:
 	 * @return
 	 * 	Negation of the number stored in @c *this.
 	 */
-	virtual const Number *const getNegation() const = 0;
+	virtual Number *const getNegation() const = 0;
 
 	/**
 	 * @brief
@@ -39,7 +44,7 @@ public:
 	 * @return
 	 * 	Inverse of the value stored in @c *this.
 	 */
-	virtual const Number *const getInversion() const = 0;
+	virtual Number *const getInversion() const = 0;
 
 
 	/**
@@ -52,7 +57,7 @@ public:
 	 * @return
 	 * 	Sum of @c *this and @c toAdd.
 	 */
-	virtual const Number *const getSum(const Number *const toAdd) const = 0;
+	virtual Number *const getSum(const Number *const toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -62,13 +67,13 @@ public:
 	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
 	 *	the most universal way of defining subtraction.
 	 *
-	 * @param toAdd
+	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
 	 * @return
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
-	virtual const Number *const getDifference(const Number *const toSubtract) const = 0;
+	virtual Number *const getDifference(const Number *const toSubtract) const = 0;
 
 	/**
 	 * @brief
@@ -80,7 +85,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @c toMultiply.
 	 */
-	virtual const Number *const getProduct(const Number *const toMultiply) const = 0;
+	virtual Number *const getProduct(const Number *const toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -98,7 +103,7 @@ public:
 	 *
 	 *	@}
 	 */
-	virtual const Number *const getQuotient(const Number *const toDivide) const = 0;
+	virtual Number *const getQuotient(const Number *const toDivide) const = 0;
 
 	/**
 	 * @{
@@ -140,6 +145,58 @@ public:
 	 */
 	virtual const NumberInString getAsHexadecimal() const = 0;
 
+	/**
+	 * @{
+	 *
+	 * @brief
+	 *	Returns @c *this as Unsigned object.
+	 *
+	 * @details
+	 * 	It is worth mentioning that casting from simpler type to more complex one causes no data loss, while casting in
+	 * 	the opposite direction may cause rounding and/or truncating data. Use carefully. \n
+	 * 	Number subtypes listed from the most to the least complex:
+	 * 		- Complex
+	 * 		- FloatingPoint
+	 * 		- Signed
+	 * 		- Unsigned
+	 *
+	 * @return
+	 * 	Unsigned representation of @c *this object.
+	 */
+	virtual Unsigned *const getAsUnsignedInteger() const = 0;
+
+	/**
+	 * @brief
+	 *	Returns @c *this as Signed object.
+	 *
+	 * @copydetails getAsUnsignedInteger
+	 *
+	 * @return
+	 * 	Signed representation of @c *this object.
+	 */
+	virtual Signed *const getAsSignedInteger() const = 0;
+
+	/**
+	 * @brief
+	 *	Returns @c *this as FloatingPoint object.
+	 *
+	 * @copydetails getAsUnsignedInteger
+	 *
+	 * @return
+	 * 	FloatingPoint representation of @c *this object.
+	 */
+	virtual FloatingPoint *const getAsFloatingPoint() const = 0;
+
+	/**
+	 * @brief
+	 *	Returns @c *this as Complex object.
+	 *
+	 * @copydetails getAsUnsignedInteger
+	 *
+	 * @return
+	 * 	Complex representation of @c *this object.
+	 */
+	virtual Complex *const getAsComplex() const = 0;
 	/**
 	 * @brief
 	 * 	Dummy virtual destructor.
