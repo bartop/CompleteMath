@@ -12,6 +12,16 @@
 
 namespace cm {
 namespace numb {
+
+/**
+ * @brief
+ * 	Enum defining if array of bytes stores number in little- or big-endian manner
+ */
+enum class Endianess{
+	Little,//!< Little little-endian from
+	Big    //!< Big big-endian form
+};
+
 /**
  * @brief
  * 	Interface for integer values.

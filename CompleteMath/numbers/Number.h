@@ -195,6 +195,8 @@ public:
 	 *
 	 * @return
 	 * 	Complex representation of @c *this object.
+	 *
+	 * @}
 	 */
 	virtual Complex *const getAsComplex() const = 0;
 	/**
