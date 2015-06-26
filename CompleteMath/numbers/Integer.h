@@ -27,6 +27,65 @@ enum class Endianess{
  * 	Interface for integer values.
  */
 class Integer: public RealNumber {
+private:
+	/**
+	 * @brief
+	 * 	Number storing length of array.
+	 */
+	const unsigned long long m_size;
+
+	/**
+	 * @brief
+	 * 	Array storing very long unsigned.
+	 */
+	const unsigned char *const m_integer;
+
+	/**
+	 * @brief
+	 * 	Creates deep copy of given array.
+	 *
+	 * @param toCopy
+	 * 	Array to copy.
+	 *
+	 * @param size
+	 * 	Size of copied array.
+	 *
+	 * @return
+	 * 	Deep copy of the toCopy array.
+	 */
+	static const unsigned char *const arrayCopy(const unsigned char *const toCopy, const unsigned long long size);
+
+protected:
+	/**
+	 * @brief
+	 * 	Constructs Integer from array of unsigned chars.
+	 *
+	 * @param numbersArray
+	 *	Array of bytes containing long number.
+	 *
+	 * @param arrayLenght
+	 * 	Length of the given array.
+	 */
+	Integer(const unsigned char *const numbersArray, const unsigned long long arrayLength);
+
+	/**
+	 * @brief
+	 * 	Array size getter.
+	 *
+	 * @return
+	 *	Size of stored array.
+	 */
+	const unsigned long long getArraySize() const;
+
+	/**
+	 * @brief
+	 * 	Array getter.
+	 *
+	 * @return
+	 * 	Stored array.
+	 */
+	const unsigned char *const getArray() const;
+
 public:
 	/**
 	 * @brief
@@ -54,9 +113,9 @@ public:
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 *	Destructor deleting allocated memory.
 	 */
-	virtual ~Integer() {}
+	virtual ~Integer();
 };
 
 } /* namespace numb */

@@ -11,10 +11,5 @@ namespace cm {
 namespace numb {
 
 
-
-Unsigned::~Unsigned() {
-	// TODO Auto-generated destructor stub
-}
-
 } /* namespace numb */
 } /* namespace cm */

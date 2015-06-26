@@ -18,7 +18,7 @@ namespace numb {
  * @brief
  * 	Interface for real numbers.
  */
-class RealNumber: public Number, public Comparable<RealNumber> {
+class RealNumber: public Number, public Comparable<RealNumber *> {
 public:
 	/**
 	 * @brief
