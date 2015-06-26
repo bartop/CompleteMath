@@ -27,6 +27,15 @@ class Unsigned;
 class Number {
 public:
 	/**
+	 * @brief
+	 * 	Checks if stored value is equal to zero.
+	 *
+	 * @return
+	 * 	True if stored value equals 0. Else returns false.
+	 */
+	virtual const bool isZero() const = 0;
+
+	/**
 	 * @{
 	 *
 	 * @brief
@@ -100,10 +109,11 @@ public:
 	 *
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
-	 *
-	 *	@}
 	 */
 	virtual Number *const getQuotient(const Number *const toDivide) const = 0;
+	/**
+	 *	@}
+	 */
 
 	/**
 	 * @{
@@ -141,9 +151,11 @@ public:
 	 * @return
 	 *	Hexadecimal representation of the stored value.
 	 *
-	 * @}
 	 */
 	virtual const NumberInString getAsHexadecimal() const = 0;
+	/**
+	 * @}
+	 */
 
 	/**
 	 * @{
@@ -195,10 +207,12 @@ public:
 	 *
 	 * @return
 	 * 	Complex representation of @c *this object.
-	 *
-	 * @}
 	 */
 	virtual Complex *const getAsComplex() const = 0;
+	/**
+	 * @}
+	 */
+
 	/**
 	 * @brief
 	 * 	Dummy virtual destructor.

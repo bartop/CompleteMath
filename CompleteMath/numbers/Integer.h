@@ -18,7 +18,7 @@ namespace numb {
  * 	Enum defining if array of bytes stores number in little- or big-endian manner
  */
 enum class Endianess{
-	Little,//!< Little little-endian from
+	Little,//!< Little little-endian form
 	Big    //!< Big big-endian form
 };
 
@@ -50,10 +50,15 @@ private:
 	 * @param size
 	 * 	Size of copied array.
 	 *
+	 * @param endianess
+	 * 	Defines if given number in array uses big- or little-endian notation.
+	 *
 	 * @return
 	 * 	Deep copy of the toCopy array.
 	 */
-	static const unsigned char *const arrayCopy(const unsigned char *const toCopy, const unsigned long long size);
+	static const unsigned char *const arrayCopy(const unsigned char *const toCopy,
+			const unsigned long long size,
+			const Endianess endianess);
 
 protected:
 	/**
@@ -65,8 +70,13 @@ protected:
 	 *
 	 * @param arrayLenght
 	 * 	Length of the given array.
+	 *
+	 * @param endianess
+	 * 	Defines if given number in array uses big- or little-endian notation.
 	 */
-	Integer(const unsigned char *const numbersArray, const unsigned long long arrayLength);
+	explicit Integer(const unsigned char *const numbersArray = nullptr,
+			const unsigned long long arrayLenght = 0,
+			const Endianess endianess = Endianess::Little);
 
 	/**
 	 * @brief
