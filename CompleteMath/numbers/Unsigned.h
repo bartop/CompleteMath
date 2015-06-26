@@ -14,32 +14,12 @@ namespace cm {
 namespace numb {
 /**
  * @brief
- *  Class representing unsigned positive integer.
+ *  Class representing positive unsigned integer.
  */
 class Unsigned: public Integer {
 private:
-	static const unsigned char *const arrayFromHexadecimal(const NumberInString &hex);
-
-	static const unsigned long long sizeFromHexadecimal(const NumberInString &hex);
 
 public:
-	/**
-	 * @brief
-	 * 	Constructs Unsigned from hexadecimal number stored in string.
-	 *
-	 * @details
-	 * 	This constructor does NOT check if there is a valid integer value stored in string due to O(2^n) complexity of this
-	 * 	task. \n For all notations check factory functions:
-	 * 	- fromBinaryInString()
-	 * 	- fromOctalInString()
-	 * 	- fromDecimalInString()
-	 * 	- fromHexadecimalInString()
-	 *
-	 * @param hexadecimalInString
-	 * 	Hexadecimal integer value stored in string.
-	 */
-	explicit Unsigned(const NumberInString &hexadecimalInString);
-
 	/**
 	 * @brief
 	 * 	Constructs Unsigned from array of unsigned chars.
@@ -93,6 +73,13 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from binary number stored in string.
 	 *
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString(
+	 *
 	 * @param binaryInString
 	 * 	Binary number stored in string.
 	 *
@@ -104,6 +91,8 @@ public:
 	/**
 	 * @brief
 	 * 	Creates new Unsigned object from octal number stored in string.
+	 *
+	 * @copydetails fromBinaryInString()
 	 *
 	 * @param octalInString
 	 *	Octal number stored in string.
@@ -117,6 +106,8 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from decimal number stored in string.
 	 *
+	 * @copydetails fromBinaryInString()
+	 *
 	 * @param decimalInString
 	 * 	Decimal number stored in string.
 	 *
@@ -128,6 +119,8 @@ public:
 	/**
 	 * @brief
 	 * 	Creates new Unsigned object from hexadecimal number stored in string.
+	 *
+	 * @copydetails fromBinaryInString()
 	 *
 	 * @param hexadecimalInString
 	 * 	Hexadecimal number stored in string.
