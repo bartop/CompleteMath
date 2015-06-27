@@ -8,7 +8,7 @@
 #include "Integer.h"
 #include <algorithm>
 
-namespace cm{
+namespace coma{
 namespace numb{
 
 	const unsigned char *const Integer::arrayCopy(const unsigned char *const toCopy,
@@ -44,4 +44,4 @@ namespace numb{
 	}
 
 }/* namespace numb */
-} /* namespace cm */
+} /* namespace coma */

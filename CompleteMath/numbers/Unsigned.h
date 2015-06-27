@@ -10,15 +10,13 @@
 
 #include "Integer.h"
 
-namespace cm {
+namespace coma {
 namespace numb {
 /**
  * @brief
  *  Class representing positive unsigned integer.
  */
 class Unsigned: public Integer {
-private:
-
 public:
 	/**
 	 * @brief
@@ -78,7 +76,7 @@ public:
 	 * 	- fromBinaryInString()
 	 * 	- fromOctalInString()
 	 * 	- fromDecimalInString()
-	 * 	- fromHexadecimalInString(
+	 * 	- fromHexadecimalInString()
 	 *
 	 * @param binaryInString
 	 * 	Binary number stored in string.
@@ -92,7 +90,12 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from octal number stored in string.
 	 *
-	 * @copydetails fromBinaryInString()
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
 	 *
 	 * @param octalInString
 	 *	Octal number stored in string.
@@ -106,7 +109,12 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from decimal number stored in string.
 	 *
-	 * @copydetails fromBinaryInString()
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
 	 *
 	 * @param decimalInString
 	 * 	Decimal number stored in string.
@@ -120,7 +128,12 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from hexadecimal number stored in string.
 	 *
-	 * @copydetails fromBinaryInString()
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
 	 *
 	 * @param hexadecimalInString
 	 * 	Hexadecimal number stored in string.
@@ -133,6 +146,7 @@ public:
 	//======================================
 	//-------------COMPARABLE---------------
 	//======================================
+
 	/**
 	 * @brief
 	 * 	Method used to compare objects.
@@ -145,41 +159,48 @@ public:
 	 */
 	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
 
-	//======================================
-	//---------------NUMBER-----------------
-	//======================================
+	/**
+	 * @brief
+	 * 	Method used to compare objects.
+	 *
+	 * @param toCompare
+	 *	Pointer to object with which @c *this is supposed to be compared.
+	 *
+	 * @return
+	 * 	#CompareResult adequate to result of the comparison.
+	 */
+	virtual const CompareResult compare(const FloatingPoint *const toCompare) const override;
 
 	/**
 	 * @brief
-	 * 	Checks if stored value is equal to zero.
+	 * 	Method used to compare objects.
+	 *
+	 * @param toCompare
+	 *	Pointer to object with which @c *this is supposed to be compared.
 	 *
 	 * @return
-	 * 	True if stored value equals 0. Else returns false.
+	 * 	#CompareResult adequate to result of the comparison.
 	 */
-	virtual const bool isZero() const override;
+	virtual const CompareResult compare(const Signed *const toCompare) const override;
 
+	/**
+	 * @brief
+	 * 	Method used to compare objects.
+	 *
+	 * @param toCompare
+	 *	Pointer to object with which @c *this is supposed to be compared.
+	 *
+	 * @return
+	 * 	#CompareResult adequate to result of the comparison.
+	 */
+	virtual const CompareResult compare(const Unsigned *const toCompare) const override;
+
+	//======================================
+	//-------------ARITHMETIC---------------
+	//======================================
 	/**
 	 * @{
 	 */
-
-	/**
-	 * @brief
-	 * 	Method to get opposite value.
-	 *
-	 * @return
-	 * 	Negation of the number stored in @c *this.
-	 */
-	virtual Number *const getNegation() const override;
-
-	/**
-	 * @brief
-	 * 	Method to get inverse value.
-	 *
-	 * @return
-	 * 	Inverse of the value stored in @c *this.
-	 */
-	virtual Number *const getInversion() const override;
-
 
 	/**
 	 * @brief
@@ -240,6 +261,275 @@ public:
 	/**
 	 * @}
 	 */
+
+	/**
+	 * @{
+	 */
+
+	/**
+	 * @brief
+	 * 	Method used to add numbers.
+	 *
+	 * @param toAdd
+	 *	Number that is supposed to be added to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @c *this and @c toAdd.
+	 */
+	virtual Complex *const getSum(const Complex *const toAdd) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
+	 *	the most universal way of defining subtraction.
+	 *
+	 * @param toSubtract
+	 *	Number that is supposed to be subtracted from @c *this.
+	 *
+	 * @return
+	 * 	Difference between @c *this and @c toSubtract.
+	 */
+	virtual Complex *const getDifference(const Complex *const toSubtract) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to multiply numbers.
+	 *
+	 * @param toMultiply
+	 *	Number that is supposed to be multiplied by @c *this.
+	 *
+	 * @return
+	 * 	Product of @c *this and @c toMultiply.
+	 */
+	virtual Complex *const getProduct(const Complex *const toMultiply) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
+	 *	the most universal way of defining division.
+	 *
+	 * @param toDivide
+	 * 	Number by which @c *this is supposed to be divided.
+	 *
+	 * @return
+	 *	Quotient of @c *this and @c toDivide.
+	 */
+	virtual Complex *const getQuotient(const Complex *const toDivide) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	/**
+	 * @brief
+	 * 	Method used to add numbers.
+	 *
+	 * @param toAdd
+	 *	Number that is supposed to be added to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @c *this and @c toAdd.
+	 */
+	virtual FloatingPoint *const getSum(const FloatingPoint *const toAdd) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
+	 *	the most universal way of defining subtraction.
+	 *
+	 * @param toSubtract
+	 *	Number that is supposed to be subtracted from @c *this.
+	 *
+	 * @return
+	 * 	Difference between @c *this and @c toSubtract.
+	 */
+	virtual FloatingPoint *const getDifference(const FloatingPoint *const toSubtract) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to multiply numbers.
+	 *
+	 * @param toMultiply
+	 *	Number that is supposed to be multiplied by @c *this.
+	 *
+	 * @return
+	 * 	Product of @c *this and @c toMultiply.
+	 */
+	virtual FloatingPoint *const getProduct(const FloatingPoint *const toMultiply) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
+	 *	the most universal way of defining division.
+	 *
+	 * @param toDivide
+	 * 	Number by which @c *this is supposed to be divided.
+	 *
+	 * @return
+	 *	Quotient of @c *this and @c toDivide.
+	 */
+	virtual FloatingPoint *const getQuotient(const FloatingPoint *const toDivide) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	/**
+	 * @brief
+	 * 	Method used to add numbers.
+	 *
+	 * @param toAdd
+	 *	Number that is supposed to be added to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @c *this and @c toAdd.
+	 */
+	virtual Signed *const getSum(const Signed *const toAdd) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
+	 *	the most universal way of defining subtraction.
+	 *
+	 * @param toSubtract
+	 *	Number that is supposed to be subtracted from @c *this.
+	 *
+	 * @return
+	 * 	Difference between @c *this and @c toSubtract.
+	 */
+	virtual Signed *const getDifference(const Signed *const toSubtract) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to multiply numbers.
+	 *
+	 * @param toMultiply
+	 *	Number that is supposed to be multiplied by @c *this.
+	 *
+	 * @return
+	 * 	Product of @c *this and @c toMultiply.
+	 */
+	virtual Signed *const getProduct(const Signed *const toMultiply) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
+	 *	the most universal way of defining division.
+	 *
+	 * @param toDivide
+	 * 	Number by which @c *this is supposed to be divided.
+	 *
+	 * @return
+	 *	Quotient of @c *this and @c toDivide.
+	 */
+	virtual Signed *const getQuotient(const Signed *const toDivide) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	/**
+	 * @brief
+	 * 	Method used to add numbers.
+	 *
+	 * @param toAdd
+	 *	Number that is supposed to be added to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @c *this and @c toAdd.
+	 */
+	virtual Unsigned *const getSum(const Unsigned *const toAdd) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
+	 *	the most universal way of defining subtraction.
+	 *
+	 * @param toSubtract
+	 *	Number that is supposed to be subtracted from @c *this.
+	 *
+	 * @return
+	 * 	Difference between @c *this and @c toSubtract.
+	 */
+	virtual Unsigned *const getDifference(const Unsigned *const toSubtract) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to multiply numbers.
+	 *
+	 * @param toMultiply
+	 *	Number that is supposed to be multiplied by @c *this.
+	 *
+	 * @return
+	 * 	Product of @c *this and @c toMultiply.
+	 */
+	virtual Unsigned *const getProduct(const Unsigned *const toMultiply) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @details
+	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
+	 *	the most universal way of defining division.
+	 *
+	 * @param toDivide
+	 * 	Number by which @c *this is supposed to be divided.
+	 *
+	 * @return
+	 *	Quotient of @c *this and @c toDivide.
+	 */
+	virtual Unsigned *const getQuotient(const Unsigned *const toDivide) const override;
+
+	/**
+	 * @}
+	 */
+
+	//======================================
+	//---------------NUMBER-----------------
+	//======================================
+
+	/**
+	 * @brief
+	 * 	Checks if stored value is equal to zero.
+	 *
+	 * @return
+	 * 	True if stored value equals 0. Else returns false.
+	 */
+	virtual const bool isZero() const override;
 
 	/**
 	 * @{
@@ -345,6 +635,32 @@ public:
 	 * @}
 	 */
 
+	/**
+	 * @{
+	 */
+
+	/**
+	 * @brief
+	 * 	Method to get opposite value.
+	 *
+	 * @return
+	 * 	Negation of the number stored in @c *this.
+	 */
+	virtual Number *const getNegation() const override;
+
+	/**
+	 * @brief
+	 * 	Method to get inverse value.
+	 *
+	 * @return
+	 * 	Inverse of the value stored in @c *this.
+	 */
+	virtual Number *const getInversion() const override;
+
+	/**
+	 * @}
+	 */
+
 	//======================================
 	//-------------REALNUMBER---------------
 	//======================================
@@ -422,6 +738,6 @@ public:
 };
 
 } /* namespace numb */
-} /* namespace cm */
+} /* namespace coma */
 
 #endif /* NUMBERS_UNSIGNED_H_ */

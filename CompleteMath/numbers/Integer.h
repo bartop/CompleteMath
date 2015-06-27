@@ -10,7 +10,7 @@
 
 #include "RealNumber.h"
 
-namespace cm {
+namespace coma {
 namespace numb {
 
 /**
@@ -129,6 +129,6 @@ public:
 };
 
 } /* namespace numb */
-} /* namespace cm */
+} /* namespace coma */
 
 #endif /* NUMBERS_INTEGER_H_ */

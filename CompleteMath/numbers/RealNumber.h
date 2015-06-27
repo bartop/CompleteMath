@@ -11,14 +11,19 @@
 #include "Comparable.h"
 #include "Number.h"
 
-namespace cm {
+namespace coma {
 namespace numb {
 
 /**
  * @brief
  * 	Interface for real numbers.
  */
-class RealNumber: public Number, public Comparable<RealNumber> {
+class RealNumber:
+		public Number,
+		public Comparable<RealNumber>,
+		public Comparable<FloatingPoint>,
+		public Comparable<Signed>,
+		public Comparable<Unsigned>{
 public:
 	/**
 	 * @brief
@@ -44,6 +49,7 @@ public:
 	 * 	False if stored value is non-positive.
 	 */
 	virtual const bool isPositive() const = 0;
+
 	/**
 	 * @brief
 	 * 	Dummy virtual destructor.
@@ -52,6 +58,6 @@ public:
 };
 
 } /* namespace numb */
-} /* namespace cm */
+} /* namespace coma */
 
 #endif /* NUMBERS_REALNUMBER_H_ */

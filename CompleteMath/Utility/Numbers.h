@@ -8,23 +8,61 @@
 #ifndef UTILITY_NUMBERS_H_
 #define UTILITY_NUMBERS_H_
 
-#include <tuple>
+#include <algorithm>
 
-namespace cm{
+namespace coma{
 namespace util{
 namespace numb{
 
-inline void removeLeftTrailingZeroes(std::string &hex){
-	hex.erase(hex.begin(), std::find_if(hex.begin(), hex.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+/**
+ * @brief
+ *	Removes all left trailing zeroes from number stored in string.
+ *
+ * @param number
+ * 	Number in string from which left trailing zeroes are supposed to be deleted.
+ */
+inline void removeLeftTrailingZeroes(std::string &number){
+	number.erase(number.begin(), std::find_if(number.begin(), number.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
 }
 
-const std::tuple<const unsigned char *const, const unsigned long long> arrayAndLengthFromHexadecimal(const std::string hex){
-	std::string tmp = hex;
-	removeLeftTrailingZeroes(tmp);
-	unsigned long long size = tmp.length() / 2 + tmp.length() % 2;
-	unsigned char *array = new unsigned char[size]{};
-	return std::tuple<const unsigned char *const, const unsigned long long>(array, size);
-}
+/**
+ * @brief
+ *	Creates array of chars from hexadecimal in string.
+ *
+ * @param hex
+ *	Hexadecimal in string to be converted to char array.
+ *
+ * @return
+ * 	Unsigned char array representing number stored in string.
+ */
+unsigned char *const arrayFromHexadecimal(const std::string &hex);
+
+/**
+ * @brief
+ * 	Finds the size of array that can hold given hexadecimal value.
+ *
+ * @param hex
+ * 	Number in string.
+ *
+ * @return
+ * 	Size of array that can hold given hexadecimal value.
+ */
+const unsigned long long sizeFromHexadecimal(const std::string &hex);
+
+/**
+ * @brief
+ * 	Fills array of chars according to number stored in @c hexadecimal .
+ *
+ * @param hexadecimal
+ * 	Number in string that is supposed to be converted to array of chars.
+ *
+ * @param array
+ * 	Array in which value is supposed to be stored.
+ *
+ * @param size
+ * 	Size of passed array.
+ */
+void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size);
 
 }
 }

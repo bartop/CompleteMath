@@ -8,8 +8,9 @@
 #ifndef NUMBERS_COMPARABLE_H_
 #define NUMBERS_COMPARABLE_H_
 
-namespace cm {
+namespace coma {
 namespace numb {
+
 /**
  * @brief
  * 	Enum defining result of comparison.
@@ -47,6 +48,6 @@ public:
 };
 
 } /* namespace numb */
-} /* namespace cm */
+} /* namespace coma */
 
 #endif /* NUMBERS_COMPARABLE_H_ */

@@ -9,8 +9,9 @@
 #define NUMBERS_NUMBER_H_
 
 #include <string>
+#include "Arithmetic.h"
 
-namespace cm {
+namespace coma {
 namespace numb {
 
 typedef std::string NumberInString;
@@ -24,20 +25,14 @@ class Unsigned;
  * @brief
  *	Polymorphic interface for all numbers.
  */
-class Number {
+class Number :
+	public Arithmetic<Number>,
+	public Arithmetic<Complex>,
+	public Arithmetic<FloatingPoint>,
+	public Arithmetic<Signed>,
+	public Arithmetic<Unsigned>{
 public:
 	/**
-	 * @brief
-	 * 	Checks if stored value is equal to zero.
-	 *
-	 * @return
-	 * 	True if stored value equals 0. Else returns false.
-	 */
-	virtual const bool isZero() const = 0;
-
-	/**
-	 * @{
-	 *
 	 * @brief
 	 * 	Method to get opposite value.
 	 *
@@ -55,69 +50,20 @@ public:
 	 */
 	virtual Number *const getInversion() const = 0;
 
-
 	/**
 	 * @brief
-	 * 	Method used to add numbers.
-	 *
-	 * @param toAdd
-	 *	Number that is supposed to be added to @c *this.
+	 * 	Checks if stored value is equal to zero.
 	 *
 	 * @return
-	 * 	Sum of @c *this and @c toAdd.
+	 * 	True if stored value equals 0. Else returns false.
 	 */
-	virtual Number *const getSum(const Number *const toAdd) const = 0;
-
-	/**
-	 * @brief
-	 * 	Method used to subtract numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
-	 * @param toSubtract
-	 *	Number that is supposed to be subtracted from @c *this.
-	 *
-	 * @return
-	 * 	Difference between @c *this and @c toSubtract.
-	 */
-	virtual Number *const getDifference(const Number *const toSubtract) const = 0;
-
-	/**
-	 * @brief
-	 * 	Method used to multiply numbers.
-	 *
-	 * @param toMultiply
-	 *	Number that is supposed to be multiplied by @c *this.
-	 *
-	 * @return
-	 * 	Product of @c *this and @c toMultiply.
-	 */
-	virtual Number *const getProduct(const Number *const toMultiply) const = 0;
-
-	/**
-	 * @brief
-	 * 	Method used to divide numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
-	 *
-	 * @param toDivide
-	 * 	Number by which @c *this is supposed to be divided.
-	 *
-	 * @return
-	 *	Quotient of @c *this and @c toDivide.
-	 */
-	virtual Number *const getQuotient(const Number *const toDivide) const = 0;
-	/**
-	 *	@}
-	 */
+	virtual const bool isZero() const = 0;
 
 	/**
 	 * @{
-	 *
+	 */
+
+	/**
 	 * @brief
 	 * 	Method used to get stored value.
 	 *
@@ -153,12 +99,16 @@ public:
 	 *
 	 */
 	virtual const NumberInString getAsHexadecimal() const = 0;
+
 	/**
 	 * @}
 	 */
 
 	/**
 	 * @{
+	 */
+
+	/**
 	 *
 	 * @brief
 	 *	Returns @c *this as Unsigned object.
@@ -209,6 +159,7 @@ public:
 	 * 	Complex representation of @c *this object.
 	 */
 	virtual Complex *const getAsComplex() const = 0;
+
 	/**
 	 * @}
 	 */
@@ -221,6 +172,6 @@ public:
 };
 
 } /* namespace numb */
-} /* namespace cm */
+} /* namespace coma */
 
 #endif /* NUMBERS_NUMBER_H_ */
