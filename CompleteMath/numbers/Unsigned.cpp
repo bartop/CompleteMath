@@ -45,11 +45,9 @@ namespace numb {
 	}
 
 	Unsigned *const Unsigned::fromHexadecimalInString(const NumberInString &hexadecimalInString){
-		Unsigned *tmp { nullptr };
 		std::unique_ptr<unsigned char[]> chars = util::numb::arrayFromHexadecimal(hexadecimalInString);
 		unsigned long long length = util::numb::sizeFromHexadecimal(hexadecimalInString);
-		tmp = new Unsigned{chars, length, Endianess::Little};
-		return tmp;
+		return fromLittleEndianArray(chars.get(), length);
 	}
 
 	//======================================
@@ -127,5 +125,40 @@ namespace numb {
 		if(!(sum[sumSize - 1] = carry)) --sumSize;
 		return fromLittleEndianArray(sum.get(), sumSize);
 	}
+
+	Number *const Unsigned::getDifference(const Number *const toSubtract) const{
+		if(!toSubtract) throw 1;//TODO exceptions
+		std::unique_ptr<Number> ptr = toSubtract->getNegation();
+		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+	}
+
+	Complex *const Unsigned::getDifference(const Complex *const toSubtract) const{
+		if(!toSubtract) throw 1;//TODO exceptions
+		std::unique_ptr<Number> ptr = toSubtract->getNegation();
+		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+	}
+
+	FloatingPoint *const Unsigned::getDifference(const FloatingPoint *const toSubtract) const{
+		if(!toSubtract) throw 1;//TODO exceptions
+		std::unique_ptr<Number> ptr = toSubtract->getNegation();
+		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+	}
+
+	Signed *const Unsigned::getDifference(const Signed *const toSubtract) const{
+		if(!toSubtract) throw 1;//TODO exceptions
+		std::unique_ptr<Number> ptr = toSubtract->getNegation();
+		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+	}
+
+	Unsigned *const Unsigned::getDifference(const Unsigned *const toSubtract) const{
+		if(!toSubtract) throw 1;//TODO exceptions
+		std::unique_ptr<Number> ptr = toSubtract->getNegation();
+		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+	}
+
+	/*Number *const Unsigned::getProduct(const Number *const toMultiply) const{
+
+	}*/
+
 } /* namespace numb */
 } /* namespace coma */
