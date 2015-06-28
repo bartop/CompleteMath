@@ -13,7 +13,7 @@ namespace numb {
 /**
  * Interface class for objects for which arithmetical operations are possible.
  */
-template<typename T>
+template<typename T, typename U = T>
 class Arithmetic {
 public:
 
@@ -27,7 +27,7 @@ public:
 	 * @return
 	 * 	Sum of @c *this and @c toAdd.
 	 */
-	virtual T *const getSum(const T *const toAdd) const = 0;
+	virtual U *const getSum(const T *const toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -43,7 +43,7 @@ public:
 	 * @return
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
-	virtual T *const getDifference(const T *const toSubtract) const = 0;
+	virtual U *const getDifference(const T *const toSubtract) const = 0;
 
 	/**
 	 * @brief
@@ -55,7 +55,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @c toMultiply.
 	 */
-	virtual T *const getProduct(const T *const toMultiply) const = 0;
+	virtual U *const getProduct(const T *const toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -71,7 +71,7 @@ public:
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
 	 */
-	virtual T *const getQuotient(const T *const toDivide) const = 0;
+	virtual U *const getQuotient(const T *const toDivide) const = 0;
 
 	/**
 	 * @brief

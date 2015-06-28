@@ -276,7 +276,7 @@ public:
 	 * @return
 	 * 	Sum of @c *this and @c toAdd.
 	 */
-	virtual Complex *const getSum(const Complex *const toAdd) const override;
+	virtual Number *const getSum(const Complex *const toAdd) const override;
 
 	/**
 	 * @brief
@@ -292,7 +292,7 @@ public:
 	 * @return
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
-	virtual Complex *const getDifference(const Complex *const toSubtract) const override;
+	virtual Number *const getDifference(const Complex *const toSubtract) const override;
 
 	/**
 	 * @brief
@@ -304,7 +304,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @c toMultiply.
 	 */
-	virtual Complex *const getProduct(const Complex *const toMultiply) const override;
+	virtual Number *const getProduct(const Complex *const toMultiply) const override;
 
 	/**
 	 * @brief
@@ -320,7 +320,7 @@ public:
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
 	 */
-	virtual Complex *const getQuotient(const Complex *const toDivide) const override;
+	virtual Number *const getQuotient(const Complex *const toDivide) const override;
 
 	/**
 	 * @}
@@ -340,7 +340,7 @@ public:
 	 * @return
 	 * 	Sum of @c *this and @c toAdd.
 	 */
-	virtual FloatingPoint *const getSum(const FloatingPoint *const toAdd) const override;
+	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
 
 	/**
 	 * @brief
@@ -356,7 +356,7 @@ public:
 	 * @return
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
-	virtual FloatingPoint *const getDifference(const FloatingPoint *const toSubtract) const override;
+	virtual Number *const getDifference(const FloatingPoint *const toSubtract) const override;
 
 	/**
 	 * @brief
@@ -368,7 +368,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @c toMultiply.
 	 */
-	virtual FloatingPoint *const getProduct(const FloatingPoint *const toMultiply) const override;
+	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
 
 	/**
 	 * @brief
@@ -384,7 +384,7 @@ public:
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
 	 */
-	virtual FloatingPoint *const getQuotient(const FloatingPoint *const toDivide) const override;
+	virtual Number *const getQuotient(const FloatingPoint *const toDivide) const override;
 
 	/**
 	 * @}
@@ -404,7 +404,7 @@ public:
 	 * @return
 	 * 	Sum of @c *this and @c toAdd.
 	 */
-	virtual Signed *const getSum(const Signed *const toAdd) const override;
+	virtual Number *const getSum(const Signed *const toAdd) const override;
 
 	/**
 	 * @brief
@@ -420,7 +420,7 @@ public:
 	 * @return
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
-	virtual Signed *const getDifference(const Signed *const toSubtract) const override;
+	virtual Number *const getDifference(const Signed *const toSubtract) const override;
 
 	/**
 	 * @brief
@@ -432,7 +432,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @c toMultiply.
 	 */
-	virtual Signed *const getProduct(const Signed *const toMultiply) const override;
+	virtual Number *const getProduct(const Signed *const toMultiply) const override;
 
 	/**
 	 * @brief
@@ -448,7 +448,7 @@ public:
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
 	 */
-	virtual Signed *const getQuotient(const Signed *const toDivide) const override;
+	virtual Number *const getQuotient(const Signed *const toDivide) const override;
 
 	/**
 	 * @}
@@ -468,7 +468,7 @@ public:
 	 * @return
 	 * 	Sum of @c *this and @c toAdd.
 	 */
-	virtual Unsigned *const getSum(const Unsigned *const toAdd) const override;
+	virtual Number *const getSum(const Unsigned *const toAdd) const override;
 
 	/**
 	 * @brief
@@ -484,7 +484,7 @@ public:
 	 * @return
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
-	virtual Unsigned *const getDifference(const Unsigned *const toSubtract) const override;
+	virtual Number *const getDifference(const Unsigned *const toSubtract) const override;
 
 	/**
 	 * @brief
@@ -496,7 +496,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @c toMultiply.
 	 */
-	virtual Unsigned *const getProduct(const Unsigned *const toMultiply) const override;
+	virtual Number *const getProduct(const Unsigned *const toMultiply) const override;
 
 	/**
 	 * @brief
@@ -512,7 +512,7 @@ public:
 	 * @return
 	 *	Quotient of @c *this and @c toDivide.
 	 */
-	virtual Unsigned *const getQuotient(const Unsigned *const toDivide) const override;
+	virtual Number *const getQuotient(const Unsigned *const toDivide) const override;
 
 	/**
 	 * @}

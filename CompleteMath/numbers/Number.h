@@ -27,10 +27,10 @@ class Unsigned;
  */
 class Number :
 	public Arithmetic<Number>,
-	public Arithmetic<Complex>,
-	public Arithmetic<FloatingPoint>,
-	public Arithmetic<Signed>,
-	public Arithmetic<Unsigned>{
+	public Arithmetic<Complex, Number>,
+	public Arithmetic<FloatingPoint, Number>,
+	public Arithmetic<Signed, Number>,
+	public Arithmetic<Unsigned, Number>{
 public:
 	/**
 	 * @brief

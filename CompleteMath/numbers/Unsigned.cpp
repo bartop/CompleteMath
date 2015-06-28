@@ -45,7 +45,7 @@ namespace numb {
 	}
 
 	Unsigned *const Unsigned::fromHexadecimalInString(const NumberInString &hexadecimalInString){
-		std::unique_ptr<unsigned char[]> chars = util::numb::arrayFromHexadecimal(hexadecimalInString);
+		std::unique_ptr<unsigned char[]> chars{util::numb::arrayFromHexadecimal(hexadecimalInString)};
 		unsigned long long length = util::numb::sizeFromHexadecimal(hexadecimalInString);
 		return fromLittleEndianArray(chars.get(), length);
 	}
@@ -87,32 +87,32 @@ namespace numb {
 
 	Number *const Unsigned::getSum(const Number *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
-		return toAdd->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Complex *const Unsigned::getSum(const Complex *const toAdd) const{
+	Number *const Unsigned::getSum(const Complex *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
-		return toAdd->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	FloatingPoint *const Unsigned::getSum(const FloatingPoint *const toAdd) const{
+	Number *const Unsigned::getSum(const FloatingPoint *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
-		return toAdd->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Signed *const Unsigned::getSum(const Signed *const toAdd) const{
+	Number *const Unsigned::getSum(const Signed *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
-		return toAdd->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Unsigned *const Unsigned::getSum(const Unsigned *const toAdd) const{
+	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
 		const unsigned char *arr1 = this->getArray();
 		unsigned long long size1 = this->getArraySize();
 		const unsigned char *arr2 = toAdd->getArray();
 		unsigned long long size2 = toAdd->getArraySize();
 		unsigned long long sumSize { std::max(size1, size2) + 1 };
-		std::unique_ptr<unsigned char[]> sum = new unsigned char[sumSize] { };
+		std::unique_ptr<unsigned char[]> sum { new unsigned char[sumSize] { } };
 		unsigned char carry = 0;
 		for(unsigned long long i{0}; i < sumSize - 1 ; ++i){
 			if(i < std::min(size1, size2)){
@@ -128,62 +128,64 @@ namespace numb {
 
 	Number *const Unsigned::getDifference(const Number *const toSubtract) const{
 		if(!toSubtract) throw 1;//TODO exceptions
-		std::unique_ptr<Number> ptr = toSubtract->getNegation();
-		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		std::unique_ptr<Number> ptr{ toSubtract->getNegation() };
+		return ptr->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Complex *const Unsigned::getDifference(const Complex *const toSubtract) const{
+	Number *const Unsigned::getDifference(const Complex *const toSubtract) const{
 		if(!toSubtract) throw 1;//TODO exceptions
-		std::unique_ptr<Number> ptr = toSubtract->getNegation();
-		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		std::unique_ptr<Number> ptr{ toSubtract->getNegation() };
+		return ptr->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	FloatingPoint *const Unsigned::getDifference(const FloatingPoint *const toSubtract) const{
+	Number *const Unsigned::getDifference(const FloatingPoint *const toSubtract) const{
 		if(!toSubtract) throw 1;//TODO exceptions
-		std::unique_ptr<Number> ptr = toSubtract->getNegation();
-		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		std::unique_ptr<Number> ptr{ toSubtract->getNegation() };
+		return ptr->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Signed *const Unsigned::getDifference(const Signed *const toSubtract) const{
+	Number *const Unsigned::getDifference(const Signed *const toSubtract) const{
 		if(!toSubtract) throw 1;//TODO exceptions
-		std::unique_ptr<Number> ptr = toSubtract->getNegation();
-		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		std::unique_ptr<Number> ptr{ toSubtract->getNegation() };
+		return ptr->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Unsigned *const Unsigned::getDifference(const Unsigned *const toSubtract) const{
+	Number *const Unsigned::getDifference(const Unsigned *const toSubtract) const{
 		if(!toSubtract) throw 1;//TODO exceptions
-		std::unique_ptr<Number> ptr = toSubtract->getNegation();
-		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
+		std::unique_ptr<Number> ptr{ toSubtract->getNegation() };
+		return ptr->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
 	Number *const Unsigned::getProduct(const Number *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
-		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
-	Complex *const Unsigned::getProduct(const Complex *const toMultiply) const{
+	Number *const Unsigned::getProduct(const Complex *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
-		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
-	FloatingPoint *const Unsigned::getProduct(const FloatingPoint *const toMultiply) const{
+	Number *const Unsigned::getProduct(const FloatingPoint *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
-		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
-	Signed *const Unsigned::getProduct(const Signed *const toMultiply) const{
+	Number *const Unsigned::getProduct(const Signed *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
-		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
-	Unsigned *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
+	Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
 		unsigned long long size { this->getArraySize() + toMultiply->getArraySize() };
-		std::unique_ptr<unsigned char[]> table = new unsigned char[size] { };
+		std::unique_ptr<unsigned char[]> table { new unsigned char[size] { } };
+		const unsigned char *arr1 = this->getArray();
+		const unsigned char *arr2 = toMultiply->getArray();
 		unsigned buffer { 0 };
 		for(unsigned long long i = 0; i < this->getArraySize(); ++i){
 			for(unsigned long long j = 0; j < toMultiply->getArraySize(); ++j){
-				//TODO finish implementation
+				buffer = arr1[i] * arr2[j];
 			}
 		}
 	}
