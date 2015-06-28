@@ -251,6 +251,30 @@ public:
 	virtual Number *const getQuotient(const Number *const toDivide) const override;
 
 	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual Number *const getDifferenceNegation(const Number *const minuend) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @param dividend
+	 *  Number which is supposed to be divided by @c *this.
+	 *
+	 * @return
+	 *	Quotient of @c dividend and @c *this.
+	 */
+	virtual Number *const getQuotientInverse(const Number *const dividend) const override;
+
+	/**
 	 * @}
 	 */
 
@@ -305,6 +329,30 @@ public:
 	 *	Quotient of @c *this and @c toDivide.
 	 */
 	virtual Number *const getQuotient(const Complex *const toDivide) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual Number *const getDifferenceNegation(const Complex *const minuend) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @param dividend
+	 *  Number which is supposed to be divided by @c *this.
+	 *
+	 * @return
+	 *	Quotient of @c dividend and @c *this.
+	 */
+	virtual Number *const getQuotientInverse(const Complex *const dividend) const override;
 
 	/**
 	 * @}
@@ -363,6 +411,30 @@ public:
 	virtual Number *const getQuotient(const FloatingPoint *const toDivide) const override;
 
 	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual Number *const getDifferenceNegation(const FloatingPoint *const minuend) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @param dividend
+	 *  Number which is supposed to be divided by @c *this.
+	 *
+	 * @return
+	 *	Quotient of @c dividend and @c *this.
+	 */
+	virtual Number *const getQuotientInverse(const FloatingPoint *const dividend) const override;
+
+	/**
 	 * @}
 	 */
 
@@ -419,6 +491,30 @@ public:
 	virtual Number *const getQuotient(const Signed *const toDivide) const override;
 
 	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual Number *const getDifferenceNegation(const Signed *const minuend) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @param dividend
+	 *  Number which is supposed to be divided by @c *this.
+	 *
+	 * @return
+	 *	Quotient of @c dividend and @c *this.
+	 */
+	virtual Number *const getQuotientInverse(const Signed *const dividend) const override;
+
+	/**
 	 * @}
 	 */
 
@@ -473,6 +569,30 @@ public:
 	 *	Quotient of @c *this and @c toDivide.
 	 */
 	virtual Number *const getQuotient(const Unsigned *const toDivide) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual Number *const getDifferenceNegation(const Unsigned *const minuend) const override;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @param dividend
+	 *  Number which is supposed to be divided by @c *this.
+	 *
+	 * @return
+	 *	Quotient of @c dividend and @c *this.
+	 */
+	virtual Number *const getQuotientInverse(const Unsigned *const dividend) const override;
 
 	/**
 	 * @}
@@ -587,7 +707,6 @@ public:
 	 *
 	 * @return
 	 * 	Complex representation of @c *this object.
-	 *
 	 */
 	virtual Complex *const getAsComplex() const override;
 

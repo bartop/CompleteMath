@@ -43,18 +43,6 @@ public:
 
 	/**
 	 * @brief
-	 * 	Method used to subtract numbers.
-	 *
-	 * @param minuend
-	 * 	Number from which @c *this is subtracted.
-	 *
-	 * @return
-	 * 	Difference between @c minuend and @c *this.
-	 */
-	virtual U *const getDifferenceNegation(const T *const minuend) const = 0;
-
-	/**
-	 * @brief
 	 * 	Method used to multiply numbers.
 	 *
 	 * @param toMultiply
@@ -76,6 +64,18 @@ public:
 	 *	Quotient of @c *this and @c toDivide.
 	 */
 	virtual U *const getQuotient(const T *const toDivide) const = 0;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual U *const getDifferenceNegation(const T *const minuend) const = 0;
 
 	/**
 	 * @brief
