@@ -156,9 +156,37 @@ namespace numb {
 		return ptr->coma::numb::Arithmetic<Unsigned>::getSum(this);
 	}
 
-	/*Number *const Unsigned::getProduct(const Number *const toMultiply) const{
+	Number *const Unsigned::getProduct(const Number *const toMultiply) const{
+		if(!toMultiply) throw 1;//TODO exceptions
+		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+	}
 
-	}*/
+	Complex *const Unsigned::getProduct(const Complex *const toMultiply) const{
+		if(!toMultiply) throw 1;//TODO exceptions
+		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+	}
+
+	FloatingPoint *const Unsigned::getProduct(const FloatingPoint *const toMultiply) const{
+		if(!toMultiply) throw 1;//TODO exceptions
+		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+	}
+
+	Signed *const Unsigned::getProduct(const Signed *const toMultiply) const{
+		if(!toMultiply) throw 1;//TODO exceptions
+		return toMultiply->coma::numb::Arithmetic<Unsigned>(this);
+	}
+
+	Unsigned *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
+		if(!toMultiply) throw 1;//TODO exceptions
+		unsigned long long size { this->getArraySize() + toMultiply->getArraySize() };
+		std::unique_ptr<unsigned char[]> table = new unsigned char[size] { };
+		unsigned buffer { 0 };
+		for(unsigned long long i = 0; i < this->getArraySize(); ++i){
+			for(unsigned long long j = 0; j < toMultiply->getArraySize(); ++j){
+				//TODO finish implementation
+			}
+		}
+	}
 
 } /* namespace numb */
 } /* namespace coma */
