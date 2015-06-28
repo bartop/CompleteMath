@@ -33,10 +33,6 @@ public:
 	 * @brief
 	 * 	Method used to subtract numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
 	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
@@ -44,6 +40,18 @@ public:
 	 * 	Difference between @c *this and @c toSubtract.
 	 */
 	virtual U *const getDifference(const T *const toSubtract) const = 0;
+
+	/**
+	 * @brief
+	 * 	Method used to subtract numbers.
+	 *
+	 * @param minuend
+	 * 	Number from which @c *this is subtracted.
+	 *
+	 * @return
+	 * 	Difference between @c minuend and @c *this.
+	 */
+	virtual U *const getDifferenceNegation(const T *const minuend) const = 0;
 
 	/**
 	 * @brief
@@ -61,10 +69,6 @@ public:
 	 * @brief
 	 * 	Method used to divide numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
-	 *
 	 * @param toDivide
 	 * 	Number by which @c *this is supposed to be divided.
 	 *
@@ -72,6 +76,18 @@ public:
 	 *	Quotient of @c *this and @c toDivide.
 	 */
 	virtual U *const getQuotient(const T *const toDivide) const = 0;
+
+	/**
+	 * @brief
+	 * 	Method used to divide numbers.
+	 *
+	 * @param dividend
+	 *  Number which is supposed to be divided by @c *this.
+	 *
+	 * @return
+	 *	Quotient of @c dividend and @c *this.
+	 */
+	virtual U *const getQuotientInverse(const T *const dividend) const = 0;
 
 	/**
 	 * @brief

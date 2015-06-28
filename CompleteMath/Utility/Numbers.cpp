@@ -30,8 +30,8 @@ const unsigned long long sizeFromHexadecimal(const std::string &hex){
 void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size){
 	std::stringstream sstream { };
 	for(unsigned long long i = 0; i < size; ++i){
-		unsigned long long index {size >= 2 * i ? size - 2 * i : 0};
-		unsigned char length { size >= 2 * i ? 2 : 1};
+		unsigned long long index { (size >= 2 * i) ? size - 2 * i : 0};
+		unsigned char length { (size >= 2 * i) ? (unsigned char)2 : (unsigned char)1};
 		sstream << std::hex << hexadecimal.substr(index, length);
 		sstream >> array[i];
 	}

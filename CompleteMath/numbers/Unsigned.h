@@ -218,10 +218,6 @@ public:
 	 * @brief
 	 * 	Method used to subtract numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
 	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
@@ -245,10 +241,6 @@ public:
 	/**
 	 * @brief
 	 * 	Method used to divide numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
 	 *
 	 * @param toDivide
 	 * 	Number by which @c *this is supposed to be divided.
@@ -282,10 +274,6 @@ public:
 	 * @brief
 	 * 	Method used to subtract numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
 	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
@@ -309,10 +297,6 @@ public:
 	/**
 	 * @brief
 	 * 	Method used to divide numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
 	 *
 	 * @param toDivide
 	 * 	Number by which @c *this is supposed to be divided.
@@ -346,10 +330,6 @@ public:
 	 * @brief
 	 * 	Method used to subtract numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
 	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
@@ -373,10 +353,6 @@ public:
 	/**
 	 * @brief
 	 * 	Method used to divide numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
 	 *
 	 * @param toDivide
 	 * 	Number by which @c *this is supposed to be divided.
@@ -410,10 +386,6 @@ public:
 	 * @brief
 	 * 	Method used to subtract numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
 	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
@@ -437,10 +409,6 @@ public:
 	/**
 	 * @brief
 	 * 	Method used to divide numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
 	 *
 	 * @param toDivide
 	 * 	Number by which @c *this is supposed to be divided.
@@ -474,10 +442,6 @@ public:
 	 * @brief
 	 * 	Method used to subtract numbers.
 	 *
-	 * @details
-	 *	By default it is defined as @c this->(toSubtract->negate()), which may not be the most efficient but is
-	 *	the most universal way of defining subtraction.
-	 *
 	 * @param toSubtract
 	 *	Number that is supposed to be subtracted from @c *this.
 	 *
@@ -501,10 +465,6 @@ public:
 	/**
 	 * @brief
 	 * 	Method used to divide numbers.
-	 *
-	 * @details
-	 *	By default it is defined as @c this->(toDivide->invert()), which may not be the most efficient but is
-	 *	the most universal way of defining division.
 	 *
 	 * @param toDivide
 	 * 	Number by which @c *this is supposed to be divided.

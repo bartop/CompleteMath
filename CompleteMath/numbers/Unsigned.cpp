@@ -14,6 +14,9 @@
 #include "../Utility/Numbers.h"
 #include "../Utility/BaseConverter.h"
 
+
+#include <cassert>
+
 namespace coma {
 namespace numb {
 
@@ -69,7 +72,7 @@ namespace numb {
 		return toCompare->coma::numb::Comparable<Unsigned>::compare(this);
 	}
 
-	const CompareResult Unsigned::compare(const Unsigned *const toCompare) const{
+	const CompareResult Unsigned::compare(const Unsigned *const toCompare) const{//TODO testing
 		if(!toCompare) throw 1;//TODO exceptions
 		if(toCompare->getArraySize() == this->getArraySize()){
 			unsigned long long index { 0 };
@@ -105,7 +108,7 @@ namespace numb {
 		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
-	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{
+	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{//TODO testing
 		if(!toAdd) throw 1;//TODO exceptions
 		const unsigned char *arr1 = this->getArray();
 		unsigned long long size1 = this->getArraySize();
@@ -117,9 +120,11 @@ namespace numb {
 		for(unsigned long long i{0}; i < sumSize - 1 ; ++i){
 			if(i < std::min(size1, size2)){
 				if((sum[i] = arr1[i] + arr2[i] + carry) < arr1[i]) carry = 1;
+				else carry = 0;
 			}
 			else{
 				if((sum[i] = (size1 > size2 ? arr1[i] : arr2[i]) + carry) < arr1[i]) carry = 1;
+				else carry = 0;
 			}
 		}
 		if(!(sum[sumSize - 1] = carry)) --sumSize;
@@ -176,18 +181,36 @@ namespace numb {
 		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
-	Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
+	Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{//TODO serious testing
 		if(!toMultiply) throw 1;//TODO exceptions
 		unsigned long long size { this->getArraySize() + toMultiply->getArraySize() };
 		std::unique_ptr<unsigned char[]> table { new unsigned char[size] { } };
 		const unsigned char *arr1 = this->getArray();
 		const unsigned char *arr2 = toMultiply->getArray();
-		unsigned buffer { 0 };
+		unsigned char carry { 0 };
 		for(unsigned long long i = 0; i < this->getArraySize(); ++i){
+			unsigned buffer { 0 };
 			for(unsigned long long j = 0; j < toMultiply->getArraySize(); ++j){
 				buffer = arr1[i] * arr2[j];
+				unsigned char lower { static_cast<unsigned char>(buffer)      };
+				unsigned char upper { static_cast<unsigned char>(buffer >> 8) };
+				if((table[i + j]     += lower + carry) < lower) carry = 1; else carry = 0;
+				if((table[i + j + 1] += upper + carry) < upper) carry = 1; else carry = 0;
 			}
 		}
+		assert(!carry);
+		while(!table[size - 1]) --size;
+		return fromLittleEndianArray(table.get(), size);
+	}
+
+	Number *const Unsigned::getQuotient(const Number *const toDivide) const{
+		if(!toDivide) throw 1;//TODO exceptions
+		return toDivide->coma::numb::Arithmetic<Unsigned, Number>::getQuotient(this);
+	}
+
+	Number *const Unsigned::getQuotient(const Complex *const toDivide) const{
+		if(!toDivide) throw 1;//TODO exceptions
+		return toDivide->coma::numb::Arithmetic<Unsigned, Number>::getQuotient(this);
 	}
 
 } /* namespace numb */
