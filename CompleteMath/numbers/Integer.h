@@ -9,6 +9,7 @@
 #define NUMBERS_INTEGER_H_
 
 #include "RealNumber.h"
+#include "IntegerArithmetic.h"
 
 namespace coma {
 namespace numb {
@@ -22,11 +23,22 @@ enum class Endianess{
 	Big    //!< Big big-endian form
 };
 
+class Unsigned;
+class Signed;
+
 /**
  * @brief
  * 	Interface for integer values.
  */
-class Integer: public RealNumber {
+class Integer:
+		public RealNumber,
+		public IntegerArithmetic<Integer>,
+		public IntegerArithmetic<Unsigned, Integer>,
+		public IntegerArithmetic<Signed, Integer>,
+		public Comparable<Signed>,
+		public Arithmetic<Signed, Number>,
+		public Comparable<Unsigned>,
+		public Arithmetic<Unsigned, Number>{
 private:
 	/**
 	 * @brief
@@ -56,10 +68,9 @@ private:
 	 * @return
 	 * 	Deep copy of the toCopy array.
 	 */
-	static const unsigned char *const arrayCopy(const unsigned char *const toCopy,
+	const unsigned char *const arrayCopy(const unsigned char *const toCopy,
 			const unsigned long long size,
 			const Endianess endianess);
-
 protected:
 	/**
 	 * @brief
@@ -97,29 +108,38 @@ protected:
 	const unsigned char *const getArray() const;
 
 public:
-	/**
-	 * @brief
-	 * 	Function to perform integer division.
-	 *
-	 * @param toDivide
-	 * 	Integer by which @c *this is supposed to be divided by.
-	 *
-	 * @return
-	 * 	Quotient of @c *this and @c toDivide.
-	 */
-	virtual Integer *const getIntegerQuotient(const Integer *const toDivide) const = 0;
+	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
+	virtual const CompareResult compare(const FloatingPoint *const toCompare) const override;
 
 	/**
-	 * @brief
-	 * 	Function to perform mod operation.
-	 *
-	 * @param toDivide
-	 * 	Integer by which @c *this is supposed to be divided by.
-	 *
-	 * @return
-	 * 	Remainder of @c *this and @c toDivide division.
+	 * @{
 	 */
-	virtual Integer *const getRemainder(const Integer *const toDivide) const = 0;
+
+	virtual Number *const getSum(const RealNumber *const toAdd) const override;
+	virtual Number *const getDifference(const RealNumber *const toSubtract) const override;
+	virtual Number *const getProduct(const RealNumber *const toMultiply) const override;
+	virtual Number *const getQuotient(const RealNumber *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const RealNumber *const minuend) const override;
+	virtual Number *const getQuotientInverse(const RealNumber *const dividend) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
+	virtual Number *const getDifference(const FloatingPoint *const toSubtract) const override;
+	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
+	virtual Number *const getQuotient(const FloatingPoint *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const FloatingPoint *const minuend) const override;
+	virtual Number *const getQuotientInverse(const FloatingPoint *const dividend) const override;
+
+	/**
+	 * @}
+	 */
 
 	/**
 	 * @brief

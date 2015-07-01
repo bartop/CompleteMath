@@ -64,6 +64,40 @@ const unsigned long long sizeFromHexadecimal(const std::string &hex);
  */
 void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size);
 
+/**
+ * @brief
+ * 	Moves all elements in array left.
+ *
+ * @param toShift
+ * 	Array to be shifted.
+ *
+ * @param size
+ * 	Size of given array.
+ */
+void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size);
+
+/**
+ * @brief
+ * 	Subtracts @c left array from @c right one.
+ *
+ * @param left
+ *	Left operand of subtraction.
+ *
+ * @param sizeLeft
+ * 	Size of @c left array.
+ *
+ * @param right
+ * 	Right operand of subtraction.
+ *
+ * @param sizeRight
+ * 	Size of @c right array.
+ *
+ * @return
+ * 	New difference array.
+ */
+unsigned char *const arraySubtract(const unsigned char *const left, const unsigned long long sizeLeft,
+		const unsigned char *const right, const unsigned long long sizeRight);
+
 }
 }
 }

@@ -17,9 +17,11 @@ namespace numb {
 typedef std::string NumberInString;
 
 class Complex;
+class RealNumber;
 class FloatingPoint;
-class Signed;
+class Integer;
 class Unsigned;
+class Signed;
 
 /**
  * @brief
@@ -27,10 +29,8 @@ class Unsigned;
  */
 class Number :
 	public Arithmetic<Number>,
-	public Arithmetic<Complex, Number>,
-	public Arithmetic<FloatingPoint, Number>,
-	public Arithmetic<Signed, Number>,
-	public Arithmetic<Unsigned, Number>{
+	public Arithmetic<RealNumber, Number>,
+	public Arithmetic<Complex, Number>{
 public:
 	/**
 	 * @brief

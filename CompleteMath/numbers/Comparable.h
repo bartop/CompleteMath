@@ -21,6 +21,12 @@ enum CompareResult{
 	ThisLesser = -1  //!< ThisLesser @c *this object is lesser than @c toCompare
 };
 
+inline const CompareResult invertComparison(CompareResult result){
+	if(result == CompareResult::Equal) return CompareResult::Equal;
+	else if(result == CompareResult::ThisGreater) return CompareResult::ThisLesser;
+	else return CompareResult::ThisGreater;
+}
+
 /**
  * @brief
  * 	Interface for comparing objects.
