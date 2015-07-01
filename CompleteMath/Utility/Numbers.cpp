@@ -37,6 +37,29 @@ void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *con
 	}
 }
 
+void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size){
+	for(unsigned long long i = 0; i < size - 1; ++i){
+		toShift[size - 1 - i] = toShift[size - 2 - i];
+	}
+	toShift[0] = 0;
+}
+
+unsigned char *const arraySubtract(const unsigned char *const left, const unsigned long long sizeLeft,
+			const unsigned char *const right, const unsigned long long sizeRight){
+	unsigned char *ptr = new unsigned char[sizeLeft]{};
+	unsigned char borrow { 0 };
+	for(unsigned long long i = 0; i < sizeRight; ++i){
+		if((ptr[i] = left[i] - right[i] - borrow) > left[i]) borrow = 1;
+		else borrow = 0;
+	}
+	unsigned long long j = sizeRight;
+	while(borrow && j < sizeLeft){
+		if((ptr[j] = left[j] - borrow) > left[j]) borrow = 1;
+		else borrow = 0;
+	}
+	return ptr;
+}
+
 }
 }
 }
