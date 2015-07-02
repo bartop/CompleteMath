@@ -78,10 +78,41 @@ void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size)
 
 /**
  * @brief
+ * 	Adds in place @c toAdd2 to @c toAdd1.
+ *
+ * @param toAdd1
+ * 	First addition component and array containing result of addition.
+ *
+ * @param size1
+ * 	Size of first component.
+ *
+ * @param toAdd2
+ * 	Second addition component.
+ *
+ * @param size2
+ *  Size of second component.
+ */
+void addArray(unsigned char *const toAdd1, const unsigned long long size1,
+		const unsigned char *const toAdd2, const unsigned long long size2);
+
+/**
+ * @brief
+ * 	Changes number in array to its 2-complement negation.
+ *
+ * @param toShift
+ * 	Array to be negated.
+ *
+ * @param size
+ * 	Size of given array.
+ */
+void negateArray(unsigned char *const toNegate, const unsigned long long size);
+
+/**
+ * @brief
  * 	Subtracts @c left array from @c right one.
  *
  * @param left
- *	Left operand of subtraction.
+ *	Left operand of subtraction and the numbers difference.
  *
  * @param sizeLeft
  * 	Size of @c left array.
@@ -91,12 +122,25 @@ void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size)
  *
  * @param sizeRight
  * 	Size of @c right array.
- *
- * @return
- * 	New difference array.
  */
-unsigned char *const arraySubtract(const unsigned char *const left, const unsigned long long sizeLeft,
+void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
 		const unsigned char *const right, const unsigned long long sizeRight);
+
+/**
+ * @brief
+ * 	Returns minimal number of bytes that can store given number in array.
+ *
+ * @param array
+ * 	Array to be checked for unused bytes.
+ *
+ * @param maxSize
+ * 	Allocated size of @c array.
+ *
+ * @param negative
+ * 	For @c true most significant bytes equal to unsigned char(-1) are removed.
+ * 	For @c false most significant bytes equal to 0 are removed.
+ */
+const unsigned long long getUsedBytes(const unsigned char *const array, const unsigned long long maxSize, const bool negative = false);
 
 }
 }

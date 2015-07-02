@@ -44,13 +44,13 @@ private:
 	 * @brief
 	 * 	Number storing length of array.
 	 */
-	const unsigned long long m_size;
+	const unsigned long long m_size = 0;
 
 	/**
 	 * @brief
 	 * 	Array storing very long unsigned.
 	 */
-	const unsigned char *const m_integer;
+	const unsigned char *const m_integer = nullptr;
 
 	/**
 	 * @brief

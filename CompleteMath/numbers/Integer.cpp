@@ -103,7 +103,7 @@ Number *const Integer::getQuotientInverse(const RealNumber *const dividend) cons
 }
 
 Integer::~Integer(){
-	delete[] m_integer;
+	if(m_integer) delete[] m_integer;
 }
 
 }/* namespace numb */

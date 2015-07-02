@@ -69,9 +69,13 @@ namespace numb {
 	const CompareResult Unsigned::compare(const Unsigned *const toCompare) const{//TODO testing
 		if(!toCompare) throw 1;//TODO exceptions
 		if(toCompare->getArraySize() == this->getArraySize()){
-			unsigned long long index { 0 };
-			while(index < this->getArraySize() && this->getArray()[index] == toCompare->getArray()[index]) ++index;
-			if (index == this->getArraySize()) return CompareResult::Equal;
+			unsigned long long i { 0 };
+			unsigned long long index { this->getArraySize() - 1 };
+			while(i < this->getArraySize() && this->getArray()[index] == toCompare->getArray()[index]){
+				++i;
+				--index;
+			}
+			if (i == this->getArraySize()) return CompareResult::Equal;
 			else return this->getArray()[index] < toCompare->getArray()[index] ?
 				CompareResult::ThisLesser : CompareResult::ThisGreater;
 		}
@@ -83,61 +87,40 @@ namespace numb {
 	//======================================
 
 	Number *const Unsigned::getSum(const Integer *const toAdd) const{
-		if(!toAdd) throw 1;//TODO exceptions
 		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
 	Number *const Unsigned::getSum(const Signed *const toAdd) const{
-		if(!toAdd) throw 1;//TODO exceptions
 		return toAdd->coma::numb::Arithmetic<Unsigned, Number>::getSum(this);
 	}
 
 	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{//TODO testing
 		if(!toAdd) throw 1;//TODO exceptions
-		const unsigned char *arr1 = this->getArray();
-		unsigned long long size1 = this->getArraySize();
-		const unsigned char *arr2 = toAdd->getArray();
-		unsigned long long size2 = toAdd->getArraySize();
-		unsigned long long sumSize { std::max(size1, size2) + 1 };
-		std::unique_ptr<unsigned char[]> sum { new unsigned char[sumSize] { } };
-		unsigned char carry = 0;
-		for(unsigned long long i{0}; i < sumSize - 1 ; ++i){
-			if(i < std::min(size1, size2)){
-				if((sum[i] = arr1[i] + arr2[i] + carry) < arr1[i]) carry = 1;
-				else carry = 0;
-			}
-			else{
-				if((sum[i] = (size1 > size2 ? arr1[i] : arr2[i]) + carry) < arr1[i]) carry = 1;
-				else carry = 0;
-			}
-		}
-		if(!(sum[sumSize - 1] = carry)) --sumSize;
-		return fromLittleEndianArray(sum.get(), sumSize);
+		unsigned long long resultSize = std::max(this->getArraySize(), toAdd->getArraySize());
+		std::unique_ptr<unsigned char[]> result{ new unsigned char [resultSize] {}};
+		std::copy(this->getArray(), this->getArray() + this->getArraySize(), result.get());
+		util::numb::addArray(result.get(), resultSize, toAdd->getArray(), toAdd->getArraySize());
+		return fromLittleEndianArray(result.get(), resultSize);
 	}
 
 	Number *const Unsigned::getDifference(const Integer *const toSubtract) const{
-		if(!toSubtract) throw 1;//TODO exceptions
 		return toSubtract->coma::numb::Arithmetic<Unsigned, Number>::getDifferenceNegation(this);
 	}
 
 	Number *const Unsigned::getDifference(const Signed *const toSubtract) const{
-		if(!toSubtract) throw 1;//TODO exceptions
 		return toSubtract->coma::numb::Arithmetic<Unsigned, Number>::getDifferenceNegation(this);
 	}
 
 	Number *const Unsigned::getDifference(const Unsigned *const toSubtract) const{
-		if(!toSubtract) throw 1;//TODO exceptions
 		std::unique_ptr<Signed> left { this->getAsSignedInteger() };
 		return left->coma::numb::Arithmetic<Unsigned, Number>::getDifference(toSubtract);
 	}
 
 	Number *const Unsigned::getProduct(const Integer *const toMultiply) const{
-		if(!toMultiply) throw 1;//TODO exceptions
 		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
 	Number *const Unsigned::getProduct(const Signed *const toMultiply) const{
-		if(!toMultiply) throw 1;//TODO exceptions
 		return toMultiply->coma::numb::Arithmetic<Unsigned, Number>::getProduct(this);
 	}
 
@@ -158,54 +141,44 @@ namespace numb {
 				if((table[i + j + 1] += upper + carry) < upper) carry = 1; else carry = 0;
 			}
 		}
-		assert(!carry);
 		while(!table[size - 1]) --size;
 		return fromLittleEndianArray(table.get(), size);
 	}
 
 	Number *const Unsigned::getQuotient(const Integer *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		return toDivide->coma::numb::Arithmetic<Unsigned, Number>::getQuotientInverse(this);
 	}
 
 	Number *const Unsigned::getQuotient(const Signed *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		return toDivide->coma::numb::Arithmetic<Unsigned, Number>::getQuotientInverse(this);
 	}
 
 	Number *const Unsigned::getQuotient(const Unsigned *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		std::unique_ptr<FloatingPoint> left { this->getAsFloatingPoint() };
 		return left->coma::numb::Arithmetic<Integer, Number>::getQuotient(toDivide);
 	}
 
 	Number *const Unsigned::getDifferenceNegation(const Integer *const minuend) const{
-		if(!minuend) throw 1;//TODO exceptions
 		return minuend->coma::numb::Arithmetic<Unsigned, Number>::getDifference(this);
 	}
 
 	Number *const Unsigned::getDifferenceNegation(const Signed *const minuend) const{
-		if(!minuend) throw 1;//TODO exceptions
 		return minuend->coma::numb::Arithmetic<Unsigned, Number>::getDifference(this);
 	}
 
 	Number *const Unsigned::getDifferenceNegation(const Unsigned *const minuend) const{
-		if(!minuend) throw 1;//TODO exceptions
 		return minuend->coma::numb::Arithmetic<Unsigned, Number>::getDifference(this);
 	}
 
 	Number *const Unsigned::getQuotientInverse(const Integer *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::Arithmetic<Unsigned, Number>::getQuotient(this);
 	}
 
 	Number *const Unsigned::getQuotientInverse(const Signed *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::Arithmetic<Unsigned, Number>::getQuotient(this);
 	}
 
 	Number *const Unsigned::getQuotientInverse(const Unsigned *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::Arithmetic<Unsigned, Number>::getQuotient(this);
 	}
 
@@ -276,47 +249,40 @@ namespace numb {
 	//======================================
 
 	Integer *const Unsigned::getIntegerQuotient(const Integer *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		return toDivide->coma::numb::IntegerArithmetic<Unsigned, Integer>::getIntegerQuotientInverse(this);
 	}
 
 	Integer *const Unsigned::getRemainder(const Integer *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		return toDivide->coma::numb::IntegerArithmetic<Unsigned, Integer>::getInverseRemainder(this);
 	}
 
 	Integer *const Unsigned::getIntegerQuotientInverse(const Integer *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::IntegerArithmetic<Unsigned, Integer>::getIntegerQuotient(this);
 	}
 
 	Integer *const Unsigned::getInverseRemainder(const Integer *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::IntegerArithmetic<Unsigned, Integer>::getRemainder(this);
 	}
 
 	Integer *const Unsigned::getIntegerQuotient(const Signed *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		return toDivide->coma::numb::IntegerArithmetic<Unsigned, Integer>::getIntegerQuotientInverse(this);
 	}
 
 	Integer *const Unsigned::getRemainder(const Signed *const toDivide) const{
-		if(!toDivide) throw 1;//TODO exceptions
 		return toDivide->coma::numb::IntegerArithmetic<Unsigned, Integer>::getInverseRemainder(this);
 	}
 
 	Integer *const Unsigned::getIntegerQuotientInverse(const Signed *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::IntegerArithmetic<Unsigned, Integer>::getIntegerQuotient(this);
 	}
 
 	Integer *const Unsigned::getInverseRemainder(const Signed *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::IntegerArithmetic<Unsigned, Integer>::getRemainder(this);
 	}
 
-	Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{
+	Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{//TODO testing, testing
 		if(!toDivide) throw 1;//TODO exceptions
+		if(toDivide->isZero()) throw 1;//TODO exceptions
 		unsigned long long size = std::max(this->getArraySize(), toDivide->getArraySize());
 		std::unique_ptr<unsigned char[]> array1{new unsigned char[size]{}};
 		std::copy(this->getArray(), this->getArray() + this->getArraySize(), array1.get());
@@ -331,29 +297,60 @@ namespace numb {
 			rema[0] = array1[i];
 			bool RgeD {};
 			do{
-				unsigned long long index { 0 };
-				while(index < size && rema[index] == array2[index]) ++index;
-				RgeD =  (rema[index] > array2[index] || index == size );//R >= D
+				unsigned long long i { 0 };
+				unsigned long long index { size - 1 };
+				while(i < size && rema[index] == array2[index]){
+					++i;
+					--index;
+				}
+				RgeD =  (rema[index] > array2[index] || i == size );//R >= D
 				if (RgeD){
+					util::numb::subtractArray(rema.get(), size, array2.get(), size);
 					quot[i] += 1;
 				}
 			}while(RgeD);
 		}
-
+		return fromLittleEndianArray(quot.get(),util::numb::getUsedBytes(quot.get(), size));
 	}
 
-	Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{
+	Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{//TODO testing, testing
 		if(!toDivide) throw 1;//TODO exceptions
-		//todo function body
+		if(toDivide->isZero()) throw 1;//TODO exceptions
+		unsigned long long size = std::max(this->getArraySize(), toDivide->getArraySize());
+		std::unique_ptr<unsigned char[]> array1{new unsigned char[size]{}};
+		std::copy(this->getArray(), this->getArray() + this->getArraySize(), array1.get());
+		std::unique_ptr<unsigned char[]> array2{new unsigned char[size]{}};
+		std::copy(toDivide->getArray(), toDivide->getArray() + toDivide->getArraySize(), array2.get());
+		std::unique_ptr<unsigned char[]> quot(new unsigned char[size]{});
+		std::unique_ptr<unsigned char[]> rema(new unsigned char[size]{});
+
+		//magic happens here
+		for(unsigned long long i = 0; i < size; ++i){
+			util::numb::shiftArrayLeft(rema.get(), size);
+			rema[0] = array1[i];
+			bool RgeD {};
+			do{
+				unsigned long long i { 0 };
+				unsigned long long index { size - 1 };
+				while(i < size && rema[index] == array2[index]){
+					++i;
+					--index;
+				}
+				RgeD =  (rema[index] > array2[index] || i == size );//R >= D
+				if (RgeD){
+					util::numb::subtractArray(rema.get(), size, array2.get(), size);
+					quot[i] += 1;
+				}
+			}while(RgeD);
+		}
+		return fromLittleEndianArray(rema.get(),util::numb::getUsedBytes(rema.get(), size));
 	}
 
 	Integer *const Unsigned::getIntegerQuotientInverse(const Unsigned *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::IntegerArithmetic<Unsigned, Integer>::getIntegerQuotient(this);
 	}
 
 	Integer *const Unsigned::getInverseRemainder(const Unsigned *const dividend) const{
-		if(!dividend) throw 1;//TODO exceptions
 		return dividend->coma::numb::IntegerArithmetic<Unsigned, Integer>::getRemainder(this);
 	}
 

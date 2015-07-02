@@ -44,20 +44,45 @@ void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size)
 	toShift[0] = 0;
 }
 
-unsigned char *const arraySubtract(const unsigned char *const left, const unsigned long long sizeLeft,
+void addArray(unsigned char *const toAdd1, const unsigned long long size1,
+		const unsigned char *const toAdd2, const unsigned long long size2){
+	unsigned char carry {0};
+	for(unsigned long long i = 0; i < size2 || (carry == 1 && i < size1); ++i){
+		if(i < size2){
+			if(toAdd1[i] += toAdd2[i] < toAdd2[i]) carry = 1;
+			else carry = 0;
+		}
+		if(toAdd1[i] += carry < carry) carry = 1;
+		else carry = 0;
+	}
+}
+
+void negateArray(unsigned char *const toNegate, const unsigned long long size){
+	unsigned char one { 1 };
+	for(unsigned long long i = 0; i < size; ++i){
+		toNegate[i] = ~toNegate[i];
+	}
+	addArray(toNegate, size, &one, 1);
+}
+
+void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
 			const unsigned char *const right, const unsigned long long sizeRight){
-	unsigned char *ptr = new unsigned char[sizeLeft]{};
-	unsigned char borrow { 0 };
-	for(unsigned long long i = 0; i < sizeRight; ++i){
-		if((ptr[i] = left[i] - right[i] - borrow) > left[i]) borrow = 1;
+	unsigned char borrow {0};
+	for(unsigned long long i = 0; i < sizeRight || (borrow == 1 && i < sizeLeft); ++i){
+		if(i < sizeRight){
+			if(left[i] -= right[i] > left[i]) borrow = 1;
+			else borrow = 0;
+		}
+		if(left[i] -= borrow > left[i]) borrow = 1;
 		else borrow = 0;
 	}
-	unsigned long long j = sizeRight;
-	while(borrow && j < sizeLeft){
-		if((ptr[j] = left[j] - borrow) > left[j]) borrow = 1;
-		else borrow = 0;
-	}
-	return ptr;
+}
+
+const unsigned long long getUsedBytes(const unsigned char *const array, const unsigned long long maxSize, const bool negative){
+	unsigned long long result { maxSize };
+	unsigned char checkVal{ negative ? static_cast<unsigned char>(-1) : 0 };
+	while(array[result - 1] == checkVal) --result;
+	return result;
 }
 
 }
