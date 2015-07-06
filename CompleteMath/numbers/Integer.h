@@ -34,11 +34,7 @@ class Integer:
 		public RealNumber,
 		public IntegerArithmetic<Integer>,
 		public IntegerArithmetic<Unsigned, Integer>,
-		public IntegerArithmetic<Signed, Integer>,
-		public Comparable<Signed>,
-		public Arithmetic<Signed, Number>,
-		public Comparable<Unsigned>,
-		public Arithmetic<Unsigned, Number>{
+		public IntegerArithmetic<Signed, Integer>{
 private:
 	/**
 	 * @brief
@@ -108,39 +104,6 @@ protected:
 	const unsigned char *const getArray() const;
 
 public:
-	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
-	virtual const CompareResult compare(const FloatingPoint *const toCompare) const override;
-
-	/**
-	 * @{
-	 */
-
-	virtual Number *const getSum(const RealNumber *const toAdd) const override;
-	virtual Number *const getDifference(const RealNumber *const toSubtract) const override;
-	virtual Number *const getProduct(const RealNumber *const toMultiply) const override;
-	virtual Number *const getQuotient(const RealNumber *const toDivide) const override;
-	virtual Number *const getDifferenceNegation(const RealNumber *const minuend) const override;
-	virtual Number *const getQuotientInverse(const RealNumber *const dividend) const override;
-
-	/**
-	 * @}
-	 */
-
-	/**
-	 * @{
-	 */
-
-	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
-	virtual Number *const getDifference(const FloatingPoint *const toSubtract) const override;
-	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
-	virtual Number *const getQuotient(const FloatingPoint *const toDivide) const override;
-	virtual Number *const getDifferenceNegation(const FloatingPoint *const minuend) const override;
-	virtual Number *const getQuotientInverse(const FloatingPoint *const dividend) const override;
-
-	/**
-	 * @}
-	 */
-
 	/**
 	 * @brief
 	 *	Destructor deleting allocated memory.

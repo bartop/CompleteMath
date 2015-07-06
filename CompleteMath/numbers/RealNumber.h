@@ -14,9 +14,6 @@
 namespace coma {
 namespace numb {
 
-class FloatingPoint;
-class Integer;
-
 /**
  * @brief
  * 	Interface for real numbers.
@@ -25,9 +22,8 @@ class RealNumber:
 		public Number,
 		public Comparable<RealNumber>,
 		public Comparable<FloatingPoint>,
-		public Arithmetic<FloatingPoint, Number>,
-		public Comparable<Integer>,
-		public Arithmetic<Integer, Number>{
+		public Comparable<Signed>,
+		public Comparable<Unsigned>{
 public:
 	/**
 	 * @brief
@@ -53,36 +49,6 @@ public:
 	 * 	False if stored value is non-positive.
 	 */
 	virtual const bool isPositive() const = 0;
-
-	/**
-	 * @{
-	 */
-
-	virtual Number *const getSum(const Number *const toAdd) const override;
-	virtual Number *const getDifference(const Number *const toSubtract) const override;
-	virtual Number *const getProduct(const Number *const toMultiply) const override;
-	virtual Number *const getQuotient(const Number *const toDivide) const override;
-	virtual Number *const getDifferenceNegation(const Number *const minuend) const override;
-	virtual Number *const getQuotientInverse(const Number *const dividend) const override;
-
-	/**
-	 * @}
-	 */
-
-	/**
-	 * @{
-	 */
-
-	virtual Number *const getSum(const Complex *const toAdd) const override;
-	virtual Number *const getDifference(const Complex *const toSubtract) const override;
-	virtual Number *const getProduct(const Complex *const toMultiply) const override;
-	virtual Number *const getQuotient(const Complex *const toDivide) const override;
-	virtual Number *const getDifferenceNegation(const Complex *const minuend) const override;
-	virtual Number *const getQuotientInverse(const Complex *const dividend) const override;
-
-	/**
-	 * @}
-	 */
 
 	/**
 	 * @brief

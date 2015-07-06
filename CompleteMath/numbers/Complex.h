@@ -56,12 +56,42 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getSum(const RealNumber *const toAdd) const override;
-	virtual Number *const getDifference(const RealNumber *const toSubtract) const override;
-	virtual Number *const getProduct(const RealNumber *const toMultiply) const override;
-	virtual Number *const getQuotient(const RealNumber *const toDivide) const override;
-	virtual Number *const getDifferenceNegation(const RealNumber *const minuend) const override;
-	virtual Number *const getQuotientInverse(const RealNumber *const dividend) const override;
+	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
+	virtual Number *const getDifference(const FloatingPoint *const toSubtract) const override;
+	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
+	virtual Number *const getQuotient(const FloatingPoint *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const FloatingPoint *const minuend) const override;
+	virtual Number *const getQuotientInverse(const FloatingPoint *const dividend) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	virtual Number *const getSum(const Signed *const toAdd) const override;
+	virtual Number *const getDifference(const Signed *const toSubtract) const override;
+	virtual Number *const getProduct(const Signed *const toMultiply) const override;
+	virtual Number *const getQuotient(const Signed *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const Signed *const minuend) const override;
+	virtual Number *const getQuotientInverse(const Signed *const dividend) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	virtual Number *const getSum(const Unsigned *const toAdd) const override;
+	virtual Number *const getDifference(const Unsigned *const toSubtract) const override;
+	virtual Number *const getProduct(const Unsigned *const toMultiply) const override;
+	virtual Number *const getQuotient(const Unsigned *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const Unsigned *const minuend) const override;
+	virtual Number *const getQuotientInverse(const Unsigned *const dividend) const override;
 
 	/**
 	 * @}

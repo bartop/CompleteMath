@@ -147,7 +147,8 @@ public:
 	//-------------COMPARABLE---------------
 	//======================================
 
-	virtual const CompareResult compare(const Integer *const toCompare) const override;
+	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
+	virtual const CompareResult compare(const FloatingPoint *const toCompare) const override;
 	virtual const CompareResult compare(const Signed *const toCompare) const override;
 	virtual const CompareResult compare(const Unsigned *const toCompare) const override;
 
@@ -158,12 +159,42 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getSum(const Integer *const toAdd) const override;
-	virtual Number *const getDifference(const Integer *const toSubtract) const override;
-	virtual Number *const getProduct(const Integer *const toMultiply) const override;
-	virtual Number *const getQuotient(const Integer *const toDivide) const override;
-	virtual Number *const getDifferenceNegation(const Integer *const minuend) const override;
-	virtual Number *const getQuotientInverse(const Integer *const dividend) const override;
+	virtual Number *const getSum(const Number *const toAdd) const override;
+	virtual Number *const getDifference(const Number *const toSubtract) const override;
+	virtual Number *const getProduct(const Number *const toMultiply) const override;
+	virtual Number *const getQuotient(const Number *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const Number *const minuend) const override;
+	virtual Number *const getQuotientInverse(const Number *const dividend) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	virtual Number *const getSum(const Complex *const toAdd) const override;
+	virtual Number *const getDifference(const Complex *const toSubtract) const override;
+	virtual Number *const getProduct(const Complex *const toMultiply) const override;
+	virtual Number *const getQuotient(const Complex *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const Complex *const minuend) const override;
+	virtual Number *const getQuotientInverse(const Complex *const dividend) const override;
+
+	/**
+	 * @}
+	 */
+
+	/**
+	 * @{
+	 */
+
+	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
+	virtual Number *const getDifference(const FloatingPoint *const toSubtract) const override;
+	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
+	virtual Number *const getQuotient(const FloatingPoint *const toDivide) const override;
+	virtual Number *const getDifferenceNegation(const FloatingPoint *const minuend) const override;
+	virtual Number *const getQuotientInverse(const FloatingPoint *const dividend) const override;
 
 	/**
 	 * @}
