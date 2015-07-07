@@ -225,19 +225,19 @@ Signed::Signed() {
 	//======================================
 
 	Integer *const Signed::getIntegerQuotient(const Integer *const toDivide) const{
-		return toDivide->coma::numb::IntegerArithmetic<Signed, Integer>::getIntegerQuotientInverse(this);
+		return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(toDivide)->getIntegerQuotientInverse(this);
 	}
 
 	Integer *const Signed::getRemainder(const Integer *const toDivide) const{
-		return toDivide->coma::numb::IntegerArithmetic<Signed, Integer>::getInverseRemainder(this);
+		return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(toDivide)->getInverseRemainder(this);
 	}
 
 	Integer *const Signed::getIntegerQuotientInverse(const Integer *const dividend) const{
-		return dividend->coma::numb::IntegerArithmetic<Signed, Integer>::getIntegerQuotient(this);
+		return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getIntegerQuotient(this);
 	}
 
 	Integer *const Signed::getInverseRemainder(const Integer *const dividend) const{
-		return dividend->coma::numb::IntegerArithmetic<Signed, Integer>::getRemainder(this);
+		return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getRemainder(this);
 	}
 
 	Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{
