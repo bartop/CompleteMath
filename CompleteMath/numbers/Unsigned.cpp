@@ -36,19 +36,19 @@ namespace numb {
 		return new Unsigned { numbersArray, arrayLength, Endianess::Little };
 	}
 
-	Unsigned *const Unsigned::fromBinaryInString(const NumberInString &binaryInString){
+	Unsigned *const Unsigned::fromBinaryInString(const std::string &binaryInString){
 		return fromHexadecimalInString(util::BaseConverter("01","0123456789ABCDEF").convert(binaryInString));
 	}
 
-	Unsigned *const Unsigned::fromOctalInString(const NumberInString &octalInString){
+	Unsigned *const Unsigned::fromOctalInString(const std::string &octalInString){
 		return fromHexadecimalInString(util::BaseConverter("01234567","0123456789ABCDEF").convert(octalInString));
 	}
 
-	Unsigned *const Unsigned::fromDecimalInString(const NumberInString &decimalInString){
+	Unsigned *const Unsigned::fromDecimalInString(const std::string &decimalInString){
 		return fromHexadecimalInString(util::BaseConverter::decimalToHexConverter().convert(decimalInString));
 	}
 
-	Unsigned *const Unsigned::fromHexadecimalInString(const NumberInString &hexadecimalInString){
+	Unsigned *const Unsigned::fromHexadecimalInString(const std::string &hexadecimalInString){
 		std::unique_ptr<unsigned char[]> chars{util::numb::arrayFromHexadecimal(hexadecimalInString)};
 		unsigned long long length = util::numb::sizeFromHexadecimal(hexadecimalInString);
 		return fromLittleEndianArray(chars.get(), length);
@@ -243,22 +243,22 @@ namespace numb {
 		return getArraySize() == 1 && getArray()[0] == 0;
 	}
 
-	const NumberInString Unsigned::getAsBinary() const{
-		NumberInString num = getAsHexadecimal();
-		return coma::util::BaseConverter("1234567890ABCDEF", "01").convert(num);
+	const std::string Unsigned::getAsBinary() const{
+		std::string num = getAsHexadecimal();
+		return coma::util::BaseConverter("01234567890ABCDEF", "01").convert(num);
 	}
 
-	const NumberInString Unsigned::getAsOctal() const{
-		NumberInString num = getAsHexadecimal();
-		return coma::util::BaseConverter("1234567890ABCDEF", "01234567").convert(num);
+	const std::string Unsigned::getAsOctal() const{
+		std::string num = getAsHexadecimal();
+		return coma::util::BaseConverter("01234567890ABCDEF", "01234567").convert(num);
 	}
 
-	const NumberInString Unsigned::getAsDecimal() const{
-		NumberInString num = getAsHexadecimal();
+	const std::string Unsigned::getAsDecimal() const{
+		std::string num = getAsHexadecimal();
 		return coma::util::BaseConverter::hexToDecimalConverter().convert(num);
 	}
 
-	const NumberInString Unsigned::getAsHexadecimal() const{
+	const std::string Unsigned::getAsHexadecimal() const{
 		std::stringstream sstream{ };
 		for(unsigned long long i = 0; i < getArraySize(); ++i)
 			sstream << std::hex << getArray()[getArraySize() - 1 - i];

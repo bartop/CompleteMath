@@ -9,6 +9,7 @@
 #define UTILITY_NUMBERS_H_
 
 #include <algorithm>
+#include "../numbers/Number.h"
 
 namespace coma{
 namespace util{
@@ -22,7 +23,7 @@ namespace numb{
  * 	Number in string from which left trailing zeroes are supposed to be deleted.
  */
 inline void removeLeftTrailingZeroes(std::string &number){
-	number.erase(number.begin(), std::find_if(number.begin(), number.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+	number.erase(0, number.find_first_not_of("0"));
 }
 
 /**

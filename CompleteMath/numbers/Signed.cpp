@@ -179,16 +179,16 @@ Signed::Signed() {
 	const bool Signed::isZero() const{//TODO implement
 	}
 
-	const NumberInString Signed::getAsBinary() const{
+	const std::string Signed::getAsBinary() const{
 	}
 
-	const NumberInString Signed::getAsOctal() const{
+	const std::string Signed::getAsOctal() const{
 	}
 
-	const NumberInString Signed::getAsDecimal() const{
+	const std::string Signed::getAsDecimal() const{
 	}
 
-	const NumberInString Signed::getAsHexadecimal() const{
+	const std::string Signed::getAsHexadecimal() const{
 	}
 
 	Unsigned *const Signed::getAsUnsignedInteger() const{

@@ -169,16 +169,16 @@ FloatingPoint::~FloatingPoint() {
 	const bool FloatingPoint::isZero() const{
 	}
 
-	const NumberInString FloatingPoint::getAsBinary() const{
+	const std::string FloatingPoint::getAsBinary() const{
 	}
 
-	const NumberInString FloatingPoint::getAsOctal() const{
+	const std::string FloatingPoint::getAsOctal() const{
 	}
 
-	const NumberInString FloatingPoint::getAsDecimal() const{
+	const std::string FloatingPoint::getAsDecimal() const{
 	}
 
-	const NumberInString FloatingPoint::getAsHexadecimal() const{
+	const std::string FloatingPoint::getAsHexadecimal() const{
 
 	}
 

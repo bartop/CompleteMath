@@ -107,10 +107,10 @@ public:
 	 * @{
 	 */
 
-	virtual const NumberInString getAsBinary() const override;
-	virtual const NumberInString getAsOctal() const override;
-	virtual const NumberInString getAsDecimal() const override;
-	virtual const NumberInString getAsHexadecimal() const override;
+	virtual const std::string getAsBinary() const override;
+	virtual const std::string getAsOctal() const override;
+	virtual const std::string getAsDecimal() const override;
+	virtual const std::string getAsHexadecimal() const override;
 
 	/**
 	 * @}

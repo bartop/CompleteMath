@@ -13,11 +13,11 @@ namespace util{
 namespace numb{
 
 unsigned char *const arrayFromHexadecimal(const std::string &hex){
-	std::string tmp = hex;
-	removeLeftTrailingZeroes(tmp);
-	unsigned long long size = tmp.length() / 2 + tmp.length() % 2;
+	std::string tempCopy = hex;
+	removeLeftTrailingZeroes(tempCopy);
+	unsigned long long size = tempCopy.length() / 2 + tempCopy.length() % 2;
 	unsigned char *array = new unsigned char[size]{};
-	fillArrayfromHexadecimal(hex, array, size);
+	fillArrayfromHexadecimal(tempCopy, array, size);
 	return array;
 }
 
@@ -30,10 +30,10 @@ const unsigned long long sizeFromHexadecimal(const std::string &hex){
 void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size){
 	std::stringstream sstream { };
 	for(unsigned long long i = 0; i < size; ++i){
-		unsigned long long index { (size >= 2 * i) ? size - 2 * i : 0};
-		unsigned char length { (size >= 2 * i) ? (unsigned char)2 : (unsigned char)1};
+		unsigned long long index { 2 * i };
+		unsigned char length { (index == hexadecimal.length() - 1) ? (unsigned char)1 : (unsigned char)2 };
 		sstream << std::hex << hexadecimal.substr(index, length);
-		sstream >> array[i];
+		sstream >> array[size - 1 - i];
 	}
 }
 

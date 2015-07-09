@@ -84,7 +84,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Unsigned *const fromBinaryInString(const NumberInString &binaryInString);
+	static Unsigned *const fromBinaryInString(const std::string &binaryInString);
 
 	/**
 	 * @brief
@@ -103,7 +103,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Unsigned *const fromOctalInString(const NumberInString &octalInString);
+	static Unsigned *const fromOctalInString(const std::string &octalInString);
 
 	/**
 	 * @brief
@@ -122,7 +122,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Unsigned *const fromDecimalInString(const NumberInString &decimalInString);
+	static Unsigned *const fromDecimalInString(const std::string &decimalInString);
 
 	/**
 	 * @brief
@@ -141,7 +141,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Unsigned *const fromHexadecimalInString(const NumberInString &hexadecimalInString);
+	static Unsigned *const fromHexadecimalInString(const std::string &hexadecimalInString);
 
 	//======================================
 	//-------------COMPARABLE---------------
@@ -240,10 +240,10 @@ public:
 	 * @{
 	 */
 
-	virtual const NumberInString getAsBinary() const override;
-	virtual const NumberInString getAsOctal() const override;
-	virtual const NumberInString getAsDecimal() const override;
-	virtual const NumberInString getAsHexadecimal() const override;
+	virtual const std::string getAsBinary() const override;
+	virtual const std::string getAsOctal() const override;
+	virtual const std::string getAsDecimal() const override;
+	virtual const std::string getAsHexadecimal() const override;
 
 	/**
 	 * @}

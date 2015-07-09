@@ -14,8 +14,6 @@
 namespace coma {
 namespace numb {
 
-typedef std::string NumberInString;
-
 class Complex;
 class FloatingPoint;
 class Signed;
@@ -33,6 +31,11 @@ class Number :
 	public Arithmetic<Signed, Number>,
 	public Arithmetic<Unsigned, Number>{
 public:
+	static const Number *const ONE;
+	static const Number *const ZERO;
+	static const Number *const I;
+	static const Number *const PI;
+	static const Number *const E;
 	/**
 	 * @brief
 	 * 	Method to get opposite value.
@@ -71,7 +74,7 @@ public:
 	 * @return
 	 * 	Binary representation of the stored value.
 	 */
-	virtual const NumberInString getAsBinary() const = 0;
+	virtual const std::string getAsBinary() const = 0;
 
 	/**
 	 * @brief
@@ -80,7 +83,7 @@ public:
 	 * @return
 	 * 	Octal representation of the stored value.
 	 */
-	virtual const NumberInString getAsOctal() const = 0;
+	virtual const std::string getAsOctal() const = 0;
 
 	/**
 	 * @brief
@@ -89,7 +92,7 @@ public:
 	 * @return
 	 *	Decimal representation of the stored value.
 	 */
-	virtual const NumberInString getAsDecimal() const = 0;
+	virtual const std::string getAsDecimal() const = 0;
 
 	/**
 	 * @brief
@@ -99,7 +102,7 @@ public:
 	 *	Hexadecimal representation of the stored value.
 	 *
 	 */
-	virtual const NumberInString getAsHexadecimal() const = 0;
+	virtual const std::string getAsHexadecimal() const = 0;
 
 	/**
 	 * @}

@@ -150,16 +150,16 @@ Complex::Complex() {
 	const bool Complex::isZero() const{
 	}
 
-	const NumberInString Complex::getAsBinary() const{
+	const std::string Complex::getAsBinary() const{
 	}
 
-	const NumberInString Complex::getAsOctal() const{
+	const std::string Complex::getAsOctal() const{
 	}
 
-	const NumberInString Complex::getAsDecimal() const{
+	const std::string Complex::getAsDecimal() const{
 	}
 
-	const NumberInString Complex::getAsHexadecimal() const{
+	const std::string Complex::getAsHexadecimal() const{
 
 	}
 
