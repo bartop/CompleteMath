@@ -29,11 +29,16 @@ const unsigned long long sizeFromHexadecimal(const std::string &hex){
 
 void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size){
 	std::stringstream sstream { };
+	sstream.exceptions(std::stringstream::eofbit | std::stringstream::badbit);
 	for(unsigned long long i = 0; i < size; ++i){
-		unsigned long long index { 2 * i };
-		unsigned char length { (index == hexadecimal.length() - 1) ? (unsigned char)1 : (unsigned char)2 };
-		sstream << std::hex << hexadecimal.substr(index, length);
-		sstream >> array[size - 1 - i];
+		unsigned long long index { (hexadecimal.length() % 2 && i != 0) ? 2 * i - 1 : 2 * i };
+		unsigned int tmp {};
+		unsigned char length { (hexadecimal.length() % 2 && i == 0) ? (unsigned char)1 : (unsigned char)2 };
+		std::string substring = hexadecimal.substr(index, length);
+		util::numb::removeLeftTrailingZeroes(substring);
+		sstream << std::hex << substring << std::endl;
+		sstream >> tmp;
+		array[size - 1 - i] = tmp;
 	}
 }
 

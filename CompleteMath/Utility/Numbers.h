@@ -24,6 +24,7 @@ namespace numb{
  */
 inline void removeLeftTrailingZeroes(std::string &number){
 	number.erase(0, number.find_first_not_of("0"));
+	if(number == "") number = "0";
 }
 
 /**

@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <memory>
 #include <sstream>
+#include <iomanip>
 #include "Unsigned.h"
 #include "Signed.h"
 #include "FloatingPoint.h"
@@ -260,9 +261,15 @@ namespace numb {
 
 	const std::string Unsigned::getAsHexadecimal() const{
 		std::stringstream sstream{ };
-		for(unsigned long long i = 0; i < getArraySize(); ++i)
-			sstream << std::hex << getArray()[getArraySize() - 1 - i];
-		return sstream.str();
+		sstream << std::uppercase;
+		sstream << std::setfill('0');
+		for(unsigned long long i = 0; i < getArraySize(); ++i){
+			unsigned int tmp = getArray()[getArraySize() - 1 - i];
+			sstream << std::hex << std::setw(2) << tmp;
+		}
+		std::string tmp = sstream.str();
+		coma::util::numb::removeLeftTrailingZeroes(tmp);
+		return tmp;
 	}
 
 	Unsigned *const Unsigned::getAsUnsignedInteger() const{
