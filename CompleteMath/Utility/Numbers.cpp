@@ -53,12 +53,8 @@ void addArray(unsigned char *const toAdd1, const unsigned long long size1,
 		const unsigned char *const toAdd2, const unsigned long long size2){
 	unsigned char carry {0};
 	for(unsigned long long i = 0; i < size2 || (carry == 1 && i < size1); ++i){
-		if(i < size2){
-			if(toAdd1[i] += toAdd2[i] < toAdd2[i]) carry = 1;
-			else carry = 0;
-		}
-		if(toAdd1[i] += carry < carry) carry = 1;
-		else carry = 0;
+		if(i < size2) addWithCarry(toAdd1[i], toAdd2[i], carry);
+		else addWithCarry(toAdd1[i], 0, carry);
 	}
 }
 
@@ -74,12 +70,8 @@ void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
 			const unsigned char *const right, const unsigned long long sizeRight){
 	unsigned char borrow {0};
 	for(unsigned long long i = 0; i < sizeRight || (borrow == 1 && i < sizeLeft); ++i){
-		if(i < sizeRight){
-			if(left[i] -= right[i] > left[i]) borrow = 1;
-			else borrow = 0;
-		}
-		if(left[i] -= borrow > left[i]) borrow = 1;
-		else borrow = 0;
+		if(i < sizeRight) subtractWithBorrow(left[i], right[i], borrow);
+		else subtractWithBorrow(left[i], 0, borrow);
 	}
 }
 

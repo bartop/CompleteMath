@@ -110,11 +110,11 @@ namespace numb {
 
 	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{//TODO testing
 		if(!toAdd) throw 1;//TODO exceptions
-		unsigned long long resultSize = std::max(this->getArraySize(), toAdd->getArraySize());
+		unsigned long long resultSize = std::max(this->getArraySize(), toAdd->getArraySize()) + 1;
 		std::unique_ptr<unsigned char[]> result{ new unsigned char [resultSize] {}};
 		std::copy(this->getArray(), this->getArray() + this->getArraySize(), result.get());
 		util::numb::addArray(result.get(), resultSize, toAdd->getArray(), toAdd->getArraySize());
-		return fromLittleEndianArray(result.get(), resultSize);
+		return fromLittleEndianArray(result.get(), util::numb::getUsedBytes(result.get(), resultSize));
 	}
 
 	Number *const Unsigned::getDifference(const Number *const toSubtract) const{
@@ -167,8 +167,8 @@ namespace numb {
 				buffer = arr1[i] * arr2[j];
 				unsigned char lower { static_cast<unsigned char>(buffer)      };
 				unsigned char upper { static_cast<unsigned char>(buffer >> 8) };
-				if((table[i + j]     += lower + carry) < lower) carry = 1; else carry = 0;
-				if((table[i + j + 1] += upper + carry) < upper) carry = 1; else carry = 0;
+				if((table[i + j]     += lower + carry) < (lower + carry)) carry = 1; else carry = 0;
+				if((table[i + j + 1] += upper + carry) < (upper + carry)) carry = 1; else carry = 0;
 			}
 		}
 		while(!table[size - 1]) --size;

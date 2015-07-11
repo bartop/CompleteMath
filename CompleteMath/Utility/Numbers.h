@@ -144,6 +144,50 @@ void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
  */
 const unsigned long long getUsedBytes(const unsigned char *const array, const unsigned long long maxSize, const bool negative = false);
 
+/**
+ * @brief
+ *	Adds @c right value to @c left in place.
+ *
+ * @param left
+ * 	Variable storing first argument and result of addition.
+ *
+ * @param right
+ * 	Variable storing second argument.
+ *
+ * @param carry
+ * 	Tells if carry will be added to left in this and next operation.
+ */
+inline void addWithCarry(unsigned char &left, const unsigned char right, unsigned char &carry){
+	left += carry;
+	if(left < carry) carry = 1;
+	else carry = 0;
+
+	left += right;
+	if(left < right) carry = 1;
+}
+
+/**
+ * @brief
+ * 	Subtracts @c right from @c left in place. Uses and produces borrow if needed.
+ *
+ * @param left
+ *	Number from which @c right is subtracted.
+ *
+ * @param right
+ * 	Number which is being subtracted.
+ *
+ * @param borrow
+ * 	Tells if borrow will be used in this and next subtraction.
+ */
+inline void subtractWithBorrow(unsigned char &left, const unsigned char right, unsigned char &borrow){
+	left -= borrow;
+	if(left > borrow) borrow = 1;
+	else borrow = 0;
+
+	left -= right;
+	if(left > right) borrow = 1;
+}
+
 }
 }
 }
