@@ -180,12 +180,17 @@ inline void addWithCarry(unsigned char &left, const unsigned char right, unsigne
  * 	Tells if borrow will be used in this and next subtraction.
  */
 inline void subtractWithBorrow(unsigned char &left, const unsigned char right, unsigned char &borrow){
-	left -= borrow;
-	if(left > borrow) borrow = 1;
-	else borrow = 0;
+	if(left < borrow){
+		left -= borrow;
+		borrow = 1;
+	}
+	else{
+		left -= borrow;
+		borrow = 0;
+	}
 
+	if(left < right) borrow = 1;
 	left -= right;
-	if(left > right) borrow = 1;
 }
 
 }

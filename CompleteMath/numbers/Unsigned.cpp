@@ -108,7 +108,7 @@ namespace numb {
 		return static_cast<const coma::numb::Arithmetic<Unsigned, Number> *const>(toAdd)->getSum(this);
 	}
 
-	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{//TODO testing
+	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
 		unsigned long long resultSize = std::max(this->getArraySize(), toAdd->getArraySize()) + 1;
 		std::unique_ptr<unsigned char[]> result{ new unsigned char [resultSize] {}};
@@ -154,7 +154,7 @@ namespace numb {
 		return static_cast<const coma::numb::Arithmetic<Unsigned, Number> *const>(toMultiply)->getProduct(this);
 	}
 
-	Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{//TODO serious testing
+	Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
 		unsigned long long size { this->getArraySize() + toMultiply->getArraySize() };
 		std::unique_ptr<unsigned char[]> table { new unsigned char[size] { } };
@@ -170,9 +170,8 @@ namespace numb {
 				if((table[i + j]     += lower + carry) < (lower + carry)) carry = 1; else carry = 0;
 				if((table[i + j + 1] += upper + carry) < (upper + carry)) carry = 1; else carry = 0;
 			}
-		}
-		while(!table[size - 1]) --size;
-		return fromLittleEndianArray(table.get(), size);
+		}while(!table[size - 1]) --size;
+		return fromLittleEndianArray(table.get(), util::numb::getUsedBytes(table.get(), size));
 	}
 
 	Number *const Unsigned::getQuotient(const Number *const toDivide) const{
@@ -340,7 +339,7 @@ namespace numb {
 		return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getInverseRemainder(this);
 	}
 
-	Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{//TODO testing, testing
+	Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{
 		if(!toDivide) throw 1;//TODO exceptions
 		if(toDivide->isZero()) throw 1;//TODO exceptions
 		unsigned long long size = std::max(this->getArraySize(), toDivide->getArraySize());
@@ -354,26 +353,26 @@ namespace numb {
 		//magic happens here
 		for(unsigned long long i = 0; i < size; ++i){
 			util::numb::shiftArrayLeft(rema.get(), size);
-			rema[0] = array1[i];
+			rema[0] = array1[size - 1 - i];
 			bool RgeD {};
 			do{
-				unsigned long long i { 0 };
+				unsigned long long j { 0 };
 				unsigned long long index { size - 1 };
-				while(i < size && rema[index] == array2[index]){
-					++i;
+				while(j < size && rema[index] == array2[index]){
+					++j;
 					--index;
 				}
-				RgeD =  (rema[index] > array2[index] || i == size );//R >= D
+				RgeD =  (rema[index] > array2[index] || j == size );//R >= D
 				if (RgeD){
 					util::numb::subtractArray(rema.get(), size, array2.get(), size);
-					quot[i] += 1;
+					quot[size - 1 - i] += 1;
 				}
 			}while(RgeD);
 		}
 		return fromLittleEndianArray(quot.get(),util::numb::getUsedBytes(quot.get(), size));
 	}
 
-	Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{//TODO testing, testing
+	Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{
 		if(!toDivide) throw 1;//TODO exceptions
 		if(toDivide->isZero()) throw 1;//TODO exceptions
 		unsigned long long size = std::max(this->getArraySize(), toDivide->getArraySize());
@@ -387,19 +386,19 @@ namespace numb {
 		//magic happens here
 		for(unsigned long long i = 0; i < size; ++i){
 			util::numb::shiftArrayLeft(rema.get(), size);
-			rema[0] = array1[i];
+			rema[0] = array1[size - 1 - i];
 			bool RgeD {};
 			do{
-				unsigned long long i { 0 };
+				unsigned long long j { 0 };
 				unsigned long long index { size - 1 };
-				while(i < size && rema[index] == array2[index]){
-					++i;
+				while(j < size && rema[index] == array2[index]){
+					++j;
 					--index;
 				}
-				RgeD =  (rema[index] > array2[index] || i == size );//R >= D
+				RgeD =  (rema[index] > array2[index] || j == size );//R >= D
 				if (RgeD){
 					util::numb::subtractArray(rema.get(), size, array2.get(), size);
-					quot[i] += 1;
+					quot[size - 1 - i] += 1;
 				}
 			}while(RgeD);
 		}
