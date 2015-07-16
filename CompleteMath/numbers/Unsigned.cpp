@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <string>
 #include <sstream>
 #include <iomanip>
 #include "Unsigned.h"
@@ -15,7 +16,6 @@
 #include "Complex.h"
 #include "../Utility/Numbers.h"
 #include "../Utility/BaseConverter.h"
-
 
 #include <cassert>
 
@@ -27,7 +27,7 @@ namespace numb {
 	//======================================
 
 	Unsigned::Unsigned(const unsigned char *const numbersArray, const unsigned long long arrayLength, const Endianess endianess) :
-			Integer(numbersArray, arrayLength, endianess){}
+			Integer(numbersArray, util::numb::getUsedBytesUnsigned(numbersArray,arrayLength), endianess){}
 
 	Unsigned *const Unsigned::fromBigEndianArray(const unsigned char *const numbersArray, const unsigned long long arrayLength){
 		return new Unsigned { numbersArray, arrayLength, Endianess::Big };
@@ -72,7 +72,7 @@ namespace numb {
 		return invertComparison(static_cast<const coma::numb::Comparable<Unsigned> *const >(toCompare)->compare(this));
 	}
 
-	const CompareResult Unsigned::compare(const Unsigned *const toCompare) const{//TODO testing
+	const CompareResult Unsigned::compare(const Unsigned *const toCompare) const{
 		if(!toCompare) throw 1;//TODO exceptions
 		if(toCompare->getArraySize() == this->getArraySize()){
 			unsigned long long i { 0 };
@@ -114,7 +114,7 @@ namespace numb {
 		std::unique_ptr<unsigned char[]> result{ new unsigned char [resultSize] {}};
 		std::copy(this->getArray(), this->getArray() + this->getArraySize(), result.get());
 		util::numb::addArray(result.get(), resultSize, toAdd->getArray(), toAdd->getArraySize());
-		return fromLittleEndianArray(result.get(), util::numb::getUsedBytes(result.get(), resultSize));
+		return fromLittleEndianArray(result.get(), resultSize);
 	}
 
 	Number *const Unsigned::getDifference(const Number *const toSubtract) const{
@@ -171,7 +171,7 @@ namespace numb {
 				if((table[i + j + 1] += upper + carry) < (upper + carry)) carry = 1; else carry = 0;
 			}
 		}while(!table[size - 1]) --size;
-		return fromLittleEndianArray(table.get(), util::numb::getUsedBytes(table.get(), size));
+		return fromLittleEndianArray(table.get(), size);
 	}
 
 	Number *const Unsigned::getQuotient(const Number *const toDivide) const{
@@ -259,14 +259,14 @@ namespace numb {
 	}
 
 	const std::string Unsigned::getAsHexadecimal() const{
-		std::stringstream sstream{ };
-		sstream << std::uppercase;
-		sstream << std::setfill('0');
+		std::stringstream ss{ };
+		ss << std::uppercase;
+		ss << std::setfill('0');
 		for(unsigned long long i = 0; i < getArraySize(); ++i){
 			unsigned int tmp = getArray()[getArraySize() - 1 - i];
-			sstream << std::hex << std::setw(2) << tmp;
+			ss << std::hex << std::setw(2) << tmp;
 		}
-		std::string tmp = sstream.str();
+		std::string tmp = ss.str();
 		coma::util::numb::removeLeftTrailingZeroes(tmp);
 		return tmp;
 	}
@@ -369,7 +369,7 @@ namespace numb {
 				}
 			}while(RgeD);
 		}
-		return fromLittleEndianArray(quot.get(),util::numb::getUsedBytes(quot.get(), size));
+		return fromLittleEndianArray(quot.get(), size);
 	}
 
 	Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{
@@ -402,7 +402,7 @@ namespace numb {
 				}
 			}while(RgeD);
 		}
-		return fromLittleEndianArray(rema.get(),util::numb::getUsedBytes(rema.get(), size));
+		return fromLittleEndianArray(rema.get(), size);
 	}
 
 	Integer *const Unsigned::getIntegerQuotientInverse(const Unsigned *const dividend) const{

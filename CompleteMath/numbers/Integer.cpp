@@ -17,6 +17,7 @@ namespace numb{
 const unsigned char *const Integer::arrayCopy(const unsigned char *const toCopy,
 		const unsigned long long size,
 		const Endianess endianess){
+	if(size == 0 || toCopy == nullptr) throw 1;//TODO exceptions
 	unsigned char *copy = new unsigned char[size]{};
 	if(endianess == Endianess::Little){
 		std::copy(toCopy, toCopy+size, copy);
@@ -31,8 +32,8 @@ const unsigned char *const Integer::arrayCopy(const unsigned char *const toCopy,
 Integer::Integer(const unsigned char *const numbersArray,
 		const unsigned long long arrayLength,
 		const Endianess endianess):
-	m_size(arrayLength),
-	m_integer(arrayCopy(numbersArray, arrayLength, endianess)){}
+		m_size { arrayLength },
+		m_integer{ arrayCopy(numbersArray, arrayLength, endianess) }{}
 
 const unsigned long long Integer::getArraySize() const{
 	return m_size;

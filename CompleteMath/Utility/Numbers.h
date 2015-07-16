@@ -41,6 +41,18 @@ unsigned char *const arrayFromHexadecimal(const std::string &hex);
 
 /**
  * @brief
+ *	Creates array of chars from hexadecimal in string.
+ *
+ * @param hex
+ * 	Hexadecimal with sign in string to be converted to char array.
+ *
+ * @return
+ * 	Unsigned char array representing number stored in string. For negative values 2 complement is used.
+ */
+unsigned char *const arrayFromSignedHexadecimal(const std::string &hex);
+
+/**
+ * @brief
  * 	Finds the size of array that can hold given hexadecimal value.
  *
  * @param hex
@@ -50,6 +62,18 @@ unsigned char *const arrayFromHexadecimal(const std::string &hex);
  * 	Size of array that can hold given hexadecimal value.
  */
 const unsigned long long sizeFromHexadecimal(const std::string &hex);
+
+/**
+ * @brief
+ * 	Finds the size of array that can hold given hexadecimal value.
+ *
+ * @param hex
+ * 	Signed number in string.
+ *
+ * @return
+ * 	Size of array that can hold given hexadecimal value.
+ */
+const unsigned long long sizeFromSignedHexadecimal(const std::string &hex);
 
 /**
  * @brief
@@ -101,7 +125,7 @@ void addArray(unsigned char *const toAdd1, const unsigned long long size1,
  * @brief
  * 	Changes number in array to its 2-complement negation.
  *
- * @param toShift
+ * @param toNegate
  * 	Array to be negated.
  *
  * @param size
@@ -130,19 +154,28 @@ void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
 
 /**
  * @brief
- * 	Returns minimal number of bytes that can store given number in array.
+ * 	Returns minimal number of bytes that can store given number in array for unsigned number.
  *
  * @param array
  * 	Array to be checked for unused bytes.
  *
  * @param maxSize
  * 	Allocated size of @c array.
- *
- * @param negative
- * 	For @c true most significant bytes equal to unsigned char(-1) are removed.
- * 	For @c false most significant bytes equal to 0 are removed.
  */
-const unsigned long long getUsedBytes(const unsigned char *const array, const unsigned long long maxSize, const bool negative = false);
+const unsigned long long getUsedBytesUnsigned(const unsigned char *const array, const unsigned long long maxSize);
+
+/**
+ * @brief
+ * 	Returns minimal number of bytes that can store given number in array for signed number.
+ *
+ * @param array
+ * 	Array to be checked for unused bytes.
+ *
+ * @param maxSize
+ * 	Allocated size of @c array.
+ */
+const unsigned long long getUsedBytesSigned(const unsigned char *const array,
+		const unsigned long long maxSize);
 
 /**
  * @brief

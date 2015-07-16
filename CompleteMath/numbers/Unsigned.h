@@ -31,8 +31,8 @@ public:
 	 * @param endianess
 	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
 	 */
-	explicit Unsigned(const unsigned char *const numbersArray = nullptr,
-			const unsigned long long arrayLenght = 0,
+	explicit Unsigned(const unsigned char *const numbersArray,
+			const unsigned long long arrayLenght ,
 			const Endianess endianess = Endianess::Little);
 
 	/**
@@ -48,8 +48,8 @@ public:
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
 	 */
-	static Unsigned *const fromBigEndianArray(const unsigned char *const numbersArray = nullptr,
-			const unsigned long long arrayLenght = 0);
+	static Unsigned *const fromBigEndianArray(const unsigned char *const numbersArray,
+			const unsigned long long arrayLenght);
 
 	/**
 	 * @brief
@@ -64,8 +64,8 @@ public:
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
 	 */
-	static Unsigned *const fromLittleEndianArray(const unsigned char *const numbersArray = nullptr,
-			const unsigned long long arrayLenght = 0);
+	static Unsigned *const fromLittleEndianArray(const unsigned char *const numbersArray,
+			const unsigned long long arrayLenght);
 
 	/**
 	 * @brief

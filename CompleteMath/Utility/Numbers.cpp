@@ -21,10 +21,30 @@ unsigned char *const arrayFromHexadecimal(const std::string &hex){
 	return array;
 }
 
+unsigned char *const arrayFromSignedHexadecimal(const std::string &hex){
+	std::string tempCopy = hex.substr(1, hex.length() - 1);
+	removeLeftTrailingZeroes(tempCopy);
+	unsigned long long size = sizeFromSignedHexadecimal(hex);
+	unsigned char *array = new unsigned char[size]{};
+	fillArrayfromHexadecimal(tempCopy, array, size);
+	if(hex[0] == '-'){
+		util::numb::negateArray(array, size);
+	}
+	return array;
+}
+
 const unsigned long long sizeFromHexadecimal(const std::string &hex){
 	std::string tmp = hex;
 	removeLeftTrailingZeroes(tmp);
 	return tmp.length() / 2 + tmp.length() % 2;
+}
+
+const unsigned long long sizeFromSignedHexadecimal(const std::string &hex){
+	std::string tempCopy = hex.substr(1, hex.length() - 1);
+	removeLeftTrailingZeroes(tempCopy);
+	unsigned long long size = tempCopy.length() / 2 + tempCopy.length() % 2;
+	if ( !(tempCopy.length() % 2) && tempCopy[0] > '8') ++size;
+	return size;
 }
 
 void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size){
@@ -75,10 +95,19 @@ void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
 	}
 }
 
-const unsigned long long getUsedBytes(const unsigned char *const array, const unsigned long long maxSize, const bool negative){
+const unsigned long long getUsedBytesUnsigned(const unsigned char *const array, const unsigned long long maxSize){
 	unsigned long long result { maxSize };
-	unsigned char checkVal{ negative ? static_cast<unsigned char>(-1) : 0 };
-	while(array[result - 1] == checkVal) --result;
+	while(array[result - 1] == 0 && result > 1) --result;
+	return result;
+}
+
+const unsigned long long getUsedBytesSigned(const unsigned char *const array,
+		const unsigned long long maxSize){
+	unsigned long long result { maxSize };
+	unsigned char value { array[maxSize - 1] & 0x80 ? static_cast<unsigned char>(-1) : 0 };
+	//TODO test, this is pure magical bit twiddling hack
+	while(array[result - 1] == value && ( ~(array[result - 1] ^ array[result - 2]) & 0x80) && result > 1 )
+		--result;
 	return result;
 }
 

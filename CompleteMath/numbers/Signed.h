@@ -15,7 +15,138 @@ namespace numb {
 
 class Signed: public Integer {
 public:
-	Signed();
+	//======================================
+	//---------------SIGNED-----------------
+	//======================================
+
+
+	/**
+	 * @brief
+	 * 	Constructs Signed from array of unsigned chars.
+	 *
+	 * @details
+	 * 	The negative numbers are stored using 2-complement.
+	 *
+	 * @param numbersArray
+	 *	Array of bytes containing long number.
+	 *
+	 * @param arrayLenght
+	 * 	Length of the given array.
+	 *
+	 * @param endianess
+	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
+	 */
+	explicit Signed(const unsigned char *const numbersArray,
+			const unsigned long long arrayLenght,
+			const Endianess endianess = Endianess::Little);
+
+	/**
+	 * @brief
+	 * 	Creates new Signed object from big-endian byte array and returns it.
+	 *
+	 * @param numbersArray
+	 *	Array of bytes containing long number.
+	 *
+	 * @param arrayLenght
+	 * 	Length of the given array.
+	 *
+	 * @return
+	 * 	New Signed object containing value stored in array.
+	 */
+	static Signed *const fromBigEndianArray(const unsigned char *const numbersArray,
+			const unsigned long long arrayLenght);
+
+	/**
+	 * @brief
+	 * 	Creates new Signed object from little-endian byte array and returns it.
+	 *
+	 * @param numbersArray
+	 *	Array of bytes containing long number.
+	 *
+	 * @param arrayLenght
+	 * 	Length of the given array.
+	 *
+	 * @return
+	 * 	New Signed object containing value stored in array.
+	 */
+	static Signed *const fromLittleEndianArray(const unsigned char *const numbersArray,
+			const unsigned long long arrayLenght);
+
+	/**
+	 * @brief
+	 * 	Creates new Signed object from binary number stored in string.
+	 *
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
+	 *
+	 * @param binaryInString
+	 * 	Binary number stored in string.
+	 *
+	 * @return
+	 *	New Signed object containing value stored in string.
+	 */
+	static Signed *const fromBinaryInString(const std::string &binaryInString);
+
+	/**
+	 * @brief
+	 * 	Creates new Signed object from octal number stored in string.
+	 *
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
+	 *
+	 * @param octalInString
+	 *	Octal number stored in string.
+	 *
+	 * @return
+	 *	New Signed object containing value stored in string.
+	 */
+	static Signed *const fromOctalInString(const std::string &octalInString);
+
+	/**
+	 * @brief
+	 * 	Creates new Signed object from decimal number stored in string.
+	 *
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
+	 *
+	 * @param decimalInString
+	 * 	Decimal number stored in string.
+	 *
+	 * @return
+	 *	New Signed object containing value stored in string.
+	 */
+	static Signed *const fromDecimalInString(const std::string &decimalInString);
+
+	/**
+	 * @brief
+	 * 	Creates new Signed object from hexadecimal number stored in string.
+	 *
+	 * @details
+	 * For all notations check factory functions:
+	 * 	- fromBinaryInString()
+	 * 	- fromOctalInString()
+	 * 	- fromDecimalInString()
+	 * 	- fromHexadecimalInString()
+	 *
+	 * @param hexadecimalInString
+	 * 	Hexadecimal number stored in string.
+	 *
+	 * @return
+	 *	New Signed object containing value stored in string.
+	 */
+	static Signed *const fromHexadecimalInString(const std::string &hexadecimalInString);
 
 	//======================================
 	//-------------COMPARABLE---------------
