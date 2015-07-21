@@ -78,9 +78,9 @@ const RuntimeArray<unsigned char> withoutMeaninglessChars(const RuntimeArray<uns
 		unsigned char mask { 0x80 };
 		unsigned char sign { mask & array[array.length() - 1] };
 		unsigned char meaninglessByte { sign ? 0xFF : 0};
-		while(array[result - 1] == meaninglessByte && !(sign ^ (array[result - 2] & mask)) && result > 0) --result;
+		while(array[result - 1] == meaninglessByte && !(sign ^ (array[result - 2] & mask)) && result > 1) --result;
 	}else{
-		while(array[result - 1] && result > 0) --result;
+		while(!array[result - 1] && result > 1) --result;
 	}
 	return { array.begin(), result};
 }
@@ -172,6 +172,7 @@ const RuntimeArray<unsigned char> operator*(const RuntimeArray<unsigned char> &l
 RuntimeArray<unsigned char> &operator/=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
 	RuntimeArray<unsigned char> left = lhs;
 	RuntimeArray<unsigned char> rema { lhs.length() };
+	std::fill(lhs.begin(), lhs.end(), 0);
 	for(unsigned long long i = 0; i < lhs.length(); ++i){
 		rema <<= 1;
 		rema[0] = left[lhs.length() - 1 - i];
@@ -202,21 +203,22 @@ const RuntimeArray<unsigned char> operator/(const RuntimeArray<unsigned char> &l
 RuntimeArray<unsigned char> &operator%=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
 	RuntimeArray<unsigned char> left = lhs;
 	RuntimeArray<unsigned char> quot { lhs.length() };
+	std::fill(lhs.begin(), lhs.end(), 0);
 	for(unsigned long long i = 0; i < lhs.length(); ++i){
 		lhs <<= 1;
-		lhs[0] = left[lhs.length() - 1 - i];
+		lhs[0] = left[quot.length() - 1 - i];
 		bool RgeD {};
 		do{
 			unsigned long long j { 0 };
-			unsigned long long index { lhs.length() - 1 };
-			while(j < lhs.length() && lhs[index] == rhs[index]){
+			unsigned long long index { quot.length() - 1 };
+			while(j < quot.length() && lhs[index] == rhs[index]){
 				++j;
 				--index;
 			}
-			RgeD =  (lhs[index] > rhs[index] || j == lhs.length());//R >= D
+			RgeD =  (lhs[index] > rhs[index] || j == quot.length());//R >= D
 			if (RgeD){
 				lhs -= rhs;
-				lhs[lhs.length() - 1 - i] += 1;
+				quot[lhs.length() - 1 - i] += 1;
 			}
 		}while(RgeD);
 	}
