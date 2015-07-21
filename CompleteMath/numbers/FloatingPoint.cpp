@@ -19,26 +19,6 @@ FloatingPoint::~FloatingPoint() {
 }
 
 	//======================================
-	//-------------COMPARABLE---------------
-	//======================================
-
-
-	const CompareResult FloatingPoint::compare(const RealNumber *const toCompare) const{
-		return invertComparison(static_cast<const coma::numb::Comparable<FloatingPoint> *const >(toCompare)->compare(this));
-	}
-
-	const CompareResult FloatingPoint::compare(const FloatingPoint *const toCompare) const{
-		return invertComparison(static_cast<const coma::numb::Comparable<FloatingPoint> *const >(toCompare)->compare(this));
-	}
-
-	const CompareResult FloatingPoint::compare(const Signed *const toCompare) const{
-		return invertComparison(static_cast<const coma::numb::Comparable<FloatingPoint> *const >(toCompare)->compare(this));
-	}
-
-	const CompareResult FloatingPoint::compare(const Unsigned *const toCompare) const{
-	}
-
-	//======================================
 	//-------------ARITHMETIC---------------
 	//======================================
 

@@ -18,15 +18,6 @@ public:
 	FloatingPoint();
 
 	//======================================
-	//-------------COMPARABLE---------------
-	//======================================
-
-	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
-	virtual const CompareResult compare(const FloatingPoint *const toCompare) const override;
-	virtual const CompareResult compare(const Signed *const toCompare) const override;
-	virtual const CompareResult compare(const Unsigned *const toCompare) const override;
-
-	//======================================
 	//-------------ARITHMETIC---------------
 	//======================================
 	/**

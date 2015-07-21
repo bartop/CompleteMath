@@ -10,6 +10,7 @@
 
 #include "RealNumber.h"
 #include "IntegerArithmetic.h"
+#include "../Utility/RuntimeArray.h"
 
 namespace coma {
 namespace numb {
@@ -38,35 +39,10 @@ class Integer:
 private:
 	/**
 	 * @brief
-	 * 	Number storing length of array.
-	 */
-	const unsigned long long m_size = 0;
-
-	/**
-	 * @brief
 	 * 	Array storing very long unsigned.
 	 */
-	const unsigned char *const m_integer = nullptr;
+	const util::RuntimeArray<unsigned char> m_integer;
 
-	/**
-	 * @brief
-	 * 	Creates deep copy of given array.
-	 *
-	 * @param toCopy
-	 * 	Array to copy.
-	 *
-	 * @param size
-	 * 	Size of copied array.
-	 *
-	 * @param endianess
-	 * 	Defines if given number in array uses big- or little-endian notation.
-	 *
-	 * @return
-	 * 	Deep copy of the toCopy array.
-	 */
-	const unsigned char *const arrayCopy(const unsigned char *const toCopy,
-			const unsigned long long size,
-			const Endianess endianess);
 protected:
 	/**
 	 * @brief
@@ -74,25 +50,11 @@ protected:
 	 *
 	 * @param numbersArray
 	 *	Array of bytes containing long number.
-	 *
-	 * @param arrayLenght
-	 * 	Length of the given array.
-	 *
+
 	 * @param endianess
 	 * 	Defines if given number in array uses big- or little-endian notation.
 	 */
-	explicit Integer(const unsigned char *const numbersArray = nullptr,
-			const unsigned long long arrayLenght = 0,
-			const Endianess endianess = Endianess::Little);
-
-	/**
-	 * @brief
-	 * 	Array size getter.
-	 *
-	 * @return
-	 *	Size of stored array.
-	 */
-	const unsigned long long getArraySize() const;
+	explicit Integer(const util::RuntimeArray<unsigned char> numbersArray, const Endianess endianess = Endianess::Little);
 
 	/**
 	 * @brief
@@ -101,14 +63,14 @@ protected:
 	 * @return
 	 * 	Stored array.
 	 */
-	const unsigned char *const getArray() const;
+	const util::RuntimeArray<unsigned char> &getArray() const;
 
 public:
 	/**
 	 * @brief
-	 *	Destructor deleting allocated memory.
+	 * 	Dummy virtual destructor.
 	 */
-	virtual ~Integer();
+	virtual ~Integer(){}
 };
 
 } /* namespace numb */

@@ -20,11 +20,9 @@ namespace numb {
  */
 class RealNumber:
 		public Number,
-		public Comparable<RealNumber>,
-		public Comparable<FloatingPoint>,
-		public Comparable<Signed>,
-		public Comparable<Unsigned>{
+		public Comparable<RealNumber>{
 public:
+
 	/**
 	 * @brief
 	 * 	Method to check if stored value is positive or negative.
@@ -55,6 +53,9 @@ public:
 	 * 	Dummy virtual destructor.
 	 */
 	virtual ~RealNumber(){}
+
+
+	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
 };
 
 } /* namespace numb */

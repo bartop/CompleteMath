@@ -36,8 +36,7 @@ public:
 	 * @param endianess
 	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
 	 */
-	explicit Signed(const unsigned char *const numbersArray,
-			const unsigned long long arrayLenght,
+	explicit Signed(const util::RuntimeArray<unsigned char> &array,
 			const Endianess endianess = Endianess::Little);
 
 	/**
@@ -53,8 +52,7 @@ public:
 	 * @return
 	 * 	New Signed object containing value stored in array.
 	 */
-	static Signed *const fromBigEndianArray(const unsigned char *const numbersArray,
-			const unsigned long long arrayLenght);
+	static Signed *const fromBigEndianArray(const util::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -69,8 +67,7 @@ public:
 	 * @return
 	 * 	New Signed object containing value stored in array.
 	 */
-	static Signed *const fromLittleEndianArray(const unsigned char *const numbersArray,
-			const unsigned long long arrayLenght);
+	static Signed *const fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -147,15 +144,6 @@ public:
 	 *	New Signed object containing value stored in string.
 	 */
 	static Signed *const fromHexadecimalInString(const std::string &hexadecimalInString);
-
-	//======================================
-	//-------------COMPARABLE---------------
-	//======================================
-
-	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
-	virtual const CompareResult compare(const FloatingPoint *const toCompare) const override;
-	virtual const CompareResult compare(const Signed *const toCompare) const override;
-	virtual const CompareResult compare(const Unsigned *const toCompare) const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------

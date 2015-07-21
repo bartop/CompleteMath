@@ -16,6 +16,7 @@
 #include "Complex.h"
 #include "../Utility/Numbers.h"
 #include "../Utility/BaseConverter.h"
+#include "../Utility/ArrayArithmetic.h"
 
 #include <cassert>
 
@@ -26,15 +27,15 @@ namespace numb {
 	//--------------UNSIGNED----------------
 	//======================================
 
-	Unsigned::Unsigned(const unsigned char *const numbersArray, const unsigned long long arrayLength, const Endianess endianess) :
-			Integer(numbersArray, util::numb::getUsedBytesUnsigned(numbersArray,arrayLength), endianess){}
+	Unsigned::Unsigned(const util::RuntimeArray<unsigned char> &array, const Endianess endianess) :
+			Integer(util::withoutMeaninglessChars(array, false), endianess){}
 
-	Unsigned *const Unsigned::fromBigEndianArray(const unsigned char *const numbersArray, const unsigned long long arrayLength){
-		return new Unsigned { numbersArray, arrayLength, Endianess::Big };
+	Unsigned *const Unsigned::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
+		return new Unsigned { array, Endianess::Big };
 	}
 
-	Unsigned *const Unsigned::fromLittleEndianArray(const unsigned char *const numbersArray, const unsigned long long arrayLength){
-		return new Unsigned { numbersArray, arrayLength, Endianess::Little };
+	Unsigned *const Unsigned::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
+		return new Unsigned { array, Endianess::Little };
 	}
 
 	Unsigned *const Unsigned::fromBinaryInString(const std::string &binaryInString){
@@ -52,40 +53,7 @@ namespace numb {
 	Unsigned *const Unsigned::fromHexadecimalInString(const std::string &hexadecimalInString){
 		std::unique_ptr<unsigned char[]> chars{util::numb::arrayFromHexadecimal(hexadecimalInString)};
 		unsigned long long length = util::numb::sizeFromHexadecimal(hexadecimalInString);
-		return fromLittleEndianArray(chars.get(), length);
-	}
-
-	//======================================
-	//-------------COMPARABLE---------------
-	//======================================
-
-
-	const CompareResult Unsigned::compare(const RealNumber *const toCompare) const{
-		return invertComparison(static_cast<const coma::numb::Comparable<Unsigned> *const >(toCompare)->compare(this));
-	}
-
-	const CompareResult Unsigned::compare(const FloatingPoint *const toCompare) const{
-		return invertComparison(static_cast<const coma::numb::Comparable<Unsigned> *const >(toCompare)->compare(this));
-	}
-
-	const CompareResult Unsigned::compare(const Signed *const toCompare) const{
-		return invertComparison(static_cast<const coma::numb::Comparable<Unsigned> *const >(toCompare)->compare(this));
-	}
-
-	const CompareResult Unsigned::compare(const Unsigned *const toCompare) const{
-		if(!toCompare) throw 1;//TODO exceptions
-		if(toCompare->getArraySize() == this->getArraySize()){
-			unsigned long long i { 0 };
-			unsigned long long index { this->getArraySize() - 1 };
-			while(i < this->getArraySize() && this->getArray()[index] == toCompare->getArray()[index]){
-				++i;
-				--index;
-			}
-			if (i == this->getArraySize()) return CompareResult::Equal;
-			else return this->getArray()[index] < toCompare->getArray()[index] ?
-				CompareResult::ThisLesser : CompareResult::ThisGreater;
-		}
-		else return toCompare->getArraySize() > this->getArraySize() ? CompareResult::ThisLesser : CompareResult::ThisGreater;
+		return fromLittleEndianArray({chars.get(), length});
 	}
 
 	//======================================
@@ -110,11 +78,10 @@ namespace numb {
 
 	Number *const Unsigned::getSum(const Unsigned *const toAdd) const{
 		if(!toAdd) throw 1;//TODO exceptions
-		unsigned long long resultSize = std::max(this->getArraySize(), toAdd->getArraySize()) + 1;
-		std::unique_ptr<unsigned char[]> result{ new unsigned char [resultSize] {}};
-		std::copy(this->getArray(), this->getArray() + this->getArraySize(), result.get());
-		util::numb::addArray(result.get(), resultSize, toAdd->getArray(), toAdd->getArraySize());
-		return fromLittleEndianArray(result.get(), resultSize);
+		util::RuntimeArray<unsigned char> tmp{ std::max(this->getArray().length(), toAdd->getArray().length()) + 1 };
+		std::copy(getArray().begin(), getArray().end(), tmp.begin());
+		tmp += toAdd->getArray();
+		return fromLittleEndianArray(tmp);
 	}
 
 	Number *const Unsigned::getDifference(const Number *const toSubtract) const{
@@ -156,22 +123,10 @@ namespace numb {
 
 	Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
 		if(!toMultiply) throw 1;//TODO exceptions
-		unsigned long long size { this->getArraySize() + toMultiply->getArraySize() };
-		std::unique_ptr<unsigned char[]> table { new unsigned char[size] { } };
-		const unsigned char *arr1 = this->getArray();
-		const unsigned char *arr2 = toMultiply->getArray();
-		unsigned char carry { 0 };
-		for(unsigned long long i = 0; i < this->getArraySize(); ++i){
-			unsigned buffer { 0 };
-			for(unsigned long long j = 0; j < toMultiply->getArraySize(); ++j){
-				buffer = arr1[i] * arr2[j];
-				unsigned char lower { static_cast<unsigned char>(buffer)      };
-				unsigned char upper { static_cast<unsigned char>(buffer >> 8) };
-				if((table[i + j]     += lower + carry) < (lower + carry)) carry = 1; else carry = 0;
-				if((table[i + j + 1] += upper + carry) < (upper + carry)) carry = 1; else carry = 0;
-			}
-		}while(!table[size - 1]) --size;
-		return fromLittleEndianArray(table.get(), size);
+		util::RuntimeArray<unsigned char> tmp{ this->getArray().length() + toMultiply->getArray().length() };
+		std::copy(getArray().begin(), getArray().end(), tmp.begin());
+		tmp *= toMultiply->getArray();
+		return fromLittleEndianArray(tmp);
 	}
 
 	Number *const Unsigned::getQuotient(const Number *const toDivide) const{
@@ -240,7 +195,7 @@ namespace numb {
 	//======================================
 
 	const bool Unsigned::isZero() const{
-		return getArraySize() == 1 && getArray()[0] == 0;
+		return getArray().length() == 1 && getArray()[0] == 0;
 	}
 
 	const std::string Unsigned::getAsBinary() const{
@@ -262,8 +217,8 @@ namespace numb {
 		std::stringstream ss{ };
 		ss << std::uppercase;
 		ss << std::setfill('0');
-		for(unsigned long long i = 0; i < getArraySize(); ++i){
-			unsigned int tmp = getArray()[getArraySize() - 1 - i];
+		for(unsigned long long i = 0; i < getArray().length(); ++i){
+			unsigned int tmp = getArray()[getArray().length() - 1 - i];
 			ss << std::hex << std::setw(2) << tmp;
 		}
 		std::string tmp = ss.str();
@@ -272,7 +227,7 @@ namespace numb {
 	}
 
 	Unsigned *const Unsigned::getAsUnsignedInteger() const{
-		return fromLittleEndianArray(getArray(), getArraySize());
+		return fromLittleEndianArray(getArray());
 	}
 
 	Signed *const Unsigned::getAsSignedInteger() const{
@@ -342,67 +297,17 @@ namespace numb {
 	Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{
 		if(!toDivide) throw 1;//TODO exceptions
 		if(toDivide->isZero()) throw 1;//TODO exceptions
-		unsigned long long size = std::max(this->getArraySize(), toDivide->getArraySize());
-		std::unique_ptr<unsigned char[]> array1{new unsigned char[size]{}};
-		std::copy(this->getArray(), this->getArray() + this->getArraySize(), array1.get());
-		std::unique_ptr<unsigned char[]> array2{new unsigned char[size]{}};
-		std::copy(toDivide->getArray(), toDivide->getArray() + toDivide->getArraySize(), array2.get());
-		std::unique_ptr<unsigned char[]> quot(new unsigned char[size]{});
-		std::unique_ptr<unsigned char[]> rema(new unsigned char[size]{});
-
-		//magic happens here
-		for(unsigned long long i = 0; i < size; ++i){
-			util::numb::shiftArrayLeft(rema.get(), size);
-			rema[0] = array1[size - 1 - i];
-			bool RgeD {};
-			do{
-				unsigned long long j { 0 };
-				unsigned long long index { size - 1 };
-				while(j < size && rema[index] == array2[index]){
-					++j;
-					--index;
-				}
-				RgeD =  (rema[index] > array2[index] || j == size );//R >= D
-				if (RgeD){
-					util::numb::subtractArray(rema.get(), size, array2.get(), size);
-					quot[size - 1 - i] += 1;
-				}
-			}while(RgeD);
-		}
-		return fromLittleEndianArray(quot.get(), size);
+		util::RuntimeArray<unsigned char> result = getArray();
+		result /= toDivide->getArray();
+		return fromLittleEndianArray(result);
 	}
 
 	Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{
 		if(!toDivide) throw 1;//TODO exceptions
 		if(toDivide->isZero()) throw 1;//TODO exceptions
-		unsigned long long size = std::max(this->getArraySize(), toDivide->getArraySize());
-		std::unique_ptr<unsigned char[]> array1{new unsigned char[size]{}};
-		std::copy(this->getArray(), this->getArray() + this->getArraySize(), array1.get());
-		std::unique_ptr<unsigned char[]> array2{new unsigned char[size]{}};
-		std::copy(toDivide->getArray(), toDivide->getArray() + toDivide->getArraySize(), array2.get());
-		std::unique_ptr<unsigned char[]> quot(new unsigned char[size]{});
-		std::unique_ptr<unsigned char[]> rema(new unsigned char[size]{});
-
-		//magic happens here
-		for(unsigned long long i = 0; i < size; ++i){
-			util::numb::shiftArrayLeft(rema.get(), size);
-			rema[0] = array1[size - 1 - i];
-			bool RgeD {};
-			do{
-				unsigned long long j { 0 };
-				unsigned long long index { size - 1 };
-				while(j < size && rema[index] == array2[index]){
-					++j;
-					--index;
-				}
-				RgeD =  (rema[index] > array2[index] || j == size );//R >= D
-				if (RgeD){
-					util::numb::subtractArray(rema.get(), size, array2.get(), size);
-					quot[size - 1 - i] += 1;
-				}
-			}while(RgeD);
-		}
-		return fromLittleEndianArray(rema.get(), size);
+		util::RuntimeArray<unsigned char> result = getArray();
+		result %= toDivide->getArray();
+		return fromLittleEndianArray(result);
 	}
 
 	Integer *const Unsigned::getIntegerQuotientInverse(const Unsigned *const dividend) const{

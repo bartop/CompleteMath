@@ -26,7 +26,7 @@ unsigned char *const arrayFromSignedHexadecimal(const std::string &hex){
 	removeLeftTrailingZeroes(tempCopy);
 	unsigned long long size = sizeFromSignedHexadecimal(hex);
 	unsigned char *array = new unsigned char[size]{};
-	fillArrayfromHexadecimal(tempCopy, array, size);
+	fillArrayfromHexadecimal(tempCopy, array, tempCopy.length() / 2 + tempCopy.length() % 2);
 	if(hex[0] == '-'){
 		util::numb::negateArray(array, size);
 	}
