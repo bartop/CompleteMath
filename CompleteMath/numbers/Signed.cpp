@@ -104,9 +104,14 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
 	}
 
-	Number *const Signed::getDifference(const Signed *const toSubtract) const{//TODO this is bulls**t, have to rewrite it
-		std::unique_ptr<coma::numb::Arithmetic<Number> > right{ toSubtract->getNegation() };
-		return right->getSum(this);
+	Number *const Signed::getDifference(const Signed *const toSubtract) const{
+		util::RuntimeArray<unsigned char>
+			left { std::max(this->getArray().length(), toSubtract->getArray().length()) + 1,  this->isNegative() ? 0xFF : 0 },
+			right{ std::max(this->getArray().length(), toSubtract->getArray().length()) + 1, toSubtract->isNegative() ? 0xFF : 0 };
+		std::copy(this      ->getArray().begin(), this      ->getArray().end(), left .begin());
+		std::copy(toSubtract->getArray().begin(), toSubtract->getArray().end(), right.begin());
+		left -= right;
+		return fromLittleEndianArray(left);
 	}
 
 	Number *const Signed::getDifference(const Unsigned *const toSubtract) const{
@@ -257,10 +262,11 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 	}
 
 	Number *const Signed::getNegation() const{
-		util::RuntimeArray<unsigned char> tmp { getArray().length() + 1 };
+		util::RuntimeArray<unsigned char> tmp { getArray().length() + 1, isNegative() ? 0xFF : 0 };
 		std::copy(getArray().begin(), getArray().end(), tmp.begin());
 		util::negate(tmp);
-		return fromLittleEndianArray(tmp);
+		if(isNegative()) return Unsigned::fromLittleEndianArray(tmp);
+		else Signed::fromLittleEndianArray(tmp);
 	}
 
 	Number *const Signed::getInversion() const{
@@ -296,40 +302,32 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 	}
 
 	Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{//TODO test, then optimize
-		std::unique_ptr<Integer> left{}, right{}, result{};
-		if(this->isNegative()){
-			left.reset(std::unique_ptr<Number>(this->getNegation())->getAsUnsignedInteger());
-		}else{
-			left.reset(this->getAsUnsignedInteger());
-		}
-		if(toDivide->isNegative()){
-			left.reset(std::unique_ptr<Number>(toDivide->getNegation())->getAsUnsignedInteger());
-		}else{
-			left.reset(toDivide->getAsUnsignedInteger());
-		}
-		result.reset(static_cast<const coma::numb::IntegerArithmetic<Integer> *const>(left.get())->getIntegerQuotient(right.get()));
-		if(this->isNegative() != toDivide->isNegative()) result.reset(std::unique_ptr<Number>(result->getNegation())->getAsSignedInteger());
-		return result.release();
+		util::RuntimeArray<unsigned char>
+			left { this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0 },
+			right{ toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0 };
+		std::copy(this    ->getArray().begin(), this    ->getArray().end(), left .begin());
+		std::copy(toDivide->getArray().begin(), toDivide->getArray().end(), right.begin());
+		if(this    ->isNegative()) util::negate(left);
+		if(toDivide->isNegative()) util::negate(right);
+		left /= right;
+		if(this->isNegative() != toDivide->isNegative()) util::negate(left);
+		return fromLittleEndianArray(left);
 	}
 
 	Integer *const Signed::getRemainder(const Signed *const toDivide) const{//TODO test and improve later
-		std::unique_ptr<Integer> left{}, right{}, result{};
-		if(this->isNegative()){
-			left.reset(std::unique_ptr<Number>(this->getNegation())->getAsUnsignedInteger());
-		}else{
-			left.reset(this->getAsUnsignedInteger());
-		}
-		if(toDivide->isNegative()){
-			left.reset(std::unique_ptr<Number>(toDivide->getNegation())->getAsUnsignedInteger());
-		}else{
-			left.reset(toDivide->getAsUnsignedInteger());
-		}
-		result.reset(static_cast<const coma::numb::IntegerArithmetic<Integer> *const>(left.get())->getRemainder(right.get()));
+		util::RuntimeArray<unsigned char>
+			left { this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0 },
+			right{ toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0 };
+		std::copy(this    ->getArray().begin(), this    ->getArray().end(), left .begin());
+		std::copy(toDivide->getArray().begin(), toDivide->getArray().end(), right.begin());
+		if(this    ->isNegative()) util::negate(left);
+		if(toDivide->isNegative()) util::negate(right);
+		left %= right;
 		if(this->isNegative() != toDivide->isNegative()){
-			result.reset(std::unique_ptr<Number>(static_cast<const coma::numb::Arithmetic<Number> *const>(right.get())->
-					getDifference(result.get()))->getAsSignedInteger());
+			util::negate(left);
+			left += right;
 		}
-		return result.release();
+		return fromLittleEndianArray(left);
 	}
 
 	Integer *const Signed::getIntegerQuotientInverse(const Signed *const dividend) const{

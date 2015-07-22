@@ -62,6 +62,30 @@ void subtractWithBorrow(unsigned char &left, const unsigned char right, unsigned
 	left -= right;
 }
 
+const int compare(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
+	unsigned long long index { std::max(lhs.length(), rhs.length()) - 1 };
+	unsigned long long lower { std::min(lhs.length(), rhs.length()) - 1 };
+	const RuntimeArray<unsigned char> &longer { (rhs.length() > lhs.length()) ? rhs : lhs };
+	while (index > lower && longer[index] == 0){
+		--index;
+	}
+	if(index <= lower){
+		while (index > 0 && lhs[index] == rhs[index]){
+			--index;
+		}
+		if(index != 0){
+			if(lhs[index] < rhs[index]) return -1;
+			else return 1;
+		}else{
+			if(lhs[index] == rhs[index]) return 0;
+			else if(lhs[index] > rhs[index]) return 1;
+			else return -1;
+		}
+	}else{
+		return lhs.length() - rhs.length();
+	}
+}
+
 }
 
 void negate(RuntimeArray<unsigned char> &toNegate){
@@ -133,7 +157,7 @@ const RuntimeArray<unsigned char> operator-(const RuntimeArray<unsigned char> &a
 }
 
 RuntimeArray<unsigned char> &operator<<=(RuntimeArray<unsigned char> &lhs, unsigned long long rhs){
-	for(unsigned long long i = 0; (i + rhs) < lhs.length(); ++i) lhs[i + rhs] = lhs[i];
+	for(unsigned long long i = rhs; i < lhs.length(); ++i) lhs[lhs.length() - i] = lhs[lhs.length() - i - rhs];
 	for(unsigned long long i = 0; i < rhs; ++i) lhs[i] = 0;
 	return lhs;
 }
@@ -170,21 +194,16 @@ const RuntimeArray<unsigned char> operator*(const RuntimeArray<unsigned char> &l
 }
 
 RuntimeArray<unsigned char> &operator/=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
-	RuntimeArray<unsigned char> left = lhs;
-	RuntimeArray<unsigned char> rema { lhs.length() };
+	RuntimeArray<unsigned char>
+		left = lhs,
+		rema { lhs.length() };
 	std::fill(lhs.begin(), lhs.end(), 0);
 	for(unsigned long long i = 0; i < lhs.length(); ++i){
 		rema <<= 1;
 		rema[0] = left[lhs.length() - 1 - i];
 		bool RgeD {};
 		do{
-			unsigned long long j { 0 };
-			unsigned long long index { lhs.length() - 1 };
-			while(j < lhs.length() && rema[index] == rhs[index]){
-				++j;
-				--index;
-			}
-			RgeD =  (rema[index] > rhs[index] || j == lhs.length());//R >= D
+			RgeD = (compare(rema, rhs) > 0);
 			if (RgeD){
 				rema -= rhs;
 				lhs[lhs.length() - 1 - i] += 1;
@@ -201,21 +220,16 @@ const RuntimeArray<unsigned char> operator/(const RuntimeArray<unsigned char> &l
 }
 
 RuntimeArray<unsigned char> &operator%=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
-	RuntimeArray<unsigned char> left = lhs;
-	RuntimeArray<unsigned char> quot { lhs.length() };
+	RuntimeArray<unsigned char>
+		left = lhs,
+		quot { lhs.length() };
 	std::fill(lhs.begin(), lhs.end(), 0);
 	for(unsigned long long i = 0; i < lhs.length(); ++i){
 		lhs <<= 1;
 		lhs[0] = left[quot.length() - 1 - i];
 		bool RgeD {};
 		do{
-			unsigned long long j { 0 };
-			unsigned long long index { quot.length() - 1 };
-			while(j < quot.length() && lhs[index] == rhs[index]){
-				++j;
-				--index;
-			}
-			RgeD =  (lhs[index] > rhs[index] || j == quot.length());//R >= D
+			RgeD = (compare(lhs, rhs) > 0);
 			if (RgeD){
 				lhs -= rhs;
 				quot[lhs.length() - 1 - i] += 1;

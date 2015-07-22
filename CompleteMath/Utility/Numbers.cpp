@@ -104,7 +104,7 @@ const unsigned long long getUsedBytesUnsigned(const unsigned char *const array, 
 const unsigned long long getUsedBytesSigned(const unsigned char *const array,
 		const unsigned long long maxSize){
 	unsigned long long result { maxSize };
-	unsigned char value { array[maxSize - 1] & 0x80 ? static_cast<unsigned char>(-1) : 0 };
+	unsigned char value { array[maxSize - 1] & 0x80 ? 0xFF : 0 };
 	//TODO test, this is pure magical bit twiddling hack
 	while(array[result - 1] == value && ( ~(array[result - 1] ^ array[result - 2]) & 0x80) && result > 1 )
 		--result;
