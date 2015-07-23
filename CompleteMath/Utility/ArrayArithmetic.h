@@ -20,9 +20,6 @@ namespace util{
  * @param array
  * 	Array to copy inside.
  *
- * @param size
- * 	Size of given array.
- *
  * @param withSign
  * 	Tells if array contains sing or unsigned number.
  *

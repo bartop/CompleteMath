@@ -22,11 +22,9 @@ public:
 	 * @brief
 	 * 	Constructs Unsigned from array of unsigned chars.
 	 *
-	 * @param numbersArray
+	 * @param array
 	 *	Array of bytes containing long number.
-	 *
-	 * @param arrayLenght
-	 * 	Length of the given array.
+
 	 *
 	 * @param endianess
 	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
@@ -38,11 +36,8 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from big-endian byte array and returns it.
 	 *
-	 * @param numbersArray
+	 * @param array
 	 *	Array of bytes containing long number.
-	 *
-	 * @param arrayLenght
-	 * 	Length of the given array.
 	 *
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
@@ -53,11 +48,8 @@ public:
 	 * @brief
 	 * 	Creates new Unsigned object from little-endian byte array and returns it.
 	 *
-	 * @param numbersArray
+	 * @param array
 	 *	Array of bytes containing long number.
-	 *
-	 * @param arrayLenght
-	 * 	Length of the given array.
 	 *
 	 * @return
 	 * 	New Unsigned object containing value stored in array.

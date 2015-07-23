@@ -86,30 +86,6 @@ void negateArray(unsigned char *const toNegate, const unsigned long long size){
 	addArray(toNegate, size, &one, 1);
 }
 
-void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
-			const unsigned char *const right, const unsigned long long sizeRight){
-	unsigned char borrow {0};
-	for(unsigned long long i = 0; i < sizeRight || (borrow == 1 && i < sizeLeft); ++i){
-		if(i < sizeRight) subtractWithBorrow(left[i], right[i], borrow);
-		else subtractWithBorrow(left[i], 0, borrow);
-	}
-}
-
-const unsigned long long getUsedBytesUnsigned(const unsigned char *const array, const unsigned long long maxSize){
-	unsigned long long result { maxSize };
-	while(array[result - 1] == 0 && result > 1) --result;
-	return result;
-}
-
-const unsigned long long getUsedBytesSigned(const unsigned char *const array,
-		const unsigned long long maxSize){
-	unsigned long long result { maxSize };
-	unsigned char value { array[maxSize - 1] & 0x80 ? 0xFF : 0 };
-	//TODO test, this is pure magical bit twiddling hack
-	while(array[result - 1] == value && ( ~(array[result - 1] ^ array[result - 2]) & 0x80) && result > 1 )
-		--result;
-	return result;
-}
 
 }
 }

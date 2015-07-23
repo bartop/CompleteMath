@@ -10,15 +10,15 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+
 #include "Unsigned.h"
 #include "Signed.h"
 #include "FloatingPoint.h"
 #include "Complex.h"
+
 #include "../Utility/Numbers.h"
 #include "../Utility/BaseConverter.h"
 #include "../Utility/ArrayArithmetic.h"
-
-#include <cassert>
 
 namespace coma {
 namespace numb {
@@ -231,7 +231,9 @@ namespace numb {
 	}
 
 	Signed *const Unsigned::getAsSignedInteger() const{
-		//TODO complete after Signed definition
+		util::RuntimeArray<unsigned char> tmp { getArray().length() + 1 };
+		std::copy(getArray().begin(), getArray().end(), tmp.begin());
+		return Signed::fromLittleEndianArray(tmp);
 	}
 
 	FloatingPoint *const Unsigned::getAsFloatingPoint() const{
@@ -243,7 +245,8 @@ namespace numb {
 	}
 
 	Number *const Unsigned::getNegation() const{
-		//TODO finish after Signed definition
+		std::unique_ptr<Signed> asSigned { getAsSignedInteger() };
+		return asSigned->getNegation();
 	}
 
 	Number *const Unsigned::getInversion() const{

@@ -135,50 +135,6 @@ void negateArray(unsigned char *const toNegate, const unsigned long long size);
 
 /**
  * @brief
- * 	Subtracts @c left array from @c right one.
- *
- * @param left
- *	Left operand of subtraction and the numbers difference.
- *
- * @param sizeLeft
- * 	Size of @c left array.
- *
- * @param right
- * 	Right operand of subtraction.
- *
- * @param sizeRight
- * 	Size of @c right array.
- */
-void subtractArray(unsigned char *const left, const unsigned long long sizeLeft,
-		const unsigned char *const right, const unsigned long long sizeRight);
-
-/**
- * @brief
- * 	Returns minimal number of bytes that can store given number in array for unsigned number.
- *
- * @param array
- * 	Array to be checked for unused bytes.
- *
- * @param maxSize
- * 	Allocated size of @c array.
- */
-const unsigned long long getUsedBytesUnsigned(const unsigned char *const array, const unsigned long long maxSize);
-
-/**
- * @brief
- * 	Returns minimal number of bytes that can store given number in array for signed number.
- *
- * @param array
- * 	Array to be checked for unused bytes.
- *
- * @param maxSize
- * 	Allocated size of @c array.
- */
-const unsigned long long getUsedBytesSigned(const unsigned char *const array,
-		const unsigned long long maxSize);
-
-/**
- * @brief
  *	Adds @c right value to @c left in place.
  *
  * @param left
