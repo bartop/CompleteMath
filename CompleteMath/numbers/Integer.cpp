@@ -26,7 +26,7 @@ const util::RuntimeArray<unsigned char> &Integer::getArray() const{
 	return m_integer;
 }
 
-Integer *const Integer::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false){
+Integer *const Integer::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned){
 	if(!asSigned) return Unsigned::fromLittleEndianArray(array);
 	else{
 		if(array[array.length() - 1] & 0x80) return Signed::fromLittleEndianArray(array);
@@ -34,7 +34,7 @@ Integer *const Integer::fromLittleEndianArray(const util::RuntimeArray<unsigned 
 	}
 }
 
-Integer *const Integer::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false){
+Integer *const Integer::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned){
 	if(!asSigned) return Unsigned::fromBigEndianArray(array);
 	else{
 		if(array[array.length() - 1] & 0x80) return Signed::fromBigEndianArray(array);

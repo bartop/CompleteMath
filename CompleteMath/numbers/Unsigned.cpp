@@ -294,7 +294,7 @@ namespace numb {
 	}
 
 	Integer *const Unsigned::getInverseRemainder(const Signed *const dividend) const{
-		return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getInverseRemainder(this);
+		return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getRemainder(this);
 	}
 
 	Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{
