@@ -9,7 +9,7 @@
 #define NUMBERS_NUMBER_H_
 
 #include <string>
-#include "Arithmetic.h"
+#include "../coreInterfaces/Arithmetic.h"
 
 namespace coma {
 namespace numb {
@@ -25,11 +25,11 @@ class Unsigned;
  *	Polymorphic interface for all numbers.
  */
 class Number :
-	public Arithmetic<Number>,
-	public Arithmetic<Complex, Number>,
-	public Arithmetic<FloatingPoint, Number>,
-	public Arithmetic<Signed, Number>,
-	public Arithmetic<Unsigned, Number>{
+	public core::Arithmetic<Number>,
+	public core::Arithmetic<Complex, Number>,
+	public core::Arithmetic<FloatingPoint, Number>,
+	public core::Arithmetic<Signed, Number>,
+	public core::Arithmetic<Unsigned, Number>{
 public:
 	static const Number *const ONE;
 	static const Number *const ZERO;

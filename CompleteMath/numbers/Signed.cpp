@@ -65,15 +65,15 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 	//======================================
 
 	Number *const Signed::getSum(const Number *const toAdd) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toAdd)->getSum(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Signed::getSum(const Complex *const toAdd) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toAdd)->getSum(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Signed::getSum(const FloatingPoint *const toAdd) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toAdd)->getSum(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Signed::getSum(const Signed *const toAdd) const{
@@ -88,20 +88,20 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 	}
 
 	Number *const Signed::getSum(const Unsigned *const toAdd) const{
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left { toAdd->getAsSignedInteger() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left { toAdd->getAsSignedInteger() };
 		return left->getSum(this);
 	}
 
 	Number *const Signed::getDifference(const Number *const toSubtract) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
 	}
 
 	Number *const Signed::getDifference(const Complex *const toSubtract) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
 	}
 
 	Number *const Signed::getDifference(const FloatingPoint *const toSubtract) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toSubtract)->getDifferenceNegation(this);
 	}
 
 	Number *const Signed::getDifference(const Signed *const toSubtract) const{
@@ -115,20 +115,20 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 	}
 
 	Number *const Signed::getDifference(const Unsigned *const toSubtract) const{
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left { toSubtract->getAsSignedInteger() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left { toSubtract->getAsSignedInteger() };
 		return left->getDifferenceNegation(this);
 	}
 
 	Number *const Signed::getProduct(const Number *const toMultiply) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toMultiply)->getProduct(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Signed::getProduct(const Complex *const toMultiply) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toMultiply)->getProduct(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Signed::getProduct(const FloatingPoint *const toMultiply) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toMultiply)->getProduct(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Signed::getProduct(const Signed *const toMultiply) const{
@@ -147,71 +147,71 @@ Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInSt
 	}
 
 	Number *const Signed::getProduct(const Unsigned *const toMultiply) const{//TODO serious testing
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left { toMultiply->getAsSignedInteger() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left { toMultiply->getAsSignedInteger() };
 		return left->getProduct(this);
 	}
 
 	Number *const Signed::getQuotient(const Number *const toDivide) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toDivide)->getQuotientInverse(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toDivide)->getQuotientInverse(this);
 	}
 
 	Number *const Signed::getQuotient(const Complex *const toDivide) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toDivide)->getQuotientInverse(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toDivide)->getQuotientInverse(this);
 	}
 
 	Number *const Signed::getQuotient(const FloatingPoint *const toDivide) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(toDivide)->getQuotientInverse(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(toDivide)->getQuotientInverse(this);
 	}
 
 	Number *const Signed::getQuotient(const Signed *const toDivide) const{
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left{ toDivide->getAsFloatingPoint() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left{ toDivide->getAsFloatingPoint() };
 		return left->getQuotientInverse(this);
 	}
 
 	Number *const Signed::getQuotient(const Unsigned *const toDivide) const{
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left { toDivide->getAsFloatingPoint() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left { toDivide->getAsFloatingPoint() };
 		return left->getQuotientInverse(this);
 	}
 
 	Number *const Signed::getDifferenceNegation(const Number *const minuend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
 	}
 
 	Number *const Signed::getDifferenceNegation(const Complex *const minuend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
 	}
 
 	Number *const Signed::getDifferenceNegation(const FloatingPoint *const minuend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
 	}
 
 	Number *const Signed::getDifferenceNegation(const Signed *const minuend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(minuend)->getDifference(this);
 	}
 
 	Number *const Signed::getDifferenceNegation(const Unsigned *const minuend) const{
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left { minuend->getAsSignedInteger() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left { minuend->getAsSignedInteger() };
 		return left->getDifference(this);
 	}
 
 	Number *const Signed::getQuotientInverse(const Number *const dividend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
 	}
 
 	Number *const Signed::getQuotientInverse(const Complex *const dividend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
 	}
 
 	Number *const Signed::getQuotientInverse(const FloatingPoint *const dividend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
 	}
 
 	Number *const Signed::getQuotientInverse(const Signed *const dividend) const{
-		return static_cast<const coma::numb::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
+		return static_cast<const coma::core::Arithmetic<Signed, Number> *const>(dividend)->getQuotient(this);
 	}
 
 	Number *const Signed::getQuotientInverse(const Unsigned *const dividend) const{
-		std::unique_ptr<coma::numb::Arithmetic<Signed, Number> > left { dividend->getAsSignedInteger() };
+		std::unique_ptr<coma::core::Arithmetic<Signed, Number> > left { dividend->getAsSignedInteger() };
 		return left->getQuotient(this);
 	}
 

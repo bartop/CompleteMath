@@ -9,7 +9,7 @@
 #define NUMBERS_ARITHMETIC_H_
 
 namespace coma {
-namespace numb {
+namespace core {
 /**
  * Interface class for objects for which arithmetical operations are possible.
  */
@@ -96,7 +96,7 @@ public:
 	virtual ~Arithmetic(){};
 };
 
-} /* namespace numb */
+} /* namespace core */
 } /* namespace coma */
 
 #endif /* NUMBERS_ARITHMETIC_H_ */

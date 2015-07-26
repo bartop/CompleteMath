@@ -13,9 +13,34 @@
 namespace coma {
 namespace numb {
 
+class Signed;
+class Unsigned;
+class Integer;
+
 class FloatingPoint: public RealNumber {
+
+	const Integer *const m_numerator;
+	const Unsigned *const m_denominator;
+	const Integer *const m_power;
+
 public:
-	FloatingPoint();
+	/**
+	 * @brief
+	 * 	Creates floating point number as quotient of two integers.
+	 *
+	 * @details
+	 * 	The number is stored in unusual kind of way: (numerator/denominator) * 256^power.
+	 *
+	 * @param numerator
+	 * 	Numerator of real number.
+	 *
+	 * @param denominator
+	 * 	Denominator of desired real number.
+	 *
+	 * @param power
+	 *	Power in formula given above.
+	 */
+	FloatingPoint(const Integer *const numerator, const Unsigned *const denominator, const Integer *const power);
 
 	//======================================
 	//-------------ARITHMETIC---------------
