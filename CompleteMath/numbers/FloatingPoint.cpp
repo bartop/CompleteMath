@@ -20,17 +20,30 @@ FloatingPoint::FloatingPoint(const Integer *const numerator, const Unsigned *con
 	m_denominator(denominator->getAsUnsignedInteger()),
 	m_power(power->getAsSignedInteger()){}
 
+FloatingPoint::~FloatingPoint() {
+	delete m_numerator;
+	delete m_denominator;
+	delete m_power;
+}
+
+//======================================
+//--------------COPYABLE----------------
+//======================================
+
+Number *const FloatingPoint::copy() const{
+	return getAsFloatingPoint();
+}
 
 //======================================
 //-------------ARITHMETIC---------------
 //======================================
 
 Number *const FloatingPoint::getSum(const Number *const toAdd) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toAdd)->getSum(this);
+	return toAdd->getSum(this);
 }
 
 Number *const FloatingPoint::getSum(const Complex *const toAdd) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toAdd)->getSum(this);
+	return toAdd->getSum(this);
 }
 
 Number *const FloatingPoint::getSum(const FloatingPoint *const toAdd) const{
@@ -43,43 +56,21 @@ Number *const FloatingPoint::getSum(const FloatingPoint *const toAdd) const{
 }
 
 Number *const FloatingPoint::getSum(const Signed *const toAdd) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toAdd->getAsFloatingPoint() };
+	std::unique_ptr<coma::numb::FloatingPoint> left { toAdd->getAsFloatingPoint() };
 	return left->getSum(this);
 }
 
 Number *const FloatingPoint::getSum(const Unsigned *const toAdd) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toAdd->getAsFloatingPoint() };
+	std::unique_ptr<coma::numb::FloatingPoint> left { toAdd->getAsFloatingPoint() };
 	return left->getSum(this);
 }
 
-Number *const FloatingPoint::getDifference(const Number *const toSubtract) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toSubtract)->getDifferenceNegation(this);
-}
-
-Number *const FloatingPoint::getDifference(const Complex *const toSubtract) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toSubtract)->getDifferenceNegation(this);
-}
-
-Number *const FloatingPoint::getDifference(const FloatingPoint *const toSubtract) const{
-	//TODO implement
-}
-
-Number *const FloatingPoint::getDifference(const Signed *const toSubtract) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toSubtract->getAsFloatingPoint() };
-	return left->getDifferenceNegation(this);
-}
-
-Number *const FloatingPoint::getDifference(const Unsigned *const toSubtract) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toSubtract->getAsFloatingPoint() };
-	return left->getDifferenceNegation(this);
-}
-
 Number *const FloatingPoint::getProduct(const Number *const toMultiply) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toMultiply)->getProduct(this);
+	return toMultiply->getProduct(this);
 }
 
 Number *const FloatingPoint::getProduct(const Complex *const toMultiply) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toMultiply)->getProduct(this);
+	return toMultiply->getProduct(this);
 }
 
 Number *const FloatingPoint::getProduct(const FloatingPoint *const toMultiply) const{
@@ -87,75 +78,13 @@ Number *const FloatingPoint::getProduct(const FloatingPoint *const toMultiply) c
 }
 
 Number *const FloatingPoint::getProduct(const Signed *const toMultiply) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toMultiply->getAsFloatingPoint() };
+	std::unique_ptr<coma::numb::FloatingPoint> left { toMultiply->getAsFloatingPoint() };
 	return left->getProduct(this);
 }
 
 Number *const FloatingPoint::getProduct(const Unsigned *const toMultiply) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toMultiply->getAsFloatingPoint() };
+	std::unique_ptr<coma::numb::FloatingPoint> left { toMultiply->getAsFloatingPoint() };
 	return left->getProduct(this);
-}
-
-Number *const FloatingPoint::getQuotient(const Number *const toDivide) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toDivide)->getQuotientInverse(this);
-}
-
-Number *const FloatingPoint::getQuotient(const Complex *const toDivide) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(toDivide)->getQuotientInverse(this);
-}
-
-Number *const FloatingPoint::getQuotient(const FloatingPoint *const toDivide) const{
-	//TODO implement
-}
-
-Number *const FloatingPoint::getQuotient(const Signed *const toDivide) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toDivide->getAsFloatingPoint() };
-	return left->getQuotientInverse(this);
-}
-
-Number *const FloatingPoint::getQuotient(const Unsigned *const toDivide) const{
-	std::unique_ptr<coma::core::Arithmetic<FloatingPoint, Number> > left { toDivide->getAsFloatingPoint() };
-	return left->getQuotientInverse(this);
-}
-
-Number *const FloatingPoint::getDifferenceNegation(const Number *const minuend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(minuend)->getDifference(this);
-}
-
-Number *const FloatingPoint::getDifferenceNegation(const Complex *const minuend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(minuend)->getDifference(this);
-}
-
-Number *const FloatingPoint::getDifferenceNegation(const FloatingPoint *const minuend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(minuend)->getDifference(this);
-}
-
-Number *const FloatingPoint::getDifferenceNegation(const Signed *const minuend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(minuend)->getDifference(this);
-}
-
-Number *const FloatingPoint::getDifferenceNegation(const Unsigned *const minuend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(minuend)->getDifference(this);
-}
-
-Number *const FloatingPoint::getQuotientInverse(const Number *const dividend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(dividend)->getQuotient(this);
-}
-
-Number *const FloatingPoint::getQuotientInverse(const Complex *const dividend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(dividend)->getQuotient(this);
-}
-
-Number *const FloatingPoint::getQuotientInverse(const FloatingPoint *const dividend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(dividend)->getQuotient(this);
-}
-
-Number *const FloatingPoint::getQuotientInverse(const Signed *const dividend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(dividend)->getQuotient(this);
-}
-
-Number *const FloatingPoint::getQuotientInverse(const Unsigned *const dividend) const{
-	return static_cast<const coma::core::Arithmetic<FloatingPoint, Number> *const>(dividend)->getQuotient(this);
 }
 
 //======================================
@@ -225,11 +154,6 @@ const bool FloatingPoint::isPositive() const{
 	return m_numerator->isPositive();
 }
 
-FloatingPoint::~FloatingPoint() {
-	delete m_numerator;
-	delete m_denominator;
-	delete m_power;
-}
 
 } /* namespace numb */
 } /* namespace coma */

@@ -24,123 +24,33 @@ Complex::Complex() {
 	//======================================
 
 	Number *const Complex::getSum(const Number *const toAdd) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Complex::getSum(const Complex *const toAdd) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Complex::getSum(const FloatingPoint *const toAdd) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Complex::getSum(const Signed *const toAdd) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toAdd)->getSum(this);
 	}
 
 	Number *const Complex::getSum(const Unsigned *const toAdd) const{
 	}
 
-	Number *const Complex::getDifference(const Number *const toSubtract) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toSubtract)->getDifferenceNegation(this);
-	}
-
-	Number *const Complex::getDifference(const Complex *const toSubtract) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toSubtract)->getDifferenceNegation(this);
-	}
-
-	Number *const Complex::getDifference(const FloatingPoint *const toSubtract) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toSubtract)->getDifferenceNegation(this);
-	}
-
-	Number *const Complex::getDifference(const Signed *const toSubtract) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toSubtract)->getDifferenceNegation(this);
-	}
-
-	Number *const Complex::getDifference(const Unsigned *const toSubtract) const{
-		std::unique_ptr<coma::core::Arithmetic<Complex, Number> > left { toSubtract->getAsSignedInteger() };
-		return left->getDifferenceNegation(this);
-	}
-
 	Number *const Complex::getProduct(const Number *const toMultiply) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Complex::getProduct(const Complex *const toMultiply) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Complex::getProduct(const FloatingPoint *const toMultiply) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Complex::getProduct(const Signed *const toMultiply) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toMultiply)->getProduct(this);
 	}
 
 	Number *const Complex::getProduct(const Unsigned *const toMultiply) const{
-	}
-
-	Number *const Complex::getQuotient(const Number *const toDivide) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toDivide)->getQuotientInverse(this);
-	}
-
-	Number *const Complex::getQuotient(const Complex *const toDivide) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toDivide)->getQuotientInverse(this);
-	}
-
-	Number *const Complex::getQuotient(const FloatingPoint *const toDivide) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toDivide)->getQuotientInverse(this);
-	}
-
-	Number *const Complex::getQuotient(const Signed *const toDivide) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(toDivide)->getQuotientInverse(this);
-	}
-
-	Number *const Complex::getQuotient(const Unsigned *const toDivide) const{
-		std::unique_ptr<coma::core::Arithmetic<Complex, Number> > left { toDivide->getAsFloatingPoint() };
-		return left->getQuotientInverse(this);
-	}
-
-	Number *const Complex::getDifferenceNegation(const Number *const minuend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(minuend)->getDifference(this);
-	}
-
-	Number *const Complex::getDifferenceNegation(const Complex *const minuend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(minuend)->getDifference(this);
-	}
-
-	Number *const Complex::getDifferenceNegation(const FloatingPoint *const minuend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(minuend)->getDifference(this);
-	}
-
-	Number *const Complex::getDifferenceNegation(const Signed *const minuend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(minuend)->getDifference(this);
-	}
-
-	Number *const Complex::getDifferenceNegation(const Unsigned *const minuend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(minuend)->getDifference(this);
-	}
-
-	Number *const Complex::getQuotientInverse(const Number *const dividend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(dividend)->getQuotient(this);
-	}
-
-	Number *const Complex::getQuotientInverse(const Complex *const dividend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(dividend)->getQuotient(this);
-	}
-
-	Number *const Complex::getQuotientInverse(const FloatingPoint *const dividend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(dividend)->getQuotient(this);
-	}
-
-	Number *const Complex::getQuotientInverse(const Signed *const dividend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(dividend)->getQuotient(this);
-	}
-
-	Number *const Complex::getQuotientInverse(const Unsigned *const dividend) const{
-		return static_cast<const coma::core::Arithmetic<Complex, Number> *const>(dividend)->getQuotient(this);
 	}
 
 	//======================================

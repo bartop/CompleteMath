@@ -11,12 +11,26 @@
 #include "Signed.h"
 #include "Unsigned.h"
 
+#include <memory>
+
 namespace coma{
 namespace numb{
 
-const Number *const Number::ONE = Unsigned::fromHexadecimalInString("1");
+template<>
+const Number *const core::Multiplyable<Number>::NEUTRAL_ELEMENT = numb::Unsigned::fromHexadecimalInString("1");
 
-const Number *const Number::ZERO = Unsigned::fromHexadecimalInString("0");
+template<>
+const Number *const core::Addable<Number>::NEUTRAL_ELEMENT = numb::Unsigned::fromHexadecimalInString("0");
+
+Number *const Number::getDifference(const Number *const toSubtract) const{
+	std::unique_ptr<Number> negation { toSubtract->getNegation() };
+	return negation->getSum(this);
+}
+
+Number *const Number::getQuotient(const Number *const toDivide) const{
+	std::unique_ptr<Number> inversion { toDivide->getInversion() };
+	return this->getQuotient(inversion.get());
+}
 
 }
 }

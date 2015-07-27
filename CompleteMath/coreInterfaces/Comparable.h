@@ -9,7 +9,7 @@
 #define NUMBERS_COMPARABLE_H_
 
 namespace coma {
-namespace numb {
+namespace core {
 
 /**
  * @brief
@@ -53,7 +53,7 @@ public:
 	virtual ~Comparable(){}
 };
 
-} /* namespace numb */
+} /* namespace core */
 } /* namespace coma */
 
 #endif /* NUMBERS_COMPARABLE_H_ */

@@ -8,11 +8,13 @@
 #ifndef NUMBERS_REALNUMBER_H_
 #define NUMBERS_REALNUMBER_H_
 
-#include "Comparable.h"
+#include "../coreInterfaces/Comparable.h"
 #include "Number.h"
 
 namespace coma {
 namespace numb {
+
+typedef core::CompareResult CompareResult;
 
 /**
  * @brief
@@ -20,7 +22,7 @@ namespace numb {
  */
 class RealNumber:
 		public Number,
-		public Comparable<RealNumber>{
+		public core::Comparable<RealNumber>{
 public:
 
 	/**

@@ -10,6 +10,7 @@
 
 #include <string>
 #include "../coreInterfaces/Arithmetic.h"
+#include "../coreInterfaces/Copyable.h"
 
 namespace coma {
 namespace numb {
@@ -19,40 +20,19 @@ class FloatingPoint;
 class Signed;
 class Unsigned;
 
-
 /**
  * @brief
  *	Polymorphic interface for all numbers.
  */
-class Number :
+class Number:
 	public core::Arithmetic<Number>,
-	public core::Arithmetic<Complex, Number>,
-	public core::Arithmetic<FloatingPoint, Number>,
-	public core::Arithmetic<Signed, Number>,
-	public core::Arithmetic<Unsigned, Number>{
+	public core::Copyable<Number>{
 public:
-	static const Number *const ONE;
-	static const Number *const ZERO;
-	static const Number *const I;
-	static const Number *const PI;
-	static const Number *const E;
 	/**
 	 * @brief
-	 * 	Method to get opposite value.
-	 *
-	 * @return
-	 * 	Negation of the number stored in @c *this.
+	 * 	Dummy virtual destructor.
 	 */
-	virtual Number *const getNegation() const = 0;
-
-	/**
-	 * @brief
-	 * 	Method to get inverse value.
-	 *
-	 * @return
-	 * 	Inverse of the value stored in @c *this.
-	 */
-	virtual Number *const getInversion() const = 0;
+	virtual ~Number(){}
 
 	/**
 	 * @brief
@@ -168,11 +148,109 @@ public:
 	 * @}
 	 */
 
+	using core::Addable<Number>::getSum;
+
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toAdd
+	 * 	Number to add to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual ~Number(){}
+	virtual Number *const getSum(const Complex *const toAdd) const = 0;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toAdd
+	 * 	Number to add to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @a *toAdd and @c *this.
+	 */
+	virtual Number *const getSum(const FloatingPoint *const toAdd) const = 0;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toAdd
+	 * 	Number to add to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @a *toAdd and @c *this.
+	 */
+	virtual Number *const getSum(const Signed *const toAdd) const = 0;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toAdd
+	 * 	Number to add to @c *this.
+	 *
+	 * @return
+	 * 	Sum of @a *toAdd and @c *this.
+	 */
+	virtual Number *const getSum(const Unsigned *const toAdd) const = 0;
+
+	using core::Multiplyable<Number>::getProduct;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toMultiply
+	 * 	Number to multiply by @c *this.
+	 *
+	 * @return
+	 * 	Product of @a *toMultiply and @c *this.
+	 */
+	virtual Number *const getProduct(const Complex *const toMultiply) const = 0;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toMultiply
+	 * 	Number to multiply by @c *this.
+	 *
+	 * @return
+	 * 	Product of @a *toMultiply and @c *this.
+	 */
+	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const = 0;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toMultiply
+	 * 	Number to multiply by @c *this.
+	 *
+	 * @return
+	 * 	Product of @a *toMultiply and @c *this.
+	 */
+	virtual Number *const getProduct(const Signed *const toMultiply) const = 0;
+
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toMultiply
+	 * 	Number to multiply by @c *this.
+	 *
+	 * @return
+	 * 	Product of @a *toMultiply and @c *this.
+	 */
+	virtual Number *const getProduct(const Unsigned *const toMultiply) const = 0;
+
+	virtual Number *const getDifference(const Number *const toSubtract) const override;
+
+	virtual Number *const getQuotient(const Number *const toDivide) const override;
 };
 
 } /* namespace numb */
