@@ -57,6 +57,10 @@ Complex::Complex() {
 	//---------------NUMBER-----------------
 	//======================================
 
+	Number *const Complex::getAbsoluteValue() const{
+
+	}
+
 	const bool Complex::isZero() const{
 	}
 

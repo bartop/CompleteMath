@@ -10,20 +10,24 @@
 #include "FloatingPoint.h"
 #include "Signed.h"
 #include "Unsigned.h"
+#include "math.h"
 
 namespace coma {
 namespace numb {
 
+//======================================
+//------------FLOATINGPOINT-------------
+//======================================
 
 FloatingPoint::FloatingPoint(const Integer *const numerator, const Unsigned *const denominator, const Integer *const power):
-	m_numerator(),
-	m_denominator(denominator->getAsUnsignedInteger()),
-	m_power(power->getAsSignedInteger()){}
+	m_numerator(static_cast<Integer *>(numerator->copy())),
+	m_denominator(static_cast<Unsigned *>(denominator->copy())),
+	m_power(static_cast<Integer *>(power->copy())){}
 
 FloatingPoint::~FloatingPoint() {
-	delete m_numerator;
-	delete m_denominator;
-	delete m_power;
+	if(m_numerator) delete m_numerator;
+	if(m_denominator) delete m_denominator;
+	if(m_power) delete m_power;
 }
 
 //======================================
@@ -51,6 +55,7 @@ Number *const FloatingPoint::getSum(const FloatingPoint *const toAdd) const{
 		std::unique_ptr<Number>
 			sum { static_cast<const coma::core::Arithmetic<Number> *>(this->m_numerator)->getSum(toAdd->m_numerator) };
 	}else{
+		std::unique_ptr<Integer> GCD { getGCD(this->m_denominator, toAdd->m_denominator) };
 
 	}
 }
@@ -74,7 +79,9 @@ Number *const FloatingPoint::getProduct(const Complex *const toMultiply) const{
 }
 
 Number *const FloatingPoint::getProduct(const FloatingPoint *const toMultiply) const{
-	//TODO implement
+	Integer *numerator  = this->m_numerator->getProduct(toMultiply->m_numerator);
+	Unsigned *denominator  = this->m_denominator->getProduct(toMultiply->m_denominator);
+	Integer *power = this->m_power->getSum(toMultiply->m_power);
 }
 
 Number *const FloatingPoint::getProduct(const Signed *const toMultiply) const{

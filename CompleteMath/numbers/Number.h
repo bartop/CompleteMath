@@ -36,6 +36,15 @@ public:
 
 	/**
 	 * @brief
+	 * 	Gets absolute value of @c *this.
+	 *
+	 * @return
+	 * 	Absolute value of @c *this.
+	 */
+	virtual Number *const getAbsoluteValue() const = 0;
+
+	/**
+	 * @brief
 	 * 	Checks if stored value is equal to zero.
 	 *
 	 * @return

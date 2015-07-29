@@ -20,5 +20,11 @@ const CompareResult RealNumber::compare(const RealNumber *const toCompare) const
 	else return CompareResult::ThisLesser;
 }
 
+Number *const RealNumber::getAbsoluteValue() const{
+	if(isNegative()) return this->getNegation();
+	else return this->copy();
+}
+
+
 } /* namespace numb */
 } /* namespace coma */

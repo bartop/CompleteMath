@@ -53,6 +53,7 @@ public:
 	//---------------NUMBER-----------------
 	//======================================
 
+	virtual Number *const getAbsoluteValue() const override;
 	virtual const bool isZero() const override;
 
 	/**

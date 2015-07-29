@@ -19,19 +19,9 @@ namespace numb {
  */
 class Unsigned final: public Integer{
 public:
-	/**
-	 * @brief
-	 * 	Constructs Unsigned from array of unsigned chars.
-	 *
-	 * @param array
-	 *	Array of bytes containing long number.
-
-	 *
-	 * @param endianess
-	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
-	 */
-	explicit Unsigned(const util::RuntimeArray<unsigned char> &array,
-			const Endianess endianess = Endianess::Little);
+	//======================================
+	//--------------UNSIGNED----------------
+	//======================================
 
 	/**
 	 * @brief
@@ -277,6 +267,21 @@ public:
 	/**
 	 * @}
 	 */
+
+private:
+	/**
+	 * @brief
+	 * 	Constructs Unsigned from array of unsigned chars.
+	 *
+	 * @param array
+	 *	Array of bytes containing long number.
+
+	 *
+	 * @param endianess
+	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
+	 */
+	explicit Unsigned(const util::RuntimeArray<unsigned char> &array,
+			const Endianess endianess = Endianess::Little);
 };
 
 } /* namespace numb */

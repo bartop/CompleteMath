@@ -56,8 +56,8 @@ public:
 	 */
 	virtual ~RealNumber(){}
 
-
 	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
+	virtual Number *const getAbsoluteValue() const override;
 };
 
 } /* namespace numb */

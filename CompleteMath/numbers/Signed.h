@@ -19,23 +19,6 @@ public:
 	//---------------SIGNED-----------------
 	//======================================
 
-
-	/**
-	 * @brief
-	 * 	Constructs Signed from array of unsigned chars.
-	 *
-	 * @details
-	 * 	The negative numbers are stored using 2-complement.
-	 *
-	 * @param array
-	 *	Array of bytes containing long number.
-	 *
-	 * @param endianess
-	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
-	 */
-	explicit Signed(const util::RuntimeArray<unsigned char> &array,
-			const Endianess endianess = Endianess::Little);
-
 	/**
 	 * @brief
 	 * 	Creates new Signed object from big-endian byte array and returns it.
@@ -280,6 +263,22 @@ public:
 	 * @}
 	 */
 
+private:
+	/**
+	 * @brief
+	 * 	Constructs Signed from array of unsigned chars.
+	 *
+	 * @details
+	 * 	The negative numbers are stored using 2-complement.
+	 *
+	 * @param array
+	 *	Array of bytes containing long number.
+	 *
+	 * @param endianess
+	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
+	 */
+	explicit Signed(const util::RuntimeArray<unsigned char> &array,
+			const Endianess endianess = Endianess::Little);
 };
 
 } /* namespace numb */
