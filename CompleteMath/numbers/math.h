@@ -25,7 +25,7 @@ namespace numb {
  * @return
  * 	Greatest common divisor of @a numberOne and @a numberTwo.
  */
-Integer *getGCD(const Integer *const numberOne, const Integer *const numberTwo);
+Integer *const getGCD(const Integer *const numberOne, const Integer *const numberTwo);
 
 /**
  * @brief
@@ -40,7 +40,9 @@ Integer *getGCD(const Integer *const numberOne, const Integer *const numberTwo);
  * @return
  * 	Least common multiple of @a numberOne and @a numberTwo.
  */
-Integer *getLCM(const Integer *const numberOne, const Integer *const numberTwo);
+Integer *const getLCM(const Integer *const numberOne, const Integer *const numberTwo);
+
+
 }  // namespace numb
 }  // namespace coma
 

@@ -11,6 +11,7 @@
 #include <string>
 #include "../coreInterfaces/Arithmetic.h"
 #include "../coreInterfaces/Copyable.h"
+#include "../coreInterfaces/TriviallyComparable.h"
 
 namespace coma {
 namespace numb {
@@ -26,7 +27,8 @@ class Unsigned;
  */
 class Number:
 	public core::Arithmetic<Number>,
-	public core::Copyable<Number>{
+	public core::Copyable<Number>,
+	public core::TriviallyComparable<Number>{
 public:
 	/**
 	 * @brief
@@ -51,6 +53,8 @@ public:
 	 * 	True if stored value equals 0. Else returns false.
 	 */
 	virtual const bool isZero() const = 0;
+
+	virtual const bool isEqual(const Number *const toCompare) const override;
 
 	/**
 	 * @{
@@ -260,6 +264,25 @@ public:
 	virtual Number *const getDifference(const Number *const toSubtract) const override;
 
 	virtual Number *const getQuotient(const Number *const toDivide) const override;
+
+	/**
+	 * @brief
+	 * 	Returns zero as pointer to Unsigned object.
+	 *
+	 * @return
+	 * 	Pointer to Unsigned storing zero.
+	 */
+	static const Unsigned *const ZERO();
+
+	/**
+	 * @brief
+	 * 	Returns one as pointer to Unsigned object.
+	 *
+	 * @return
+	 * 	Pointer to Unsigned storing one.
+	 */
+	static const Unsigned *const ONE();
+
 };
 
 } /* namespace numb */

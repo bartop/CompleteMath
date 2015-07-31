@@ -165,7 +165,9 @@ Signed *const Unsigned::getAsSignedInteger() const{
 }
 
 FloatingPoint *const Unsigned::getAsFloatingPoint() const{
-	//TODO complete after FloatingPoint definition
+	return FloatingPoint::fromFraction(this,
+			static_cast<const Integer *>(multiplicationNeutralElement()),
+			static_cast<const Integer *>(additionNeutralElement()));
 }
 
 Complex *const Unsigned::getAsComplex() const{
@@ -178,7 +180,9 @@ Number *const Unsigned::getNegation() const{
 }
 
 Number *const Unsigned::getInversion() const{
-	//TODO finish after FloatingPoint definition
+	return FloatingPoint::fromFraction(static_cast<const Integer *>(multiplicationNeutralElement()),
+			this,
+			static_cast<const Integer *>(additionNeutralElement()));
 }
 
 const bool Unsigned::isNegative() const{

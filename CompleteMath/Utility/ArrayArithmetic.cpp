@@ -203,7 +203,7 @@ RuntimeArray<unsigned char> &operator/=(RuntimeArray<unsigned char> &lhs, const 
 		rema[0] = left[lhs.length() - 1 - i];
 		bool RgeD {};
 		do{
-			RgeD = (compare(rema, rhs) > 0);
+			RgeD = (compare(rema, rhs) >= 0);
 			if (RgeD){
 				rema -= rhs;
 				lhs[lhs.length() - 1 - i] += 1;

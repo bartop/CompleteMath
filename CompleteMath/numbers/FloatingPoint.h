@@ -27,6 +27,46 @@ public:
 	//======================================
 	//------------FLOATINGPOINT-------------
 	//======================================
+
+	/**
+	 * @brief
+	 * 	Creates new FloatingPoint from fraction of Integers.
+	 *
+	 * @details
+	 * 	The value is calculated from formula:
+	 * 		@a numerator/@a denominator * 256^@a power.
+	 *
+	 * @param numerator
+	 * 	Numerator of fraction.
+	 *
+	 * @param denominator
+	 * 	Denominator of fraction.
+	 *
+	 * @param power
+	 * 	Power in formula given in details.
+	 *
+	 * @return
+	 *	New FloatingPoint based on given formula and arguments.
+	 */
+	static FloatingPoint *const fromFraction(const Integer *const numerator,
+			const Integer *const denominator,
+			const Integer *const power);
+
+	/**
+	 * @brief
+	 * 	Creates new FloatingPoint from numbers given in strings.
+	 *
+	 * @param numerator
+	 * 	Numerator of created fraction.
+	 *
+	 * @param denominator
+	 * 	Denominator of created fraction.
+	 *
+	 * @return
+	 * 	New FloatingPoint based on given numbers.
+	 */
+	static FloatingPoint *const fromFractionInStrings(const std::string &numerator,
+			const std::string &denominator);
 	/**
 	 * @brief
 	 * 	Dummy virtual destructor.

@@ -22,6 +22,11 @@ const Number *const core::Multiplyable<Number>::NEUTRAL_ELEMENT = numb::Unsigned
 template<>
 const Number *const core::Addable<Number>::NEUTRAL_ELEMENT = numb::Unsigned::fromHexadecimalInString("0");
 
+const bool Number::isEqual(const Number *const toCompare) const{
+	std::unique_ptr<Number> diff{ this->getDifference(toCompare) };
+	return diff->isZero();
+}
+
 Number *const Number::getDifference(const Number *const toSubtract) const{
 	std::unique_ptr<Number> negation { toSubtract->getNegation() };
 	return negation->getSum(this);
@@ -32,5 +37,12 @@ Number *const Number::getQuotient(const Number *const toDivide) const{
 	return this->getQuotient(inversion.get());
 }
 
+const Unsigned *const Number::ZERO(){
+	return static_cast<const Unsigned *>(additionNeutralElement());
+}
+
+const Unsigned *const Number::ONE(){
+	return static_cast<const Unsigned *>(multiplicationNeutralElement());
+}
 }
 }

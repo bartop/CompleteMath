@@ -54,7 +54,7 @@ Signed *const Signed::fromDecimalInString(const std::string &decimalInString){
 			convert(decimalInString.substr(1, decimalInString.length() - 1)));
 }
 
-Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInString){//TODO testing, testing
+Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInString){
 	std::unique_ptr<unsigned char[]> chars{ util::numb::arrayFromSignedHexadecimal(hexadecimalInString) };
 	unsigned long long length { util::numb::sizeFromSignedHexadecimal(hexadecimalInString) };
 	return fromLittleEndianArray({chars.get(), length});
@@ -172,7 +172,9 @@ Signed *const Signed::getAsSignedInteger() const{
 }
 
 FloatingPoint *const Signed::getAsFloatingPoint() const{
-	//TODO complete after FloatingPoint definition
+	return FloatingPoint::fromFraction(this,
+			static_cast<const Integer *>(multiplicationNeutralElement()),
+			static_cast<const Integer *>(additionNeutralElement()));
 }
 
 Complex *const Signed::getAsComplex() const{
@@ -188,7 +190,9 @@ Number *const Signed::getNegation() const{
 }
 
 Number *const Signed::getInversion() const{
-	//TODO finish after FloatingPoint definition
+	return FloatingPoint::fromFraction(static_cast<const Integer *>(multiplicationNeutralElement()),
+			this,
+			static_cast<const Integer *>(additionNeutralElement()));
 }
 
 const bool Signed::isNegative() const{
@@ -219,7 +223,7 @@ Integer *const Signed::getInverseRemainder(const Integer *const dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getRemainder(this);
 }
 
-Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{//TODO test, then optimize
+Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{//TODO optimize
 	util::RuntimeArray<unsigned char>
 		left { this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0 },
 		right{ toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0 };

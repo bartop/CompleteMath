@@ -10,7 +10,7 @@
 namespace coma {
 namespace numb {
 
-Integer *getGCD(const Integer *const numberOne, const Integer *const numberTwo){
+Integer *const getGCD(const Integer *const numberOne, const Integer *const numberTwo){
 	std::unique_ptr<Integer>
 		one{ static_cast<Integer *>(numberOne->getAbsoluteValue()) },
 		two{ static_cast<Integer *>(numberTwo->getAbsoluteValue()) };
@@ -24,7 +24,7 @@ Integer *getGCD(const Integer *const numberOne, const Integer *const numberTwo){
 	return one.release();
 }
 
-Integer *getLCM(const Integer *const numberOne, const Integer *const numberTwo){
+Integer *const getLCM(const Integer *const numberOne, const Integer *const numberTwo){
 	std::unique_ptr<Integer> tmp { getGCD(numberOne, numberTwo) };
 	tmp.reset(static_cast<const coma::numb::IntegerArithmetic<Integer> *>(numberOne)->getIntegerQuotient(tmp.get()));
 	tmp.reset(static_cast<Integer *>(tmp->getProduct(numberTwo)));
