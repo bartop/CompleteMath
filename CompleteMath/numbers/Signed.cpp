@@ -87,9 +87,9 @@ Number *const Signed::getSum(const FloatingPoint *const toAdd) const{
 
 Number *const Signed::getSum(const Signed *const toAdd) const{
 	util::RuntimeArray<unsigned char> tmp1
-		{ std::max(toAdd->getArray().length(), this->getArray().length()), this->isNegative() ? 0xFF : 0 };
+		{ 1 + std::max(toAdd->getArray().length(), this->getArray().length()), this->isNegative() ? 0xFF : 0 };
 	util::RuntimeArray<unsigned char> tmp2
-		{ std::max(toAdd->getArray().length(), this->getArray().length()), toAdd->isNegative() ? 0xFF : 0 };
+		{ 1 + std::max(toAdd->getArray().length(), this->getArray().length()), toAdd->isNegative() ? 0xFF : 0 };
 	std::copy(this->getArray().begin(), this->getArray().end(), tmp1.begin());
 	std::copy(toAdd->getArray().begin(), toAdd->getArray().end(), tmp2.begin());
 	tmp1 += tmp2;
@@ -238,16 +238,24 @@ Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{//
 
 Integer *const Signed::getRemainder(const Signed *const toDivide) const{//TODO test and improve later
 	util::RuntimeArray<unsigned char>
-		left { this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0 },
-		right{ toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0 };
+		left { std::max(this->getArray().length(), toDivide->getArray().length()) + 1, this    ->isNegative() ? 0xFF : 0 },
+		right{ std::max(this->getArray().length(), toDivide->getArray().length()) + 1, toDivide->isNegative() ? 0xFF : 0 };
 	std::copy(this    ->getArray().begin(), this    ->getArray().end(), left .begin());
 	std::copy(toDivide->getArray().begin(), toDivide->getArray().end(), right.begin());
 	if(this    ->isNegative()) util::negate(left);
 	if(toDivide->isNegative()) util::negate(right);
 	left %= right;
 	if(this->isNegative() != toDivide->isNegative()){
-		util::negate(left);
-		left += right;
+		if([](const util::RuntimeArray<unsigned char> &check){
+			for(unsigned long long i = 0; i < check.length(); ++i){
+				if(check[i] != 0) return true;
+			}
+			return false;
+		}(left)){
+			util::RuntimeArray<unsigned char> zero { 1 };
+			util::negate(left);
+			left += right;
+		}
 	}
 	return fromLittleEndianArray(left);
 }

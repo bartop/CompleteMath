@@ -82,7 +82,9 @@ public:
 	 * 	Element at given index.
 	 *
 	 */
-	const T &operator[](const unsigned long long index) const { return m_array[index]; }
+	const T &operator[](const unsigned long long index) const {
+		if (index >= m_size) throw 2;
+		return m_array[index]; }
 
 	/**
 	 * @brief
@@ -95,7 +97,9 @@ public:
 	 * 	Element at given index.
 	 *
 	 */
-	T &operator[](const unsigned long long index){ return m_array[index]; }
+	T &operator[](const unsigned long long index){
+		if (index >= m_size) throw 2;
+		return m_array[index]; }
 
 	/**
 	 * @brief

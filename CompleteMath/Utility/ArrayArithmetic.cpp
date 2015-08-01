@@ -102,7 +102,7 @@ const RuntimeArray<unsigned char> withoutMeaninglessChars(const RuntimeArray<uns
 		unsigned char mask { 0x80 };
 		unsigned char sign { mask & array[array.length() - 1] };
 		unsigned char meaninglessByte { sign ? 0xFF : 0};
-		while(array[result - 1] == meaninglessByte && !(sign ^ (array[result - 2] & mask)) && result > 1) --result;
+		while(result > 1 && array[result - 1] == meaninglessByte && !(sign ^ (array[result - 2] & mask))) --result;
 	}else{
 		while(!array[result - 1] && result > 1) --result;
 	}
@@ -229,7 +229,7 @@ RuntimeArray<unsigned char> &operator%=(RuntimeArray<unsigned char> &lhs, const 
 		lhs[0] = left[quot.length() - 1 - i];
 		bool RgeD {};
 		do{
-			RgeD = (compare(lhs, rhs) > 0);
+			RgeD = (compare(lhs, rhs) >= 0);
 			if (RgeD){
 				lhs -= rhs;
 				quot[lhs.length() - 1 - i] += 1;

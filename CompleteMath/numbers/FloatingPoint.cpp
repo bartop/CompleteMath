@@ -44,7 +44,7 @@ FloatingPoint *const FloatingPoint::fromFraction(const Integer *const numerator,
 		pow.reset(static_cast<Integer *>(pow->getSum(multiplicationNeutralElement())));
 	}
 	while(rem.reset(static_cast<IntegerArithmetic<Integer> *>(den.get())->getRemainder(num256.get())), rem->isZero()){
-		den.reset(static_cast<IntegerArithmetic<Integer> *>(num.get())->getIntegerQuotient(num256.get()));
+		den.reset(static_cast<IntegerArithmetic<Integer> *>(den.get())->getIntegerQuotient(num256.get()));
 		pow.reset(static_cast<Integer *>(pow->getDifference(multiplicationNeutralElement())));
 	}
 	return new FloatingPoint{ num.get(), static_cast<Unsigned *>(den.get()), pow.get() };
