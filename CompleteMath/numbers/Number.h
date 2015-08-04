@@ -12,6 +12,7 @@
 #include "../coreInterfaces/Arithmetic.h"
 #include "../coreInterfaces/Copyable.h"
 #include "../coreInterfaces/TriviallyComparable.h"
+#include "../Technical/MemoryPoolObject.h"
 
 namespace coma {
 namespace numb {
@@ -28,7 +29,8 @@ class Unsigned;
 class Number:
 	public core::Arithmetic<Number>,
 	public core::Copyable<Number>,
-	public core::TriviallyComparable<Number>{
+	public core::TriviallyComparable<Number>,
+	public tech::MemoryPoolObject{
 public:
 	/**
 	 * @brief

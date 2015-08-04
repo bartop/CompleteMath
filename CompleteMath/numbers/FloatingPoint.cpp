@@ -117,7 +117,7 @@ Number *const FloatingPoint::getSum(const FloatingPoint *const toAdd) const{
 				denominator.get(),
 				std::min(this->m_power, toAdd->m_power, [](const RealNumber *const ptr1,
 														const RealNumber *const ptr2){
-			return ptr1->compare(ptr2) == CompareResult::ThisGreater;
+			return ptr1->compare(ptr2) == CompareResult::ThisLesser;
 		}));
 	}
 }

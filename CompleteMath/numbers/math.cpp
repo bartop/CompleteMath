@@ -14,14 +14,12 @@ Integer *const getGCD(const Integer *const numberOne, const Integer *const numbe
 	std::unique_ptr<Integer>
 		one{ static_cast<Integer *>(numberOne->getAbsoluteValue()) },
 		two{ static_cast<Integer *>(numberTwo->getAbsoluteValue()) };
-	while(one->compare(two.get()) != CompareResult::Equal){
-		if(one->compare(two.get()) == CompareResult::ThisGreater){
-			one.reset(static_cast<Integer *>(one->getDifference(two.get())));
-		}else{
-			two.reset(static_cast<Integer *>(two->getDifference(one.get())));
-		}
+	while(!one->isZero()){
+		Integer *tmp = one.release();
+		one.reset(static_cast<IntegerArithmetic<Integer> *>(two.get())->getRemainder(tmp));
+		two.reset(tmp);
 	}
-	return one.release();
+	return two.release();
 }
 
 Integer *const getLCM(const Integer *const numberOne, const Integer *const numberTwo){

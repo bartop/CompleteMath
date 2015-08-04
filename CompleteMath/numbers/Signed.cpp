@@ -143,24 +143,29 @@ const bool Signed::isZero() const{
 
 const std::string Signed::getAsBinary() const{
 	std::string result = getAsHexadecimal();
-	return result[0] + util::BaseConverter("0123456789ABCDEF", "01").convert(result.substr(1, result.length() - 1));
+	if(isNegative())
+		return result[0] + util::BaseConverter("0123456789ABCDEF", "01").convert(result.substr(1, result.length() - 1));
+	else return util::BaseConverter("0123456789ABCDEF", "01").convert(result.substr(0, result.length()));
 }
 
 const std::string Signed::getAsOctal() const{
 	std::string result = getAsHexadecimal();
-	return result[0] + util::BaseConverter("0123456789ABCDEF", "01234567").convert(result.substr(1, result.length() - 1));
+	if(isNegative())
+		return result[0] + util::BaseConverter("0123456789ABCDEF", "01234567").convert(result.substr(1, result.length() - 1));
+	else return util::BaseConverter("0123456789ABCDEF", "01234567").convert(result.substr(0, result.length()));
 }
 
 const std::string Signed::getAsDecimal() const{
 	std::string result = getAsHexadecimal();
-	return result[0] + util::BaseConverter("0123456789ABCDEF", "0123456789").convert(result.substr(1, result.length() - 1));
+	if(isNegative())
+		return result[0] + util::BaseConverter("0123456789ABCDEF", "0123456789").convert(result.substr(1, result.length() - 1));
+	else return util::BaseConverter("0123456789ABCDEF", "0123456789").convert(result.substr(0, result.length()));
 }
 
 const std::string Signed::getAsHexadecimal() const{
-	if(!isNegative()) return "+"+std::unique_ptr<Number>(getAsUnsignedInteger())->getAsHexadecimal();
-	else{
-		return "-"+std::unique_ptr<Number>(getNegation())->getAsHexadecimal();
-	}
+	if(!isNegative()) return std::unique_ptr<Number>(getAsUnsignedInteger())->getAsHexadecimal();
+	else return "-"+std::unique_ptr<Number>(getNegation())->getAsHexadecimal();
+
 }
 
 Unsigned *const Signed::getAsUnsignedInteger() const{
@@ -173,8 +178,8 @@ Signed *const Signed::getAsSignedInteger() const{
 
 FloatingPoint *const Signed::getAsFloatingPoint() const{
 	return FloatingPoint::fromFraction(this,
-			static_cast<const Integer *>(multiplicationNeutralElement()),
-			static_cast<const Integer *>(additionNeutralElement()));
+			ONE(),
+			ZERO());
 }
 
 Complex *const Signed::getAsComplex() const{
@@ -192,7 +197,7 @@ Number *const Signed::getNegation() const{
 Number *const Signed::getInversion() const{
 	return FloatingPoint::fromFraction(static_cast<const Integer *>(multiplicationNeutralElement()),
 			this,
-			static_cast<const Integer *>(additionNeutralElement()));
+			ZERO());
 }
 
 const bool Signed::isNegative() const{
