@@ -51,10 +51,9 @@ public:
 	static FloatingPoint *const fromFraction(const Integer *const numerator,
 			const Integer *const denominator,
 			const Integer *const power);
-
 	/**
 	 * @brief
-	 * 	Creates new FloatingPoint from numbers given in strings.
+	 * 	Creates new FloatingPoint from binary numbers given in strings.
 	 *
 	 * @param numerator
 	 * 	Numerator of created fraction.
@@ -65,8 +64,105 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static FloatingPoint *const fromFractionInStrings(const std::string &numerator,
+	static FloatingPoint *const fromBinaryFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
+
+	/**
+	 * @brief
+	 * 	Creates new FloatingPoint from decimal numbers given in strings.
+	 *
+	 * @param numerator
+	 * 	Numerator of created fraction.
+	 *
+	 * @param denominator
+	 * 	Denominator of created fraction.
+	 *
+	 * @return
+	 * 	New FloatingPoint based on given numbers.
+	 */
+	static FloatingPoint *const fromOctalFractionInStrings(const std::string &numerator,
+			const std::string &denominator);
+
+	/**
+	 * @brief
+	 * 	Creates new FloatingPoint from decimal numbers given in strings.
+	 *
+	 * @param numerator
+	 * 	Numerator of created fraction.
+	 *
+	 * @param denominator
+	 * 	Denominator of created fraction.
+	 *
+	 * @return
+	 * 	New FloatingPoint based on given numbers.
+	 */
+	static FloatingPoint *const fromDecimalFractionInStrings(const std::string &numerator,
+				const std::string &denominator);
+
+	/**
+	 * @brief
+	 * 	Creates new FloatingPoint from decimal numbers given in strings.
+	 *
+	 * @param numerator
+	 * 	Numerator of created fraction.
+	 *
+	 * @param denominator
+	 * 	Denominator of created fraction.
+	 *
+	 * @return
+	 * 	New FloatingPoint based on given numbers.
+	 */
+	static FloatingPoint *const fromHexadecimalFractionInStrings(const std::string &numerator,
+			const std::string &denominator);
+
+	/**
+	 * @brief
+	 * 	Constructs FloatingPoint from string containing float written in hexadecimal system.
+	 *
+	 * @param flaot
+	 * 	String containing float. Dot is valid delimiter.
+	 *
+	 * @return
+	 * 	New FloatingPoint containing given number in string.
+	 */
+	static FloatingPoint *const fromBinaryFloatInString(const std::string &flaot);
+
+	/**
+	 * @brief
+	 * 	Constructs FloatingPoint from string containing float written in hexadecimal system.
+	 *
+	 * @param flaot
+	 * 	String containing float. Dot is valid delimiter.
+	 *
+	 * @return
+	 * 	New FloatingPoint containing given number in string.
+	 */
+	static FloatingPoint *const fromOctalFloatInString(const std::string &flaot);
+
+	/**
+	 * @brief
+	 * 	Constructs FloatingPoint from string containing float written in hexadecimal system.
+	 *
+	 * @param flaot
+	 * 	String containing float. Dot is valid delimiter.
+	 *
+	 * @return
+	 * 	New FloatingPoint containing given number in string.
+	 */
+	static FloatingPoint *const fromDecimalFloatInString(const std::string &flaot);
+
+	/**
+	 * @brief
+	 * 	Constructs FloatingPoint from string containing float written in hexadecimal system.
+	 *
+	 * @param flaot
+	 * 	String containing float. Dot is valid delimiter.
+	 *
+	 * @return
+	 * 	New FloatingPoint containing given number in string.
+	 */
+	static FloatingPoint *const fromHexadecimalFloatInString(const std::string &flaot);
+
 	/**
 	 * @brief
 	 * 	Dummy virtual destructor.
@@ -187,6 +283,10 @@ private:
 	 *	Power in formula given above.
 	 */
 	FloatingPoint(const Integer *const numerator, const Unsigned *const denominator, const Integer *const power);
+
+	static FloatingPoint *const fromFloat(const std::string &number,
+			const std::string &base,
+			const std::function<Integer *const(const std::string &)> &numeratorCreator);
 
 };
 

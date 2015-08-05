@@ -41,20 +41,75 @@ FloatingPoint *const FloatingPoint::fromFraction(const Integer *const numerator,
 	if(numerator->isNegative() != denominator->isNegative()) num.reset(static_cast<Integer *>(num->getNegation()));
 	while(rem.reset(static_cast<IntegerArithmetic<Integer> *>(num.get())->getRemainder(num256.get())), rem->isZero()){
 		num.reset(static_cast<IntegerArithmetic<Integer> *>(num.get())->getIntegerQuotient(num256.get()));
-		pow.reset(static_cast<Integer *>(pow->getSum(multiplicationNeutralElement())));
+		pow.reset(static_cast<Integer *>(pow->getSum(ONE())));
 	}
 	while(rem.reset(static_cast<IntegerArithmetic<Integer> *>(den.get())->getRemainder(num256.get())), rem->isZero()){
 		den.reset(static_cast<IntegerArithmetic<Integer> *>(den.get())->getIntegerQuotient(num256.get()));
-		pow.reset(static_cast<Integer *>(pow->getDifference(multiplicationNeutralElement())));
+		pow.reset(static_cast<Integer *>(pow->getDifference(ONE())));
 	}
 	return new FloatingPoint{ num.get(), static_cast<Unsigned *>(den.get()), pow.get() };
 }
 
-FloatingPoint *const FloatingPoint::fromFractionInStrings(const std::string &numerator, const std::string &denominator){
+FloatingPoint *const FloatingPoint::fromBinaryFractionInStrings(const std::string &numerator, const std::string &denominator){
+	std::unique_ptr<Integer>
+		num { Integer::fromBinaryInString(numerator) },
+		den { Integer::fromBinaryInString(denominator) };
+	return fromFraction(num.get(), den.get(), ZERO());
+}
+
+FloatingPoint *const FloatingPoint::fromOctalFractionInStrings(const std::string &numerator, const std::string &denominator){
+	std::unique_ptr<Integer>
+		num { Integer::fromOctalInString(numerator) },
+		den { Integer::fromOctalInString(denominator) };
+	return fromFraction(num.get(), den.get(), ZERO());
+}
+
+FloatingPoint *const FloatingPoint::fromDecimalFractionInStrings(const std::string &numerator, const std::string &denominator){
 	std::unique_ptr<Integer>
 		num { Integer::fromDecimalInString(numerator) },
 		den { Integer::fromDecimalInString(denominator) };
-	return fromFraction(num.get(), den.get(), static_cast<const Integer *>(additionNeutralElement()));
+	return fromFraction(num.get(), den.get(), ZERO());
+}
+
+FloatingPoint *const FloatingPoint::fromHexadecimalFractionInStrings(const std::string &numerator, const std::string &denominator){
+	std::unique_ptr<Integer>
+		num { Integer::fromHexadecimalInString(numerator) },
+		den { Integer::fromHexadecimalInString(denominator) };
+	return fromFraction(num.get(), den.get(), ZERO());
+}
+
+FloatingPoint *const FloatingPoint::fromFloat(const std::string &number,
+		const std::string &base,
+		const std::function<Integer *const(const std::string &)> &numeratorCreator){
+	std::string copy = number;
+	auto iter = std::find(copy.begin(), copy.end(), '.');
+	unsigned long long position = iter - copy.begin();
+	if(iter == copy.end()) position = 0;
+	else{
+		position = copy.length() - position - 1;
+		copy.erase(iter);
+	}
+	std::unique_ptr<Integer> num{ numeratorCreator(copy) };
+	std::unique_ptr<Integer> baseInt{ Integer::fromDecimalInString(base) };
+	std::unique_ptr<Integer> den{ static_cast<Integer *const>(ONE()->copy()) };
+	for(unsigned long long i = 0; i < position; ++i) den.reset(static_cast<Integer *>(den->getProduct(baseInt.get())));
+	return fromFraction(num.get(), den.get(), ZERO());
+}
+
+FloatingPoint *const FloatingPoint::fromBinaryFloatInString(const std::string &number){
+	return fromFloat(number, "2", Integer::fromBinaryInString);
+}
+
+FloatingPoint *const FloatingPoint::fromOctalFloatInString(const std::string &number){
+	return fromFloat(number, "8", Integer::fromOctalInString);
+}
+
+FloatingPoint *const FloatingPoint::fromDecimalFloatInString(const std::string &number){
+	return fromFloat(number, "10", Integer::fromDecimalInString);
+}
+
+FloatingPoint *const FloatingPoint::fromHexadecimalFloatInString(const std::string &number){
+	return fromFloat(number, "16", Integer::fromHexadecimalInString);
 }
 
 FloatingPoint::~FloatingPoint() {
@@ -102,14 +157,14 @@ Number *const FloatingPoint::getSum(const FloatingPoint *const toAdd) const{
 		std::unique_ptr<Integer>
 			powerDiff { static_cast<Integer *>(this->m_power->getDifference(toAdd->m_power)) };
 		std::unique_ptr<Number> num256 { Unsigned::fromDecimalInString("256") };
-		while(!additionNeutralElement()->isEqual(powerDiff.get())){
+		while(!(powerDiff->isZero())){
 			if(powerDiff->isNegative()){
 				numerator2.reset(static_cast<Integer *>(numerator2->getProduct(num256.get())));
-				powerDiff.reset(static_cast<Integer *>(powerDiff->getSum(multiplicationNeutralElement())));
+				powerDiff.reset(static_cast<Integer *>(powerDiff->getSum(ONE())));
 			}
 			else{
 				numerator1.reset(static_cast<Integer *>(numerator1->getProduct(num256.get())));
-				powerDiff.reset(static_cast<Integer *>(powerDiff->getDifference(multiplicationNeutralElement())));
+				powerDiff.reset(static_cast<Integer *>(powerDiff->getDifference(ONE())));
 			}
 		}
 		std::unique_ptr<Integer> sum { static_cast<Integer *>(numerator1->getSum(numerator2.get())) };
@@ -169,14 +224,14 @@ const bool FloatingPoint::isZero() const{
 const std::string FloatingPoint::getAsBinary() const{
 	std::string result { m_numerator->getAsBinary() };
 	result += "/" + m_denominator->getAsBinary();
-	result += " * 256^" + m_power->getAsBinary();
+	result += " * 100000000^" + m_power->getAsBinary();
 	return result;
 }
 
 const std::string FloatingPoint::getAsOctal() const{
 	std::string result { m_numerator->getAsOctal() };
 	result += "/" + m_denominator->getAsOctal();
-	result += " * 256^" + m_power->getAsOctal();
+	result += " * 400^" + m_power->getAsOctal();
 	return result;
 }
 
@@ -190,7 +245,7 @@ const std::string FloatingPoint::getAsDecimal() const{
 const std::string FloatingPoint::getAsHexadecimal() const{
 	std::string result { m_numerator->getAsHexadecimal() };
 	result += "/" + m_denominator->getAsHexadecimal();
-	result += " * 256^" + m_power->getAsHexadecimal();
+	result += " * 100^" + m_power->getAsHexadecimal();
 	return result;
 }
 

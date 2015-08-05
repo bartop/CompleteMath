@@ -195,7 +195,7 @@ Number *const Signed::getNegation() const{
 }
 
 Number *const Signed::getInversion() const{
-	return FloatingPoint::fromFraction(static_cast<const Integer *>(multiplicationNeutralElement()),
+	return FloatingPoint::fromFraction(ONE(),
 			this,
 			ZERO());
 }
