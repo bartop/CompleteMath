@@ -24,6 +24,53 @@ class RealNumber:
 		public Number,
 		public core::Comparable<RealNumber>{
 public:
+	/**
+	 * @brief
+	 * 	Creates RealNumber from given number. Automatically chooses type.
+	 *
+	 * @param binary
+	 * 	Binary number in string.
+	 *
+	 * @return
+	 * 	Pointer to RealNumber containing given number.
+	 */
+	static RealNumber *const fromBinaryInString(const std::string &binary);
+
+	/**
+	 * @brief
+	 * 	Creates RealNumber from given number. Automatically chooses type.
+	 *
+	 * @param octal
+	 * 	Octal number in string.
+	 *
+	 * @return
+	 * 	Pointer to RealNumber containing given number.
+	 */
+	static RealNumber *const fromOctalInString(const std::string &octal);
+
+	/**
+	 * @brief
+	 * 	Creates RealNumber from given number. Automatically chooses type.
+	 *
+	 * @param decimal
+	 * 	Decimal number in string.
+	 *
+	 * @return
+	 * 	Pointer to RealNumber containing given number.
+	 */
+	static RealNumber *const fromDecimalInString(const std::string &decimal);
+
+	/**
+	 * @brief
+	 * 	Creates RealNumber from given number. Automatically chooses type.
+	 *
+	 * @param hex
+	 * 	Hexadecimal number in string.
+	 *
+	 * @return
+	 * 	Pointer to RealNumber containing given number.
+	 */
+	static RealNumber *const fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief
