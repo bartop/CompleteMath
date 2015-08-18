@@ -31,7 +31,7 @@ public:
 	 * @param chunkNumber
 	 * 	Number of chunks inside memory pool.
 	 */
-	ConstantSizedMemoryPool(const size_t chunkSize, const size_t chunkNumber);
+	ConstantSizedMemoryPool(const size_t chunkSize, const size_t chunkNumber) noexcept;
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @brief
 	 * 	Frees memory.
 	 */
-	virtual ~ConstantSizedMemoryPool();
+	virtual ~ConstantSizedMemoryPool() noexcept;
 
 	/**
 	 * @brief

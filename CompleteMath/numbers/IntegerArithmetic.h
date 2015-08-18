@@ -16,6 +16,12 @@ class IntegerArithmetic {
 public:
 	/**
 	 * @brief
+	 * 	Default virtual destructor.
+	 */
+	virtual ~IntegerArithmetic() noexcept = default;
+
+	/**
+	 * @brief
 	 * 	Function to perform integer division.
 	 *
 	 * @param toDivide
@@ -61,9 +67,6 @@ public:
 	 * 	Remainder of @c dividend and @c *this  division.
 	 */
 	virtual U *getInverseRemainder(const T *dividend) const = 0;
-
-
-	virtual ~IntegerArithmetic() {}
 };
 
 } /* namespace numb */

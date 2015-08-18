@@ -21,6 +21,16 @@ enum CompareResult{
 	ThisLesser = -1  //!< ThisLesser @c *this object is lesser than @c toCompare
 };
 
+/**
+ * @brief
+ * 	Function used to invert result of comparison.
+ *
+ * @param result
+ * 	Result of comparison to invert.
+ *
+ * @return
+ * 	Inversion of given result.
+ */
 inline const CompareResult invertComparison(CompareResult result){
 	if(result == CompareResult::Equal) return CompareResult::Equal;
 	else if(result == CompareResult::ThisGreater) return CompareResult::ThisLesser;
@@ -36,6 +46,12 @@ class Comparable{
 public:
 	/**
 	 * @brief
+	 * 	Default virtual destructor.
+	 */
+	virtual ~Comparable() noexcept = default;
+
+	/**
+	 * @brief
 	 * 	Method used to compare objects.
 	 *
 	 * @param toCompare
@@ -45,12 +61,6 @@ public:
 	 * 	#CompareResult adequate to result of the comparison.
 	 */
 	virtual const CompareResult compare(const T *toCompare) const = 0;
-
-	/**
-	 * @brief
-	 * 	Default virtual destructor.
-	 */
-	virtual ~Comparable(){}
 };
 
 } /* namespace core */

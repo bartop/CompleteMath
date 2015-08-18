@@ -9,6 +9,7 @@
 #define NUMBERS_UNSIGNED_H_
 
 #include "Integer.h"
+#include <type_traits>
 
 namespace coma {
 namespace numb {
@@ -127,7 +128,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Unsigned();
+	virtual ~Unsigned() noexcept = default;
 
 	//======================================
 	//--------------COPYABLE----------------
@@ -170,7 +171,7 @@ public:
 	//---------------NUMBER-----------------
 	//======================================
 
-	virtual const bool isZero() const override;
+	virtual const bool isZero() const noexcept override;
 
 	/**
 	 * @{
@@ -218,8 +219,8 @@ public:
 	 * @{
 	 */
 
-	virtual const bool isNegative() const override;
-	virtual const bool isPositive() const override;
+	virtual const bool isNegative() const noexcept override;
+	virtual const bool isPositive() const noexcept override;
 
 	/**
 	 * @}

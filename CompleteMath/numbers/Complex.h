@@ -40,7 +40,7 @@ public:
 	 * @brief
 	 * 	Virtual destructor which frees resources.
 	 */
-	virtual ~Complex();
+	virtual ~Complex() noexcept;
 
 	//======================================
 	//--------------COPYABLE----------------
@@ -84,7 +84,7 @@ public:
 	//======================================
 
 	virtual Number *getAbsoluteValue() const override;
-	virtual const bool isZero() const override;
+	virtual const bool isZero() const noexcept override;
 
 	/**
 	 * @{

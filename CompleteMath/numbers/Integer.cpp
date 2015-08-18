@@ -22,7 +22,7 @@ namespace numb{
 Integer::Integer(const util::RuntimeArray<unsigned char> numbersArray, const Endianess endianess):
 		m_integer{ endianess == Endianess::Little ? numbersArray : util::reverse(numbersArray) }{}
 
-const util::RuntimeArray<unsigned char> &Integer::getArray() const{
+const util::RuntimeArray<unsigned char> &Integer::getArray() const noexcept{
 	return m_integer;
 }
 

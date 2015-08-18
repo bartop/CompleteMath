@@ -25,7 +25,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Multiplyable(){}
+	virtual ~Multiplyable() noexcept = default;
 
 	/**
 	 * @brief

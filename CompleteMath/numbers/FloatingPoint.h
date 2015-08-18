@@ -163,9 +163,9 @@ public:
 
 	/**
 	 * @brief
-	 * 	Default virtual destructor.
+	 * 	Virtual destructor which frees resources.
 	 */
-	virtual ~FloatingPoint();
+	virtual ~FloatingPoint() noexcept;
 
 	//======================================
 	//--------------COPYABLE----------------
@@ -208,7 +208,7 @@ public:
 	//---------------NUMBER-----------------
 	//======================================
 
-	virtual const bool isZero() const override;
+	virtual const bool isZero() const noexcept override;
 
 	/**
 	 * @{
@@ -256,8 +256,8 @@ public:
 	 * @{
 	 */
 
-	virtual const bool isNegative() const override;
-	virtual const bool isPositive() const override;
+	virtual const bool isNegative() const noexcept override;
+	virtual const bool isPositive() const noexcept override;
 
 	/**
 	 * @}

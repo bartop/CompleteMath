@@ -27,7 +27,8 @@ FloatingPoint::FloatingPoint(const Integer *numerator, const Unsigned *denominat
 FloatingPoint *FloatingPoint::fromFraction(const Integer *numerator,
 		const Integer *denominator,
 		const Integer *power){
-	if(denominator->isZero()) throw 1; //TODO exceptions
+	if(!numerator || !denominator || !power) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
+	if(denominator->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	if(numerator->isZero()) return new FloatingPoint { ZERO(), ONE(), ZERO()};
 	std::unique_ptr<Integer>
 		num{ static_cast<Integer *>(numerator->getAbsoluteValue()) },
@@ -112,7 +113,7 @@ FloatingPoint *FloatingPoint::fromHexadecimalFloatInString(const std::string &nu
 	return fromFloat(number, "16", Integer::fromHexadecimalInString);
 }
 
-FloatingPoint::~FloatingPoint() {
+FloatingPoint::~FloatingPoint() noexcept{
 	if(m_numerator) delete m_numerator;
 	if(m_denominator) delete m_denominator;
 	if(m_power) delete m_power;
@@ -131,14 +132,17 @@ Number *FloatingPoint::copy() const{
 //======================================
 
 Number *FloatingPoint::getSum(const Number *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *FloatingPoint::getSum(const Complex *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *FloatingPoint::getSum(const FloatingPoint *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	if(this->m_denominator->compare(toAdd->m_denominator) && this->m_power->compare(toAdd->m_power)){
 		std::unique_ptr<Number>
 			sum { static_cast<const coma::core::Arithmetic<Number> *>(this->m_numerator)->getSum(toAdd->m_numerator) };
@@ -178,24 +182,29 @@ Number *FloatingPoint::getSum(const FloatingPoint *toAdd) const{
 }
 
 Number *FloatingPoint::getSum(const Signed *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	std::unique_ptr<coma::numb::FloatingPoint> left { toAdd->getAsFloatingPoint() };
 	return left->getSum(this);
 }
 
 Number *FloatingPoint::getSum(const Unsigned *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	std::unique_ptr<coma::numb::FloatingPoint> left { toAdd->getAsFloatingPoint() };
 	return left->getSum(this);
 }
 
 Number *FloatingPoint::getProduct(const Number *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *FloatingPoint::getProduct(const Complex *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *FloatingPoint::getProduct(const FloatingPoint *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	std::unique_ptr<Integer>
 		numerator { static_cast<Integer *>(this->m_numerator->getProduct(toMultiply->m_numerator)) },
 		denominator { static_cast<Integer *>(this->m_denominator->getProduct(toMultiply->m_denominator)) },
@@ -204,11 +213,13 @@ Number *FloatingPoint::getProduct(const FloatingPoint *toMultiply) const{
 }
 
 Number *FloatingPoint::getProduct(const Signed *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	std::unique_ptr<coma::numb::FloatingPoint> left { toMultiply->getAsFloatingPoint() };
 	return left->getProduct(this);
 }
 
 Number *FloatingPoint::getProduct(const Unsigned *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	std::unique_ptr<coma::numb::FloatingPoint> left { toMultiply->getAsFloatingPoint() };
 	return left->getProduct(this);
 }
@@ -217,7 +228,7 @@ Number *FloatingPoint::getProduct(const Unsigned *toMultiply) const{
 //---------------NUMBER-----------------
 //======================================
 
-const bool FloatingPoint::isZero() const{
+const bool FloatingPoint::isZero() const noexcept{
 	return m_numerator->isZero();
 }
 
@@ -286,11 +297,11 @@ Number *FloatingPoint::getInversion() const{
 //-------------REALNUMBER---------------
 //======================================
 
-const bool FloatingPoint::isNegative() const{
+const bool FloatingPoint::isNegative() const noexcept{
 	return m_numerator->isNegative();
 }
 
-const bool FloatingPoint::isPositive() const{
+const bool FloatingPoint::isPositive() const noexcept{
 	return m_numerator->isPositive();
 }
 

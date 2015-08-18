@@ -12,7 +12,7 @@
 namespace coma {
 namespace tech {
 
-ConstantSizedMemoryPool::ConstantSizedMemoryPool(const size_t chunkSize = 0, const size_t chunkNumber = 0) :
+ConstantSizedMemoryPool::ConstantSizedMemoryPool(const size_t chunkSize = 0, const size_t chunkNumber = 0) noexcept :
 		m_chunkSize{chunkSize},
 		m_chunkNumber{chunkNumber}{}
 
@@ -27,7 +27,7 @@ ConstantSizedMemoryPool::ConstantSizedMemoryPool(const ConstantSizedMemoryPool &
 			}
 		}
 
-ConstantSizedMemoryPool::~ConstantSizedMemoryPool() {
+ConstantSizedMemoryPool::~ConstantSizedMemoryPool() noexcept{
 	if(m_storedMemory) free(m_storedMemory);
 }
 

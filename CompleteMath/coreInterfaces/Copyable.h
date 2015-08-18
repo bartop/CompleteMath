@@ -20,18 +20,18 @@ class Copyable {
 public:
 	/**
 	 * @brief
+	 * 	Default virtual destructor.
+	 */
+	virtual ~Copyable() noexcept = default;
+
+	/**
+	 * @brief
 	 * 	Function to copy @c this object.
 	 *
 	 * @return
 	 * 	Pointer to copy of @c *this.
 	 */
 	virtual T *copy() const = 0;
-
-	/**
-	 * @brief
-	 * 	Default virtual destructor.
-	 */
-	virtual ~Copyable() {}
 };
 
 } /* namespace core */

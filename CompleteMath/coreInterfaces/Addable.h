@@ -23,6 +23,12 @@ public:
 
 	/**
 	 * @brief
+	 * 	Virtual dummy constructor.
+	 */
+	virtual ~Addable() noexcept = default;
+
+	/**
+	 * @brief
 	 * 	Adds two objects.
 	 *
 	 * @param toAdd
@@ -32,12 +38,6 @@ public:
 	 * 	Pointer to sum of @c *this and @a *toAdd.
 	 */
 	virtual return_type *getSum(const argument_type *toAdd) const = 0;
-
-	/**
-	 * @brief
-	 * 	Virtual dummy constructor.
-	 */
-	virtual ~Addable(){}
 
 	/**
 	 * @brief

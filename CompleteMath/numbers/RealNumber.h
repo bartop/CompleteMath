@@ -83,7 +83,7 @@ public:
 	 * 	True if stored value is negative.
 	 * 	False if stored value is non-negative.
 	 */
-	virtual const bool isNegative() const = 0;
+	virtual const bool isNegative() const noexcept = 0;
 
 	/**
 	 * @brief
@@ -95,7 +95,7 @@ public:
 	 * 	True if stored value is positive.
 	 * 	False if stored value is non-positive.
 	 */
-	virtual const bool isPositive() const = 0;
+	virtual const bool isPositive() const noexcept = 0;
 
 	/**
 	 * @brief

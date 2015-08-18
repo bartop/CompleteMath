@@ -29,7 +29,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Subtractable() {}
+	virtual ~Subtractable() noexcept = default;
 
 	/**
 	 * @brief

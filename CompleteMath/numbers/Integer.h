@@ -36,35 +36,6 @@ class Integer:
 		public IntegerArithmetic<Integer>,
 		public IntegerArithmetic<Unsigned, Integer>,
 		public IntegerArithmetic<Signed, Integer>{
-private:
-	/**
-	 * @brief
-	 * 	Array storing very long unsigned.
-	 */
-	const util::RuntimeArray<unsigned char> m_integer;
-
-protected:
-	/**
-	 * @brief
-	 * 	Constructs Integer from array of unsigned chars.
-	 *
-	 * @param numbersArray
-	 *	Array of bytes containing long number.
-
-	 * @param endianess
-	 * 	Defines if given number in array uses big- or little-endian notation.
-	 */
-	explicit Integer(const util::RuntimeArray<unsigned char> numbersArray, const Endianess endianess = Endianess::Little);
-
-	/**
-	 * @brief
-	 * 	Array getter.
-	 *
-	 * @return
-	 * 	Stored array.
-	 */
-	const util::RuntimeArray<unsigned char> &getArray() const;
-
 public:
 	/**
 	 * @brief
@@ -148,7 +119,36 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Integer(){}
+	virtual ~Integer() noexcept = default;
+
+protected:
+	/**
+	 * @brief
+	 * 	Constructs Integer from array of unsigned chars.
+	 *
+	 * @param numbersArray
+	 *	Array of bytes containing long number.
+
+	 * @param endianess
+	 * 	Defines if given number in array uses big- or little-endian notation.
+	 */
+	explicit Integer(const util::RuntimeArray<unsigned char> numbersArray, const Endianess endianess = Endianess::Little);
+
+	/**
+	 * @brief
+	 * 	Array getter.
+	 *
+	 * @return
+	 * 	Stored array.
+	 */
+	const util::RuntimeArray<unsigned char> &getArray() const noexcept;
+
+private:
+	/**
+	 * @brief
+	 * 	Array storing very long integer.
+	 */
+	const util::RuntimeArray<unsigned char> m_integer;
 };
 
 } /* namespace numb */

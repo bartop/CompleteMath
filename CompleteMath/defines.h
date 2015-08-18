@@ -12,7 +12,7 @@
 #define DEBUG
 
 #ifndef REPORT_ERROR
-#	ifndef THIS_IS_DLL
+#	ifdef USE_EXCEPTIONS
 #		define REPORT_ERROR(exception, ret) throw exception;
 #	else
 #		define REPORT_ERROR(exception, ret) return ret;
@@ -23,7 +23,7 @@
 #	ifdef THIS_IS_DLL
 #		define DLL_MACRO __declspec(dllexport)
 #	else
-#		define DLL_MACOR __declspec(dllimport)
+#		define DLL_MACRO __declspec(dllimport)
 #	endif
 #endif
 

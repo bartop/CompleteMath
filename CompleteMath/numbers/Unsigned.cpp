@@ -56,8 +56,6 @@ Unsigned *Unsigned::fromHexadecimalInString(const std::string &hexadecimalInStri
 	return fromLittleEndianArray({chars.get(), length});
 }
 
-Unsigned::~Unsigned(){}
-
 //======================================
 //--------------COPYABLE----------------
 //======================================
@@ -71,23 +69,27 @@ Number *Unsigned::copy() const{
 //======================================
 
 Number *Unsigned::getSum(const Number *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *Unsigned::getSum(const Complex *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *Unsigned::getSum(const FloatingPoint *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *Unsigned::getSum(const Signed *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *Unsigned::getSum(const Unsigned *toAdd) const{
-	if(!toAdd) throw 1;//TODO exceptions
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	util::RuntimeArray<unsigned char> tmp{ std::max(this->getArray().length(), toAdd->getArray().length()) + 1 };
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	tmp += toAdd->getArray();
@@ -95,23 +97,27 @@ Number *Unsigned::getSum(const Unsigned *toAdd) const{
 }
 
 Number *Unsigned::getProduct(const Number *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *Unsigned::getProduct(const Complex *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *Unsigned::getProduct(const FloatingPoint *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *Unsigned::getProduct(const Signed *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *Unsigned::getProduct(const Unsigned *toMultiply) const{
-	if(!toMultiply) throw 1;//TODO exceptions
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	util::RuntimeArray<unsigned char> tmp{ this->getArray().length() + toMultiply->getArray().length() };
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	tmp *= toMultiply->getArray();
@@ -122,26 +128,26 @@ Number *Unsigned::getProduct(const Unsigned *toMultiply) const{
 //---------------NUMBER-----------------
 //======================================
 
-const bool Unsigned::isZero() const{
+const bool Unsigned::isZero() const noexcept{
 	return getArray().length() == 1 && getArray()[0] == 0;
 }
 
-const std::string Unsigned::getAsBinary() const{
+const std::string Unsigned::getAsBinary() const {
 	std::string num = getAsHexadecimal();
 	return coma::util::BaseConverter("01234567890ABCDEF", "01").convert(num);
 }
 
-const std::string Unsigned::getAsOctal() const{
+const std::string Unsigned::getAsOctal() const {
 	std::string num = getAsHexadecimal();
 	return coma::util::BaseConverter("01234567890ABCDEF", "01234567").convert(num);
 }
 
-const std::string Unsigned::getAsDecimal() const{
+const std::string Unsigned::getAsDecimal() const {
 	std::string num = getAsHexadecimal();
 	return coma::util::BaseConverter::hexToDecimalConverter().convert(num);
 }
 
-const std::string Unsigned::getAsHexadecimal() const{
+const std::string Unsigned::getAsHexadecimal() const {
 	std::stringstream ss{ };
 	ss << std::uppercase;
 	ss << std::setfill('0');
@@ -185,11 +191,11 @@ Number *Unsigned::getInversion() const{
 			ZERO());
 }
 
-const bool Unsigned::isNegative() const{
+const bool Unsigned::isNegative() const noexcept{
 	return false;
 }
 
-const bool Unsigned::isPositive() const{
+const bool Unsigned::isPositive() const noexcept{
 	return !isZero();
 }
 
@@ -198,58 +204,68 @@ const bool Unsigned::isPositive() const{
 //======================================
 
 Integer *Unsigned::getIntegerQuotient(const Integer *toDivide) const{
+	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getIntegerQuotientInverse(this);
 }
 
 Integer *Unsigned::getRemainder(const Integer *toDivide) const{
+	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getInverseRemainder(this);
 }
 
 Integer *Unsigned::getIntegerQuotientInverse(const Integer *dividend) const{
+	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
 Integer *Unsigned::getInverseRemainder(const Integer *dividend) const{
+	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getInverseRemainder(this);
 }
 
 Integer *Unsigned::getIntegerQuotient(const Signed *toDivide) const{
+	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getIntegerQuotientInverse(this);
 }
 
 Integer *Unsigned::getRemainder(const Signed *toDivide) const{
+	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getInverseRemainder(this);
 }
 
 Integer *Unsigned::getIntegerQuotientInverse(const Signed *dividend) const{
+	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
 Integer *Unsigned::getInverseRemainder(const Signed *dividend) const{
+	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getRemainder(this);
 }
 
 Integer *Unsigned::getIntegerQuotient(const Unsigned *toDivide) const{
-	if(!toDivide) throw 1;//TODO exceptions
-	if(toDivide->isZero()) throw 1;//TODO exceptions
+	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
+	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	util::RuntimeArray<unsigned char> result = getArray();
 	result /= toDivide->getArray();
 	return fromLittleEndianArray(result);
 }
 
 Integer *Unsigned::getRemainder(const Unsigned *toDivide) const{
-	if(!toDivide) throw 1;//TODO exceptions
-	if(toDivide->isZero()) throw 1;//TODO exceptions
+	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
+	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	util::RuntimeArray<unsigned char> result = getArray();
 	result %= toDivide->getArray();
 	return fromLittleEndianArray(result);
 }
 
 Integer *Unsigned::getIntegerQuotientInverse(const Unsigned *dividend) const{
+	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
 Integer *Unsigned::getInverseRemainder(const Unsigned *dividend) const{
+	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getRemainder(this);
 }
 

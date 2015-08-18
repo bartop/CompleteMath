@@ -9,10 +9,12 @@
 #define NUMBERS_NUMBER_H_
 
 #include <string>
+
 #include "../coreInterfaces/Arithmetic.h"
 #include "../coreInterfaces/Copyable.h"
 #include "../coreInterfaces/TriviallyComparable.h"
 #include "../Technical/MemoryPoolObject.h"
+#include "../defines.h"
 
 namespace coma {
 namespace numb {
@@ -36,7 +38,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Number(){}
+	virtual ~Number() noexcept = default;
 
 	/**
 	 * @brief
@@ -54,7 +56,7 @@ public:
 	 * @return
 	 * 	True if stored value equals 0. Else returns false.
 	 */
-	virtual const bool isZero() const = 0;
+	virtual const bool isZero() const noexcept = 0;
 
 	virtual const bool isEqual(const Number *toCompare) const override;
 
@@ -274,7 +276,7 @@ public:
 	 * @return
 	 * 	Pointer to Unsigned storing zero.
 	 */
-	static const Unsigned *ZERO();
+	static const Unsigned *ZERO() noexcept;
 
 	/**
 	 * @brief
@@ -283,7 +285,7 @@ public:
 	 * @return
 	 * 	Pointer to Unsigned storing one.
 	 */
-	static const Unsigned *ONE();
+	static const Unsigned *ONE() noexcept;
 
 };
 

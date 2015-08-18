@@ -20,8 +20,14 @@ namespace core {
 template<class T, class U = T>
 class Dividable: public Multiplyable<T, U> {
 public:
-	typedef T return_type;
-	typedef U argument_type;
+	using return_type = T;
+	using argument_type = U;
+
+	/**
+	 * @brief
+	 * 	Default virtual destructor.
+	 */
+	virtual ~Dividable() noexcept = default;
 
 	/**
 	 * @brief
@@ -43,12 +49,6 @@ public:
 	 * 	Quotient of @c *this and @a toDivide.
 	 */
 	virtual return_type *getQuotient(const argument_type *toDivide) const = 0;
-
-	/**
-	 * @brief
-	 * 	Default virtual destructor.
-	 */
-	virtual ~Dividable() {}
 };
 
 } /* namespace core */

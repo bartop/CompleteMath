@@ -21,6 +21,7 @@ using namespace std;
 //======================================
 
 Complex *Complex::fromRealAndImaginary(const RealNumber *real, const RealNumber *imaginary){
+	if(!real || !imaginary) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return new Complex{real, imaginary};
 }
 
@@ -28,7 +29,7 @@ Complex::Complex(const RealNumber *real, const RealNumber *imaginary):
 	m_real{static_cast<const RealNumber *>(real->copy())},
 	m_imaginary{static_cast<const RealNumber *>(imaginary->copy())}{}
 
-Complex::~Complex(){
+Complex::~Complex() noexcept{
 	if(m_imaginary) delete m_imaginary;
 	if(m_real) delete m_real;
 }
@@ -46,35 +47,42 @@ Number *Complex::copy() const{
 //======================================
 
 Number *Complex::getSum(const Number *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(this);
 }
 
 Number *Complex::getSum(const Complex *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<RealNumber> real { static_cast<RealNumber *>(toAdd->m_real->getSum(this->m_real)) };
 	unique_ptr<RealNumber> im   { static_cast<RealNumber *>(toAdd->m_imaginary->getSum(this->m_imaginary)) };
 	return fromRealAndImaginary(real.get(), im.get());
 }
 
 Number *Complex::getSum(const FloatingPoint *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<Complex> left { toAdd->getAsComplex() };
 	return left->getSum(this);
 }
 
 Number *Complex::getSum(const Signed *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<Complex> left { toAdd->getAsComplex() };
 	return left->getSum(this);
 }
 
 Number *Complex::getSum(const Unsigned *toAdd) const{
+	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<Complex> left { toAdd->getAsComplex() };
 	return left->getSum(this);
 }
 
 Number *Complex::getProduct(const Number *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(this);
 }
 
 Number *Complex::getProduct(const Complex *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<RealNumber>
 		re1{ static_cast<RealNumber *>(m_real->getProduct(toMultiply->m_real)) },
 		re2{ static_cast<RealNumber *>(m_imaginary->getProduct(toMultiply->m_imaginary)) };
@@ -87,16 +95,19 @@ Number *Complex::getProduct(const Complex *toMultiply) const{
 }
 
 Number *Complex::getProduct(const FloatingPoint *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<Complex> left { toMultiply->getAsComplex() };
 	return left->getProduct(this);
 }
 
 Number *Complex::getProduct(const Signed *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<Complex> left { toMultiply->getAsComplex() };
 	return left->getProduct(this);
 }
 
 Number *Complex::getProduct(const Unsigned *toMultiply) const{
+	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	unique_ptr<Complex> left { toMultiply->getAsComplex() };
 	return toMultiply->getProduct(this);
 }
@@ -108,7 +119,7 @@ Number *Complex::getProduct(const Unsigned *toMultiply) const{
 Number *Complex::getAbsoluteValue() const{
 }
 
-const bool Complex::isZero() const{
+const bool Complex::isZero() const noexcept{
 	return m_real->isZero() && m_imaginary->isZero();
 }
 

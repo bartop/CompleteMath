@@ -45,7 +45,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~MemoryPool() = default;
+	virtual ~MemoryPool() noexcept = default;
 };
 
 } /* namespace tech */

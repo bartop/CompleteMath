@@ -26,7 +26,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Arithmetic() = default;
+	virtual ~Arithmetic() noexcept = default;
 };
 
 } /* namespace core */

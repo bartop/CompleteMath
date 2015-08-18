@@ -18,7 +18,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~TriviallyComparable(){}
+	virtual ~TriviallyComparable() noexcept = default;
 
 	/**
 	 * @brief

@@ -123,7 +123,7 @@ public:
 	 * @brief
 	 * 	Default virtual destructor.
 	 */
-	virtual ~Signed();
+	virtual ~Signed() noexcept = default;
 	//======================================
 	//-------------ARITHMETIC---------------
 	//======================================
@@ -165,16 +165,16 @@ public:
 	//---------------NUMBER-----------------
 	//======================================
 
-	virtual const bool isZero() const override;
+	virtual const bool isZero() const noexcept override;
 
 	/**
 	 * @{
 	 */
 
-	virtual const std::string getAsBinary() const override;
-	virtual const std::string getAsOctal() const override;
-	virtual const std::string getAsDecimal() const override;
-	virtual const std::string getAsHexadecimal() const override;
+	virtual const std::string getAsBinary() const noexcept override;
+	virtual const std::string getAsOctal() const noexcept override;
+	virtual const std::string getAsDecimal() const noexcept override;
+	virtual const std::string getAsHexadecimal() const noexcept override;
 
 	/**
 	 * @}
@@ -213,8 +213,8 @@ public:
 	 * @{
 	 */
 
-	virtual const bool isNegative() const override;
-	virtual const bool isPositive() const override;
+	virtual const bool isNegative() const noexcept override;
+	virtual const bool isPositive() const noexcept override;
 
 	/**
 	 * @}
