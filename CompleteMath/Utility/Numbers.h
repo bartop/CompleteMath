@@ -37,7 +37,7 @@ inline void removeLeftTrailingZeroes(std::string &number){
  * @return
  * 	Unsigned char array representing number stored in string.
  */
-unsigned char *const arrayFromHexadecimal(const std::string &hex);
+unsigned char *arrayFromHexadecimal(const std::string &hex);
 
 /**
  * @brief
@@ -49,7 +49,7 @@ unsigned char *const arrayFromHexadecimal(const std::string &hex);
  * @return
  * 	Unsigned char array representing number stored in string. For negative values 2 complement is used.
  */
-unsigned char *const arrayFromSignedHexadecimal(const std::string &hex);
+unsigned char *arrayFromSignedHexadecimal(const std::string &hex);
 
 /**
  * @brief
@@ -88,7 +88,7 @@ const unsigned long long sizeFromSignedHexadecimal(const std::string &hex);
  * @param size
  * 	Size of passed array.
  */
-void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size);
+void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *array, const unsigned long long size);
 
 /**
  * @brief
@@ -100,7 +100,7 @@ void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *con
  * @param size
  * 	Size of given array.
  */
-void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size);
+void shiftArrayLeft(unsigned char *toShift, const unsigned long long size);
 
 /**
  * @brief
@@ -118,8 +118,8 @@ void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size)
  * @param size2
  *  Size of second component.
  */
-void addArray(unsigned char *const toAdd1, const unsigned long long size1,
-		const unsigned char *const toAdd2, const unsigned long long size2);
+void addArray(unsigned char *toAdd1, const unsigned long long size1,
+		const unsigned char *toAdd2, const unsigned long long size2);
 
 /**
  * @brief
@@ -131,7 +131,7 @@ void addArray(unsigned char *const toAdd1, const unsigned long long size1,
  * @param size
  * 	Size of given array.
  */
-void negateArray(unsigned char *const toNegate, const unsigned long long size);
+void negateArray(unsigned char *toNegate, const unsigned long long size);
 
 /**
  * @brief

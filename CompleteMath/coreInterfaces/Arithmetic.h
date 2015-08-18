@@ -22,7 +22,11 @@ class Arithmetic:
 	public Subtractable<T, U>,
 	public Dividable<T, U>{
 public:
-	virtual ~Arithmetic(){};
+	/**
+	 * @brief
+	 * 	Default virtual destructor.
+	 */
+	virtual ~Arithmetic() = default;
 };
 
 } /* namespace core */

@@ -16,7 +16,7 @@ class TriviallyComparable{
 public:
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~TriviallyComparable(){}
 
@@ -30,7 +30,7 @@ public:
 	 * @return
 	 * 	True if objects are equal. False in other situations.
 	 */
-	virtual const bool isEqual(const T *const toCompare) const = 0;
+	virtual const bool isEqual(const T *toCompare) const = 0;
 };
 
 }  // namespace core

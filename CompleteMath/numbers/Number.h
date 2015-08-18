@@ -34,7 +34,7 @@ class Number:
 public:
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Number(){}
 
@@ -45,7 +45,7 @@ public:
 	 * @return
 	 * 	Absolute value of @c *this.
 	 */
-	virtual Number *const getAbsoluteValue() const = 0;
+	virtual Number *getAbsoluteValue() const = 0;
 
 	/**
 	 * @brief
@@ -56,7 +56,7 @@ public:
 	 */
 	virtual const bool isZero() const = 0;
 
-	virtual const bool isEqual(const Number *const toCompare) const override;
+	virtual const bool isEqual(const Number *toCompare) const override;
 
 	/**
 	 * @{
@@ -124,7 +124,7 @@ public:
 	 * @return
 	 * 	Unsigned representation of @c *this object.
 	 */
-	virtual Unsigned *const getAsUnsignedInteger() const = 0;
+	virtual Unsigned *getAsUnsignedInteger() const = 0;
 
 	/**
 	 * @brief
@@ -135,7 +135,7 @@ public:
 	 * @return
 	 * 	Signed representation of @c *this object.
 	 */
-	virtual Signed *const getAsSignedInteger() const = 0;
+	virtual Signed *getAsSignedInteger() const = 0;
 
 	/**
 	 * @brief
@@ -146,7 +146,7 @@ public:
 	 * @return
 	 * 	FloatingPoint representation of @c *this object.
 	 */
-	virtual FloatingPoint *const getAsFloatingPoint() const = 0;
+	virtual FloatingPoint *getAsFloatingPoint() const = 0;
 
 	/**
 	 * @brief
@@ -157,7 +157,7 @@ public:
 	 * @return
 	 * 	Complex representation of @c *this object.
 	 */
-	virtual Complex *const getAsComplex() const = 0;
+	virtual Complex *getAsComplex() const = 0;
 
 	/**
 	 * @}
@@ -175,7 +175,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Number *const getSum(const Complex *const toAdd) const = 0;
+	virtual Number *getSum(const Complex *toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -187,7 +187,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Number *const getSum(const FloatingPoint *const toAdd) const = 0;
+	virtual Number *getSum(const FloatingPoint *toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -199,7 +199,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Number *const getSum(const Signed *const toAdd) const = 0;
+	virtual Number *getSum(const Signed *toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -211,7 +211,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Number *const getSum(const Unsigned *const toAdd) const = 0;
+	virtual Number *getSum(const Unsigned *toAdd) const = 0;
 
 	using core::Multiplyable<Number>::getProduct;
 
@@ -225,7 +225,7 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Number *const getProduct(const Complex *const toMultiply) const = 0;
+	virtual Number *getProduct(const Complex *toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -237,7 +237,7 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const = 0;
+	virtual Number *getProduct(const FloatingPoint *toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -249,7 +249,7 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Number *const getProduct(const Signed *const toMultiply) const = 0;
+	virtual Number *getProduct(const Signed *toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -261,11 +261,11 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Number *const getProduct(const Unsigned *const toMultiply) const = 0;
+	virtual Number *getProduct(const Unsigned *toMultiply) const = 0;
 
-	virtual Number *const getDifference(const Number *const toSubtract) const override;
+	virtual Number *getDifference(const Number *toSubtract) const override;
 
-	virtual Number *const getQuotient(const Number *const toDivide) const override;
+	virtual Number *getQuotient(const Number *toDivide) const override;
 
 	/**
 	 * @brief
@@ -274,7 +274,7 @@ public:
 	 * @return
 	 * 	Pointer to Unsigned storing zero.
 	 */
-	static const Unsigned *const ZERO();
+	static const Unsigned *ZERO();
 
 	/**
 	 * @brief
@@ -283,7 +283,7 @@ public:
 	 * @return
 	 * 	Pointer to Unsigned storing one.
 	 */
-	static const Unsigned *const ONE();
+	static const Unsigned *ONE();
 
 };
 

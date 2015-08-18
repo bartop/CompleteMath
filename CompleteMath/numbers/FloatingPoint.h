@@ -13,15 +13,13 @@
 namespace coma {
 namespace numb {
 
-class Signed;
-class Unsigned;
 class Integer;
 
 class FloatingPoint final: public RealNumber {
 
-	const Integer *const m_numerator = nullptr;
-	const Unsigned *const m_denominator = nullptr;
-	const Integer *const m_power = nullptr;
+	const Integer *m_numerator = nullptr;
+	const Unsigned *m_denominator = nullptr;
+	const Integer *m_power = nullptr;
 
 public:
 	//======================================
@@ -48,9 +46,9 @@ public:
 	 * @return
 	 *	New FloatingPoint based on given formula and arguments.
 	 */
-	static FloatingPoint *const fromFraction(const Integer *const numerator,
-			const Integer *const denominator,
-			const Integer *const power);
+	static FloatingPoint *fromFraction(const Integer *numerator,
+			const Integer *denominator,
+			const Integer *power);
 	/**
 	 * @brief
 	 * 	Creates new FloatingPoint from binary numbers given in strings.
@@ -64,7 +62,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static FloatingPoint *const fromBinaryFractionInStrings(const std::string &numerator,
+	static FloatingPoint *fromBinaryFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
 
 	/**
@@ -80,7 +78,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static FloatingPoint *const fromOctalFractionInStrings(const std::string &numerator,
+	static FloatingPoint *fromOctalFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
 
 	/**
@@ -96,7 +94,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static FloatingPoint *const fromDecimalFractionInStrings(const std::string &numerator,
+	static FloatingPoint *fromDecimalFractionInStrings(const std::string &numerator,
 				const std::string &denominator);
 
 	/**
@@ -112,7 +110,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static FloatingPoint *const fromHexadecimalFractionInStrings(const std::string &numerator,
+	static FloatingPoint *fromHexadecimalFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
 
 	/**
@@ -125,7 +123,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static FloatingPoint *const fromBinaryFloatInString(const std::string &flaot);
+	static FloatingPoint *fromBinaryFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -137,7 +135,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static FloatingPoint *const fromOctalFloatInString(const std::string &flaot);
+	static FloatingPoint *fromOctalFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -149,7 +147,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static FloatingPoint *const fromDecimalFloatInString(const std::string &flaot);
+	static FloatingPoint *fromDecimalFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -161,11 +159,11 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static FloatingPoint *const fromHexadecimalFloatInString(const std::string &flaot);
+	static FloatingPoint *fromHexadecimalFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~FloatingPoint();
 
@@ -173,7 +171,7 @@ public:
 	//--------------COPYABLE----------------
 	//======================================
 
-	virtual Number *const copy() const override;
+	virtual Number *copy() const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------
@@ -182,11 +180,11 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getSum(const Number *const toAdd) const override;
-	virtual Number *const getSum(const Complex *const toAdd) const override;
-	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
-	virtual Number *const getSum(const Signed *const toAdd) const override;
-	virtual Number *const getSum(const Unsigned *const toAdd) const override;
+	virtual Number *getSum(const Number *toAdd) const override;
+	virtual Number *getSum(const Complex *toAdd) const override;
+	virtual Number *getSum(const FloatingPoint *toAdd) const override;
+	virtual Number *getSum(const Signed *toAdd) const override;
+	virtual Number *getSum(const Unsigned *toAdd) const override;
 
 	/**
 	 * @}
@@ -196,11 +194,11 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getProduct(const Number *const toMultiply) const override;
-	virtual Number *const getProduct(const Complex *const toMultiply) const override;
-	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
-	virtual Number *const getProduct(const Signed *const toMultiply) const override;
-	virtual Number *const getProduct(const Unsigned *const toMultiply) const override;
+	virtual Number *getProduct(const Number *toMultiply) const override;
+	virtual Number *getProduct(const Complex *toMultiply) const override;
+	virtual Number *getProduct(const FloatingPoint *toMultiply) const override;
+	virtual Number *getProduct(const Signed *toMultiply) const override;
+	virtual Number *getProduct(const Unsigned *toMultiply) const override;
 
 	/**
 	 * @}
@@ -230,10 +228,10 @@ public:
 	 *
 	 */
 
-	virtual Unsigned *const getAsUnsignedInteger() const override;
-	virtual Signed *const getAsSignedInteger() const override;
-	virtual FloatingPoint *const getAsFloatingPoint() const override;
-	virtual Complex *const getAsComplex() const override;
+	virtual Unsigned *getAsUnsignedInteger() const override;
+	virtual Signed *getAsSignedInteger() const override;
+	virtual FloatingPoint *getAsFloatingPoint() const override;
+	virtual Complex *getAsComplex() const override;
 
 	/**
 	 * @}
@@ -243,8 +241,8 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getNegation() const override;
-	virtual Number *const getInversion() const override;
+	virtual Number *getNegation() const override;
+	virtual Number *getInversion() const override;
 
 	/**
 	 * @}
@@ -282,9 +280,9 @@ private:
 	 * @param power
 	 *	Power in formula given above.
 	 */
-	FloatingPoint(const Integer *const numerator, const Unsigned *const denominator, const Integer *const power);
+	FloatingPoint(const Integer *numerator, const Unsigned *denominator, const Integer *power);
 
-	static FloatingPoint *const fromFloat(const std::string &number,
+	static FloatingPoint *fromFloat(const std::string &number,
 			const std::string &base,
 			const std::function<Integer *const(const std::string &)> &numeratorCreator);
 

@@ -37,7 +37,7 @@ ConstantSizedMemoryPool &ConstantSizedMemoryPool::operator=(ConstantSizedMemoryP
 	return *this;
 }
 
-void *const ConstantSizedMemoryPool::allocate(const size_t size){
+void *ConstantSizedMemoryPool::allocate(const size_t size){
 	if(!m_storedMemory) initalize();//lazy initialization
 	if(size > m_chunkSize || m_freeChunks.empty()){
 		return malloc(size);
@@ -48,7 +48,7 @@ void *const ConstantSizedMemoryPool::allocate(const size_t size){
 	}
 }
 
-void ConstantSizedMemoryPool::deallocate(void *const toDealloc){
+void ConstantSizedMemoryPool::deallocate(void *toDealloc){
 	auto i = std::find(m_usedChunks.begin(), m_usedChunks.end(), toDealloc);
 	if(i != m_usedChunks.end()){
 		m_freeChunks.splice(m_freeChunks.begin(), m_usedChunks, i);

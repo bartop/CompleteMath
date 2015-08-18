@@ -30,27 +30,27 @@ namespace numb {
 Unsigned::Unsigned(const util::RuntimeArray<unsigned char> &array, const Endianess endianess) :
 		Integer(util::withoutMeaninglessChars(array, false), endianess){}
 
-Unsigned *const Unsigned::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
+Unsigned *Unsigned::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
 	return new Unsigned { array, Endianess::Big };
 }
 
-Unsigned *const Unsigned::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
+Unsigned *Unsigned::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
 	return new Unsigned { array, Endianess::Little };
 }
 
-Unsigned *const Unsigned::fromBinaryInString(const std::string &binaryInString){
+Unsigned *Unsigned::fromBinaryInString(const std::string &binaryInString){
 	return fromHexadecimalInString(util::BaseConverter("01","0123456789ABCDEF").convert(binaryInString));
 }
 
-Unsigned *const Unsigned::fromOctalInString(const std::string &octalInString){
+Unsigned *Unsigned::fromOctalInString(const std::string &octalInString){
 	return fromHexadecimalInString(util::BaseConverter("01234567","0123456789ABCDEF").convert(octalInString));
 }
 
-Unsigned *const Unsigned::fromDecimalInString(const std::string &decimalInString){
+Unsigned *Unsigned::fromDecimalInString(const std::string &decimalInString){
 	return fromHexadecimalInString(util::BaseConverter::decimalToHexConverter().convert(decimalInString));
 }
 
-Unsigned *const Unsigned::fromHexadecimalInString(const std::string &hexadecimalInString){
+Unsigned *Unsigned::fromHexadecimalInString(const std::string &hexadecimalInString){
 	std::unique_ptr<unsigned char[]> chars{util::numb::arrayFromHexadecimal(hexadecimalInString)};
 	unsigned long long length = util::numb::sizeFromHexadecimal(hexadecimalInString);
 	return fromLittleEndianArray({chars.get(), length});
@@ -62,7 +62,7 @@ Unsigned::~Unsigned(){}
 //--------------COPYABLE----------------
 //======================================
 
-Number *const Unsigned::copy() const{
+Number *Unsigned::copy() const{
 	return getAsUnsignedInteger();
 }
 
@@ -70,23 +70,23 @@ Number *const Unsigned::copy() const{
 //-------------ARITHMETIC---------------
 //======================================
 
-Number *const Unsigned::getSum(const Number *const toAdd) const{
+Number *Unsigned::getSum(const Number *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Unsigned::getSum(const Complex *const toAdd) const{
+Number *Unsigned::getSum(const Complex *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Unsigned::getSum(const FloatingPoint *const toAdd) const{
+Number *Unsigned::getSum(const FloatingPoint *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Unsigned::getSum(const Signed *const toAdd) const{
+Number *Unsigned::getSum(const Signed *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Unsigned::getSum(const Unsigned *const toAdd) const{
+Number *Unsigned::getSum(const Unsigned *toAdd) const{
 	if(!toAdd) throw 1;//TODO exceptions
 	util::RuntimeArray<unsigned char> tmp{ std::max(this->getArray().length(), toAdd->getArray().length()) + 1 };
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
@@ -94,23 +94,23 @@ Number *const Unsigned::getSum(const Unsigned *const toAdd) const{
 	return fromLittleEndianArray(tmp);
 }
 
-Number *const Unsigned::getProduct(const Number *const toMultiply) const{
+Number *Unsigned::getProduct(const Number *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Unsigned::getProduct(const Complex *const toMultiply) const{
+Number *Unsigned::getProduct(const Complex *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Unsigned::getProduct(const FloatingPoint *const toMultiply) const{
+Number *Unsigned::getProduct(const FloatingPoint *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Unsigned::getProduct(const Signed *const toMultiply) const{
+Number *Unsigned::getProduct(const Signed *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Unsigned::getProduct(const Unsigned *const toMultiply) const{
+Number *Unsigned::getProduct(const Unsigned *toMultiply) const{
 	if(!toMultiply) throw 1;//TODO exceptions
 	util::RuntimeArray<unsigned char> tmp{ this->getArray().length() + toMultiply->getArray().length() };
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
@@ -154,32 +154,32 @@ const std::string Unsigned::getAsHexadecimal() const{
 	return tmp;
 }
 
-Unsigned *const Unsigned::getAsUnsignedInteger() const{
+Unsigned *Unsigned::getAsUnsignedInteger() const{
 	return fromLittleEndianArray(getArray());
 }
 
-Signed *const Unsigned::getAsSignedInteger() const{
+Signed *Unsigned::getAsSignedInteger() const{
 	util::RuntimeArray<unsigned char> tmp { getArray().length() + 1 };
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	return Signed::fromLittleEndianArray(tmp);
 }
 
-FloatingPoint *const Unsigned::getAsFloatingPoint() const{
+FloatingPoint *Unsigned::getAsFloatingPoint() const{
 	return FloatingPoint::fromFraction(this,
 			ONE(),
 			ZERO());
 }
 
-Complex *const Unsigned::getAsComplex() const{
+Complex *Unsigned::getAsComplex() const{
 	//TODO complete after Complex definition
 }
 
-Number *const Unsigned::getNegation() const{
+Number *Unsigned::getNegation() const{
 	std::unique_ptr<Signed> asSigned { getAsSignedInteger() };
 	return asSigned->getNegation();
 }
 
-Number *const Unsigned::getInversion() const{
+Number *Unsigned::getInversion() const{
 	return FloatingPoint::fromFraction(static_cast<const Integer *>(ONE()),
 			this,
 			ZERO());
@@ -197,39 +197,39 @@ const bool Unsigned::isPositive() const{
 //---------INTEGERARITHMETIC------------
 //======================================
 
-Integer *const Unsigned::getIntegerQuotient(const Integer *const toDivide) const{
+Integer *Unsigned::getIntegerQuotient(const Integer *toDivide) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getIntegerQuotientInverse(this);
 }
 
-Integer *const Unsigned::getRemainder(const Integer *const toDivide) const{
+Integer *Unsigned::getRemainder(const Integer *toDivide) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getInverseRemainder(this);
 }
 
-Integer *const Unsigned::getIntegerQuotientInverse(const Integer *const dividend) const{
+Integer *Unsigned::getIntegerQuotientInverse(const Integer *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
-Integer *const Unsigned::getInverseRemainder(const Integer *const dividend) const{
+Integer *Unsigned::getInverseRemainder(const Integer *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getInverseRemainder(this);
 }
 
-Integer *const Unsigned::getIntegerQuotient(const Signed *const toDivide) const{
+Integer *Unsigned::getIntegerQuotient(const Signed *toDivide) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getIntegerQuotientInverse(this);
 }
 
-Integer *const Unsigned::getRemainder(const Signed *const toDivide) const{
+Integer *Unsigned::getRemainder(const Signed *toDivide) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(toDivide)->getInverseRemainder(this);
 }
 
-Integer *const Unsigned::getIntegerQuotientInverse(const Signed *const dividend) const{
+Integer *Unsigned::getIntegerQuotientInverse(const Signed *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
-Integer *const Unsigned::getInverseRemainder(const Signed *const dividend) const{
+Integer *Unsigned::getInverseRemainder(const Signed *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getRemainder(this);
 }
 
-Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) const{
+Integer *Unsigned::getIntegerQuotient(const Unsigned *toDivide) const{
 	if(!toDivide) throw 1;//TODO exceptions
 	if(toDivide->isZero()) throw 1;//TODO exceptions
 	util::RuntimeArray<unsigned char> result = getArray();
@@ -237,7 +237,7 @@ Integer *const Unsigned::getIntegerQuotient(const Unsigned *const toDivide) cons
 	return fromLittleEndianArray(result);
 }
 
-Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{
+Integer *Unsigned::getRemainder(const Unsigned *toDivide) const{
 	if(!toDivide) throw 1;//TODO exceptions
 	if(toDivide->isZero()) throw 1;//TODO exceptions
 	util::RuntimeArray<unsigned char> result = getArray();
@@ -245,11 +245,11 @@ Integer *const Unsigned::getRemainder(const Unsigned *const toDivide) const{
 	return fromLittleEndianArray(result);
 }
 
-Integer *const Unsigned::getIntegerQuotientInverse(const Unsigned *const dividend) const{
+Integer *Unsigned::getIntegerQuotientInverse(const Unsigned *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
-Integer *const Unsigned::getInverseRemainder(const Unsigned *const dividend) const{
+Integer *Unsigned::getInverseRemainder(const Unsigned *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Unsigned, Integer> *const>(dividend)->getRemainder(this);
 }
 

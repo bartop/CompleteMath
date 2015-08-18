@@ -60,8 +60,8 @@ public:
 	 */
 	ConstantSizedMemoryPool &operator=(ConstantSizedMemoryPool toCopy);
 
-	virtual void *const allocate(const size_t size) override;
-	virtual void deallocate(void *const toDealloc) override;
+	virtual void *allocate(const size_t size) override;
+	virtual void deallocate(void *toDealloc) override;
 
 private:
 	size_t m_chunkSize;

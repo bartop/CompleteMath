@@ -12,7 +12,7 @@ namespace coma{
 namespace util{
 namespace numb{
 
-unsigned char *const arrayFromHexadecimal(const std::string &hex){
+unsigned char *arrayFromHexadecimal(const std::string &hex){
 	std::string tempCopy = hex;
 	removeLeftTrailingZeroes(tempCopy);
 	unsigned long long size = tempCopy.length() / 2 + tempCopy.length() % 2;
@@ -21,7 +21,7 @@ unsigned char *const arrayFromHexadecimal(const std::string &hex){
 	return array;
 }
 
-unsigned char *const arrayFromSignedHexadecimal(const std::string &hex){
+unsigned char *arrayFromSignedHexadecimal(const std::string &hex){
 	std::string tempCopy = hex.substr(1, hex.length() - 1);
 	removeLeftTrailingZeroes(tempCopy);
 	unsigned long long size = sizeFromSignedHexadecimal(hex);
@@ -47,7 +47,7 @@ const unsigned long long sizeFromSignedHexadecimal(const std::string &hex){
 	return size;
 }
 
-void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *const array, const unsigned long long size){
+void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *array, const unsigned long long size){
 	std::stringstream sstream { };
 	sstream.exceptions(std::stringstream::eofbit | std::stringstream::badbit);
 	for(unsigned long long i = 0; i < size; ++i){
@@ -62,15 +62,15 @@ void fillArrayfromHexadecimal(const std::string &hexadecimal, unsigned char *con
 	}
 }
 
-void shiftArrayLeft(unsigned char *const toShift, const unsigned long long size){
+void shiftArrayLeft(unsigned char *toShift, const unsigned long long size){
 	for(unsigned long long i = 0; i < size - 1; ++i){
 		toShift[size - 1 - i] = toShift[size - 2 - i];
 	}
 	toShift[0] = 0;
 }
 
-void addArray(unsigned char *const toAdd1, const unsigned long long size1,
-		const unsigned char *const toAdd2, const unsigned long long size2){
+void addArray(unsigned char *toAdd1, const unsigned long long size1,
+		const unsigned char *toAdd2, const unsigned long long size2){
 	unsigned char carry {0};
 	for(unsigned long long i = 0; i < size2 || (carry == 1 && i < size1); ++i){
 		if(i < size2) addWithCarry(toAdd1[i], toAdd2[i], carry);
@@ -78,7 +78,7 @@ void addArray(unsigned char *const toAdd1, const unsigned long long size1,
 	}
 }
 
-void negateArray(unsigned char *const toNegate, const unsigned long long size){
+void negateArray(unsigned char *toNegate, const unsigned long long size){
 	unsigned char one { 1 };
 	for(unsigned long long i = 0; i < size; ++i){
 		toNegate[i] = ~toNegate[i];

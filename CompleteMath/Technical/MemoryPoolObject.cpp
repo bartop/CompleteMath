@@ -18,7 +18,7 @@ void *MemoryPoolObject::operator new(std::size_t size){
 	return m_memoryPool->allocate(size);
 }
 
-void MemoryPoolObject::operator delete(void *const toDelete){
+void MemoryPoolObject::operator delete(void *toDelete){
 	m_memoryPool->deallocate(toDelete);
 }
 

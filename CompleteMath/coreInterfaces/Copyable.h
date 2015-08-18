@@ -25,11 +25,11 @@ public:
 	 * @return
 	 * 	Pointer to copy of @c *this.
 	 */
-	virtual T *const copy() const = 0;
+	virtual T *copy() const = 0;
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Copyable() {}
 };

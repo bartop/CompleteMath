@@ -34,7 +34,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *const fromBinaryInString(const std::string &binary);
+	static RealNumber *fromBinaryInString(const std::string &binary);
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *const fromOctalInString(const std::string &octal);
+	static RealNumber *fromOctalInString(const std::string &octal);
 
 	/**
 	 * @brief
@@ -58,7 +58,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *const fromDecimalInString(const std::string &decimal);
+	static RealNumber *fromDecimalInString(const std::string &decimal);
 
 	/**
 	 * @brief
@@ -70,7 +70,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *const fromHexadecimalInString(const std::string &hex);
+	static RealNumber *fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief
@@ -99,12 +99,12 @@ public:
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~RealNumber(){}
 
-	virtual const CompareResult compare(const RealNumber *const toCompare) const override;
-	virtual Number *const getAbsoluteValue() const override;
+	virtual const CompareResult compare(const RealNumber *toCompare) const override;
+	virtual Number *getAbsoluteValue() const override;
 };
 
 } /* namespace numb */

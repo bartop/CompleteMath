@@ -44,11 +44,11 @@ public:
 	 * @return
 	 * 	#CompareResult adequate to result of the comparison.
 	 */
-	virtual const CompareResult compare(const T *const toCompare) const = 0;
+	virtual const CompareResult compare(const T *toCompare) const = 0;
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Comparable(){}
 };

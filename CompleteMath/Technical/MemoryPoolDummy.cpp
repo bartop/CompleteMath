@@ -13,11 +13,11 @@ namespace tech {
 MemoryPoolDummy::~MemoryPoolDummy() {
 }
 
-void *const MemoryPoolDummy::allocate(const std::size_t size){
+void *MemoryPoolDummy::allocate(const std::size_t size){
 	return new char[size]{};
 }
 
-void MemoryPoolDummy::deallocate(void *const toDealloc){
+void MemoryPoolDummy::deallocate(void *toDealloc){
 	delete[] static_cast<char *const>(toDealloc);
 }
 

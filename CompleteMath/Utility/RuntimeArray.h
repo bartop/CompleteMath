@@ -20,11 +20,11 @@ namespace util {
 template<class T>
 class RuntimeArray {
 	const unsigned long long m_size = 0;
-	T *const m_array = nullptr;
+	T *m_array = nullptr;
 
 public:
-	typedef T *const iterator;
-	typedef const T *const const_iterator;
+	typedef T *iterator;
+	typedef const T *const_iterator;
 	/**
  	 * @brief
  	 * 	Constructs auto-array of given size.
@@ -49,7 +49,7 @@ public:
 	 * @param size
 	 *	Size of given array.
 	 */
-	RuntimeArray(const T *const array, const unsigned long long size) : RuntimeArray{size}{
+	RuntimeArray(const T *array, const unsigned long long size) : RuntimeArray{size}{
 		std::copy(array, array + size, m_array);
 	}
 

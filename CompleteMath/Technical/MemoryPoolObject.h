@@ -24,7 +24,7 @@ class MemoryPoolObject {
 public:
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~MemoryPoolObject();
 
@@ -44,7 +44,7 @@ public:
 	 * @param toDelete
 	 * 	Memory to be freed.
 	 */
-	void operator delete(void *const toDelete);
+	void operator delete(void *toDelete);
 
 	/**
 	 * @brief
@@ -55,6 +55,13 @@ public:
 	 */
 	static void setMemoryPool(MemoryPool &memoryPool);
 
+	/**
+	 * @brief
+	 * 	Function used to get default memory pool.
+	 *
+	 * @return
+	 * 	Default memory pool.
+	 */
 	static MemoryPool &getDefaultMemoryPool(){
 		static MemoryPool &&defaultPool = MemoryPoolDummy();
 		return defaultPool;

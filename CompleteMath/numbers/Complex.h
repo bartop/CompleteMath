@@ -13,10 +13,40 @@
 namespace coma {
 namespace numb {
 
+class RealNumber;
+
 class Complex final:
 		public Number {
 public:
-	Complex();
+	//======================================
+	//--------------COMPLEX-----------------
+	//======================================
+	/**
+	 * @brief
+	 * 	Factory function creating Complex from real and imaginary part.
+	 *
+	 * @param real
+	 * 	Real part of created Complex.
+	 *
+	 * @param imaginary
+	 * 	Imaginary part of created Complex.
+	 *
+	 * @return
+	 * 	New Complex with given real and imaginary part.
+	 */
+	static Complex *fromRealAndImaginary(const RealNumber *real, const RealNumber *imaginary);
+
+	/**
+	 * @brief
+	 * 	Virtual destructor which frees resources.
+	 */
+	virtual ~Complex();
+
+	//======================================
+	//--------------COPYABLE----------------
+	//======================================
+
+	virtual Number *copy() const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------
@@ -25,11 +55,11 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getSum(const Number *const toAdd) const override;
-	virtual Number *const getSum(const Complex *const toAdd) const override;
-	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
-	virtual Number *const getSum(const Signed *const toAdd) const override;
-	virtual Number *const getSum(const Unsigned *const toAdd) const override;
+	virtual Number *getSum(const Number *toAdd) const override;
+	virtual Number *getSum(const Complex *toAdd) const override;
+	virtual Number *getSum(const FloatingPoint *toAdd) const override;
+	virtual Number *getSum(const Signed *toAdd) const override;
+	virtual Number *getSum(const Unsigned *toAdd) const override;
 
 	/**
 	 * @}
@@ -39,11 +69,11 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getProduct(const Number *const toMultiply) const override;
-	virtual Number *const getProduct(const Complex *const toMultiply) const override;
-	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
-	virtual Number *const getProduct(const Signed *const toMultiply) const override;
-	virtual Number *const getProduct(const Unsigned *const toMultiply) const override;
+	virtual Number *getProduct(const Number *toMultiply) const override;
+	virtual Number *getProduct(const Complex *toMultiply) const override;
+	virtual Number *getProduct(const FloatingPoint *toMultiply) const override;
+	virtual Number *getProduct(const Signed *toMultiply) const override;
+	virtual Number *getProduct(const Unsigned *toMultiply) const override;
 
 	/**
 	 * @}
@@ -53,7 +83,7 @@ public:
 	//---------------NUMBER-----------------
 	//======================================
 
-	virtual Number *const getAbsoluteValue() const override;
+	virtual Number *getAbsoluteValue() const override;
 	virtual const bool isZero() const override;
 
 	/**
@@ -73,10 +103,10 @@ public:
 	 * @{
 	 */
 
-	virtual Unsigned *const getAsUnsignedInteger() const override;
-	virtual Signed *const getAsSignedInteger() const override;
-	virtual FloatingPoint *const getAsFloatingPoint() const override;
-	virtual Complex *const getAsComplex() const override;
+	virtual Unsigned *getAsUnsignedInteger() const override;
+	virtual Signed *getAsSignedInteger() const override;
+	virtual FloatingPoint *getAsFloatingPoint() const override;
+	virtual Complex *getAsComplex() const override;
 
 	/**
 	 * @}
@@ -86,14 +116,28 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getNegation() const override;
-	virtual Number *const getInversion() const override;
+	virtual Number *getNegation() const override;
+	virtual Number *getInversion() const override;
 
 	/**
 	 * @}
 	 */
 
-	virtual ~Complex();
+private:
+	const RealNumber *const m_real = nullptr;
+	const RealNumber *const m_imaginary = nullptr;
+
+	/**
+	 * @brief
+	 * 	Constructor copying @a real as real part and @a imaginary as imaginary part.
+	 *
+	 * @param real
+	 * 	Real part of created Complex number.
+	 *
+	 * @param imaginary
+	 * 	Imaginary part of created Complex number.
+	 */
+	Complex(const RealNumber *real, const RealNumber *imaginary);
 };
 
 } /* namespace numb */

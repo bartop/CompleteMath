@@ -79,7 +79,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Integer *const fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Integer *fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -94,7 +94,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Integer *const fromBigEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Integer *fromBigEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -106,47 +106,47 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *const fromBinaryInString(const std::string &binary);
+	static Integer *fromBinaryInString(const std::string &binary);
 
 	/**
 	 * @brief
 	 * 	Creates Integer containing given number.
 	 *
-	 * @param binary
+	 * @param octal
 	 * 	Octal number in string.
 	 *
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *const fromOctalInString(const std::string &octal);
+	static Integer *fromOctalInString(const std::string &octal);
 
 	/**
 	 * @brief
 	 * 	Creates Integer containing given number.
 	 *
-	 * @param binary
+	 * @param decimal
 	 * 	Decimal number in string.
 	 *
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *const fromDecimalInString(const std::string &decimal);
+	static Integer *fromDecimalInString(const std::string &decimal);
 
 	/**
 	 * @brief
 	 * 	Creates Integer containing given number.
 	 *
-	 * @param binary
+	 * @param hex
 	 * 	Hexadecimal number in string.
 	 *
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *const fromHexadecimalInString(const std::string &hex);
+	static Integer *fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Integer(){}
 };

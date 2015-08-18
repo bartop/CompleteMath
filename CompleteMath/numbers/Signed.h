@@ -29,7 +29,7 @@ public:
 	 * @return
 	 * 	New Signed object containing value stored in array.
 	 */
-	static Signed *const fromBigEndianArray(const util::RuntimeArray<unsigned char> &array);
+	static Signed *fromBigEndianArray(const util::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -41,7 +41,7 @@ public:
 	 * @return
 	 * 	New Signed object containing value stored in array.
 	 */
-	static Signed *const fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array);
+	static Signed *fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -60,7 +60,7 @@ public:
 	 * @return
 	 *	New Signed object containing value stored in string.
 	 */
-	static Signed *const fromBinaryInString(const std::string &binaryInString);
+	static Signed *fromBinaryInString(const std::string &binaryInString);
 
 	/**
 	 * @brief
@@ -79,7 +79,7 @@ public:
 	 * @return
 	 *	New Signed object containing value stored in string.
 	 */
-	static Signed *const fromOctalInString(const std::string &octalInString);
+	static Signed *fromOctalInString(const std::string &octalInString);
 
 	/**
 	 * @brief
@@ -98,7 +98,7 @@ public:
 	 * @return
 	 *	New Signed object containing value stored in string.
 	 */
-	static Signed *const fromDecimalInString(const std::string &decimalInString);
+	static Signed *fromDecimalInString(const std::string &decimalInString);
 
 	/**
 	 * @brief
@@ -117,18 +117,18 @@ public:
 	 * @return
 	 *	New Signed object containing value stored in string.
 	 */
-	static Signed *const fromHexadecimalInString(const std::string &hexadecimalInString);
+	static Signed *fromHexadecimalInString(const std::string &hexadecimalInString);
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Signed();
 	//======================================
 	//-------------ARITHMETIC---------------
 	//======================================
 
-	virtual Number *const copy() const override;
+	virtual Number *copy() const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------
@@ -137,11 +137,11 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getSum(const Number *const toAdd) const override;
-	virtual Number *const getSum(const Complex *const toAdd) const override;
-	virtual Number *const getSum(const FloatingPoint *const toAdd) const override;
-	virtual Number *const getSum(const Signed *const toAdd) const override;
-	virtual Number *const getSum(const Unsigned *const toAdd) const override;
+	virtual Number *getSum(const Number *toAdd) const override;
+	virtual Number *getSum(const Complex *toAdd) const override;
+	virtual Number *getSum(const FloatingPoint *toAdd) const override;
+	virtual Number *getSum(const Signed *toAdd) const override;
+	virtual Number *getSum(const Unsigned *toAdd) const override;
 
 	/**
 	 * @}
@@ -151,11 +151,11 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getProduct(const Number *const toMultiply) const override;
-	virtual Number *const getProduct(const Complex *const toMultiply) const override;
-	virtual Number *const getProduct(const FloatingPoint *const toMultiply) const override;
-	virtual Number *const getProduct(const Signed *const toMultiply) const override;
-	virtual Number *const getProduct(const Unsigned *const toMultiply) const override;
+	virtual Number *getProduct(const Number *toMultiply) const override;
+	virtual Number *getProduct(const Complex *toMultiply) const override;
+	virtual Number *getProduct(const FloatingPoint *toMultiply) const override;
+	virtual Number *getProduct(const Signed *toMultiply) const override;
+	virtual Number *getProduct(const Unsigned *toMultiply) const override;
 
 	/**
 	 * @}
@@ -185,10 +185,10 @@ public:
 	 *
 	 */
 
-	virtual Unsigned *const getAsUnsignedInteger() const override;
-	virtual Signed *const getAsSignedInteger() const override;
-	virtual FloatingPoint *const getAsFloatingPoint() const override;
-	virtual Complex *const getAsComplex() const override;
+	virtual Unsigned *getAsUnsignedInteger() const override;
+	virtual Signed *getAsSignedInteger() const override;
+	virtual FloatingPoint *getAsFloatingPoint() const override;
+	virtual Complex *getAsComplex() const override;
 
 	/**
 	 * @}
@@ -198,8 +198,8 @@ public:
 	 * @{
 	 */
 
-	virtual Number *const getNegation() const override;
-	virtual Number *const getInversion() const override;
+	virtual Number *getNegation() const override;
+	virtual Number *getInversion() const override;
 
 	/**
 	 * @}
@@ -228,10 +228,10 @@ public:
 	 * @{
 	 */
 
-	virtual Integer *const getIntegerQuotient(const Integer *const toDivide) const override;
-	virtual Integer *const getRemainder(const Integer *const toDivide) const override;
-	virtual Integer *const getIntegerQuotientInverse(const Integer *const dividend) const override;
-	virtual Integer *const getInverseRemainder(const Integer *const dividend) const override;
+	virtual Integer *getIntegerQuotient(const Integer *toDivide) const override;
+	virtual Integer *getRemainder(const Integer *toDivide) const override;
+	virtual Integer *getIntegerQuotientInverse(const Integer *dividend) const override;
+	virtual Integer *getInverseRemainder(const Integer *dividend) const override;
 
 	/**
 	 * @}
@@ -241,10 +241,10 @@ public:
 	 * @{
 	 */
 
-	virtual Integer *const getIntegerQuotient(const Signed *const toDivide) const override;
-	virtual Integer *const getRemainder(const Signed *const toDivide) const override;
-	virtual Integer *const getIntegerQuotientInverse(const Signed *const dividend) const override;
-	virtual Integer *const getInverseRemainder(const Signed *const dividend) const override;
+	virtual Integer *getIntegerQuotient(const Signed *toDivide) const override;
+	virtual Integer *getRemainder(const Signed *toDivide) const override;
+	virtual Integer *getIntegerQuotientInverse(const Signed *dividend) const override;
+	virtual Integer *getInverseRemainder(const Signed *dividend) const override;
 
 	/**
 	 * @}
@@ -254,10 +254,10 @@ public:
 	 * @{
 	 */
 
-	virtual Integer *const getIntegerQuotient(const Unsigned *const toDivide) const override;
-	virtual Integer *const getRemainder(const Unsigned *const toDivide) const override;
-	virtual Integer *const getIntegerQuotientInverse(const Unsigned *const dividend) const override;
-	virtual Integer *const getInverseRemainder(const Unsigned *const dividend) const override;
+	virtual Integer *getIntegerQuotient(const Unsigned *toDivide) const override;
+	virtual Integer *getRemainder(const Unsigned *toDivide) const override;
+	virtual Integer *getIntegerQuotientInverse(const Unsigned *dividend) const override;
+	virtual Integer *getInverseRemainder(const Unsigned *dividend) const override;
 
 	/**
 	 * @}

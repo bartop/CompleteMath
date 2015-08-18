@@ -21,13 +21,13 @@ class MemoryPoolDummy: public MemoryPool {
 public:
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~MemoryPoolDummy();
 
-	virtual void *const allocate(const size_t size) override;
+	virtual void *allocate(const size_t size) override;
 
-	virtual void deallocate(void *const toDealloc) override;
+	virtual void deallocate(void *toDealloc) override;
 };
 
 extern MemoryPoolDummy memoryPoolDummy;

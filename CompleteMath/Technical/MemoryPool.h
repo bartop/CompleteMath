@@ -19,7 +19,7 @@ namespace tech {
  */
 class MemoryPool {
 public:
-	typedef std::size_t size_t;
+	using size_t = std::size_t;
 	/**
 	 * @brief
 	 * 	Allocates given amount of memory.
@@ -30,7 +30,7 @@ public:
 	 * @return
 	 * 	Pointer to allocated memory.
 	 */
-	virtual void *const allocate(const size_t size) = 0;
+	virtual void *allocate(const size_t size) = 0;
 
 	/**
 	 * @brief
@@ -39,13 +39,13 @@ public:
 	 * @param toDealloc
 	 * 	Pointer to memory to be deallocated.
 	 */
-	virtual void deallocate(void *const toDealloc) = 0;
+	virtual void deallocate(void *toDealloc) = 0;
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
-	virtual ~MemoryPool(){}
+	virtual ~MemoryPool() = default;
 };
 
 } /* namespace tech */

@@ -28,33 +28,33 @@ Signed::Signed(const util::RuntimeArray<unsigned char> &array,
 		const Endianess endianess) :
 				Integer( util::withoutMeaninglessChars(array, true) , endianess){}
 
-Signed *const Signed::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
+Signed *Signed::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
 	return new Signed{ array, Endianess::Big };
 }
 
-Signed *const Signed::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
+Signed *Signed::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
 	return new Signed{ array, Endianess::Little };
 }
 
-Signed *const Signed::fromBinaryInString(const std::string &binaryInString){
+Signed *Signed::fromBinaryInString(const std::string &binaryInString){
 	return fromHexadecimalInString(
 			binaryInString[0] + coma::util::BaseConverter("01","0123456789ABCDEF").
 			convert(binaryInString.substr(1, binaryInString.length() - 1)));
 }
 
-Signed *const Signed::fromOctalInString(const std::string &octalInString){
+Signed *Signed::fromOctalInString(const std::string &octalInString){
 	return fromHexadecimalInString(
 			octalInString[0] + coma::util::BaseConverter("01234567","0123456789ABCDEF").
 			convert(octalInString.substr(1, octalInString.length() - 1)));
 }
 
-Signed *const Signed::fromDecimalInString(const std::string &decimalInString){
+Signed *Signed::fromDecimalInString(const std::string &decimalInString){
 	return fromHexadecimalInString(
 			decimalInString[0] + coma::util::BaseConverter("0123456789","0123456789ABCDEF").
 			convert(decimalInString.substr(1, decimalInString.length() - 1)));
 }
 
-Signed *const Signed::fromHexadecimalInString(const std::string &hexadecimalInString){
+Signed *Signed::fromHexadecimalInString(const std::string &hexadecimalInString){
 	std::unique_ptr<unsigned char[]> chars{ util::numb::arrayFromSignedHexadecimal(hexadecimalInString) };
 	unsigned long long length { util::numb::sizeFromSignedHexadecimal(hexadecimalInString) };
 	return fromLittleEndianArray({chars.get(), length});
@@ -65,7 +65,7 @@ Signed::~Signed(){}
 //--------------COPYABLE----------------
 //======================================
 
-Number *const Signed::copy() const{
+Number *Signed::copy() const{
 	return getAsSignedInteger();
 }
 
@@ -73,19 +73,19 @@ Number *const Signed::copy() const{
 //-------------ARITHMETIC---------------
 //======================================
 
-Number *const Signed::getSum(const Number *const toAdd) const{
+Number *Signed::getSum(const Number *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Signed::getSum(const Complex *const toAdd) const{
+Number *Signed::getSum(const Complex *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Signed::getSum(const FloatingPoint *const toAdd) const{
+Number *Signed::getSum(const FloatingPoint *toAdd) const{
 	return toAdd->getSum(this);
 }
 
-Number *const Signed::getSum(const Signed *const toAdd) const{
+Number *Signed::getSum(const Signed *toAdd) const{
 	util::RuntimeArray<unsigned char> tmp1
 		{ 1 + std::max(toAdd->getArray().length(), this->getArray().length()), this->isNegative() ? 0xFF : 0 };
 	util::RuntimeArray<unsigned char> tmp2
@@ -96,24 +96,24 @@ Number *const Signed::getSum(const Signed *const toAdd) const{
 	return fromLittleEndianArray(tmp1);
 }
 
-Number *const Signed::getSum(const Unsigned *const toAdd) const{
+Number *Signed::getSum(const Unsigned *toAdd) const{
 	std::unique_ptr<coma::numb::Signed> left { toAdd->getAsSignedInteger() };
 	return left->getSum(this);
 }
 
-Number *const Signed::getProduct(const Number *const toMultiply) const{
+Number *Signed::getProduct(const Number *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Signed::getProduct(const Complex *const toMultiply) const{
+Number *Signed::getProduct(const Complex *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Signed::getProduct(const FloatingPoint *const toMultiply) const{
+Number *Signed::getProduct(const FloatingPoint *toMultiply) const{
 	return toMultiply->getProduct(this);
 }
 
-Number *const Signed::getProduct(const Signed *const toMultiply) const{
+Number *Signed::getProduct(const Signed *toMultiply) const{
 	util::RuntimeArray<unsigned char>
 		tmp1{ this->getArray().length() + toMultiply->getArray().length() + 2, this->isNegative() ? 0xFF : 0 },
 		tmp2{ this->getArray().length() + toMultiply->getArray().length() + 2, toMultiply->isNegative() ? 0xFF : 0 };
@@ -128,7 +128,7 @@ Number *const Signed::getProduct(const Signed *const toMultiply) const{
 	return fromLittleEndianArray(tmp1);
 }
 
-Number *const Signed::getProduct(const Unsigned *const toMultiply) const{//TODO serious testing
+Number *Signed::getProduct(const Unsigned *toMultiply) const{//TODO serious testing
 	std::unique_ptr<coma::numb::Signed> left { toMultiply->getAsSignedInteger() };
 	return left->getProduct(this);
 }
@@ -168,25 +168,25 @@ const std::string Signed::getAsHexadecimal() const{
 
 }
 
-Unsigned *const Signed::getAsUnsignedInteger() const{
+Unsigned *Signed::getAsUnsignedInteger() const{
 	return Unsigned::fromLittleEndianArray(getArray());
 }
 
-Signed *const Signed::getAsSignedInteger() const{
+Signed *Signed::getAsSignedInteger() const{
 	return fromLittleEndianArray(getArray());
 }
 
-FloatingPoint *const Signed::getAsFloatingPoint() const{
+FloatingPoint *Signed::getAsFloatingPoint() const{
 	return FloatingPoint::fromFraction(this,
 			ONE(),
 			ZERO());
 }
 
-Complex *const Signed::getAsComplex() const{
+Complex *Signed::getAsComplex() const{
 	//TODO complete after Complex definition
 }
 
-Number *const Signed::getNegation() const{
+Number *Signed::getNegation() const{
 	util::RuntimeArray<unsigned char> tmp { getArray().length() + 1, isNegative() ? 0xFF : 0 };
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	util::negate(tmp);
@@ -194,7 +194,7 @@ Number *const Signed::getNegation() const{
 	else return Signed::fromLittleEndianArray(tmp);
 }
 
-Number *const Signed::getInversion() const{
+Number *Signed::getInversion() const{
 	return FloatingPoint::fromFraction(ONE(),
 			this,
 			ZERO());
@@ -212,23 +212,23 @@ const bool Signed::isPositive() const{
 //---------INTEGERARITHMETIC------------
 //======================================
 
-Integer *const Signed::getIntegerQuotient(const Integer *const toDivide) const{
+Integer *Signed::getIntegerQuotient(const Integer *toDivide) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(toDivide)->getIntegerQuotientInverse(this);
 }
 
-Integer *const Signed::getRemainder(const Integer *const toDivide) const{
+Integer *Signed::getRemainder(const Integer *toDivide) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(toDivide)->getInverseRemainder(this);
 }
 
-Integer *const Signed::getIntegerQuotientInverse(const Integer *const dividend) const{
+Integer *Signed::getIntegerQuotientInverse(const Integer *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
-Integer *const Signed::getInverseRemainder(const Integer *const dividend) const{
+Integer *Signed::getInverseRemainder(const Integer *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getRemainder(this);
 }
 
-Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{//TODO optimize
+Integer *Signed::getIntegerQuotient(const Signed *toDivide) const{//TODO optimize
 	util::RuntimeArray<unsigned char>
 		left { this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0 },
 		right{ toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0 };
@@ -241,7 +241,7 @@ Integer *const Signed::getIntegerQuotient(const Signed *const toDivide) const{//
 	return fromLittleEndianArray(left);
 }
 
-Integer *const Signed::getRemainder(const Signed *const toDivide) const{//TODO test and improve later
+Integer *Signed::getRemainder(const Signed *toDivide) const{//TODO test and improve later
 	util::RuntimeArray<unsigned char>
 		left { std::max(this->getArray().length(), toDivide->getArray().length()) + 1, this    ->isNegative() ? 0xFF : 0 },
 		right{ std::max(this->getArray().length(), toDivide->getArray().length()) + 1, toDivide->isNegative() ? 0xFF : 0 };
@@ -265,30 +265,30 @@ Integer *const Signed::getRemainder(const Signed *const toDivide) const{//TODO t
 	return fromLittleEndianArray(left);
 }
 
-Integer *const Signed::getIntegerQuotientInverse(const Signed *const dividend) const{
+Integer *Signed::getIntegerQuotientInverse(const Signed *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getIntegerQuotient(this);
 }
 
-Integer *const Signed::getInverseRemainder(const Signed *const dividend) const{
+Integer *Signed::getInverseRemainder(const Signed *dividend) const{
 	return static_cast<const coma::numb::IntegerArithmetic<Signed, Integer> *const>(dividend)->getRemainder(this);
 }
 
-Integer *const Signed::getIntegerQuotient(const Unsigned *const toDivide) const{
+Integer *Signed::getIntegerQuotient(const Unsigned *toDivide) const{
 	std::unique_ptr<coma::numb::IntegerArithmetic<Signed, Integer> > left { toDivide->getAsSignedInteger() };
 	return left->getIntegerQuotientInverse(this);
 }
 
-Integer *const Signed::getRemainder(const Unsigned *const toDivide) const{
+Integer *Signed::getRemainder(const Unsigned *toDivide) const{
 	std::unique_ptr<coma::numb::IntegerArithmetic<Signed, Integer> > left { toDivide->getAsSignedInteger() };
 	return left->getInverseRemainder(this);
 }
 
-Integer *const Signed::getIntegerQuotientInverse(const Unsigned *const dividend) const{
+Integer *Signed::getIntegerQuotientInverse(const Unsigned *dividend) const{
 	std::unique_ptr<coma::numb::IntegerArithmetic<Signed, Integer> > left { dividend->getAsSignedInteger() };
 	return left->getIntegerQuotient(this);
 }
 
-Integer *const Signed::getInverseRemainder(const Unsigned *const dividend) const{
+Integer *Signed::getInverseRemainder(const Unsigned *dividend) const{
 	std::unique_ptr<coma::numb::IntegerArithmetic<Signed, Integer> > left { dividend->getAsSignedInteger() };
 	return left->getRemainder(this);
 }

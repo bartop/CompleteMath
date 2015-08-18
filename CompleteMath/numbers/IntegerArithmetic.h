@@ -24,7 +24,7 @@ public:
 	 * @return
 	 * 	Quotient of @c *this and @c toDivide.
 	 */
-	virtual U *const getIntegerQuotient(const T *const toDivide) const = 0;
+	virtual U *getIntegerQuotient(const T *toDivide) const = 0;
 
 	/**
 	 * @brief
@@ -36,7 +36,7 @@ public:
 	 * @return
 	 * 	Remainder of @c *this and @c toDivide division.
 	 */
-	virtual U *const getRemainder(const T *const toDivide) const = 0;
+	virtual U *getRemainder(const T *toDivide) const = 0;
 
 	/**
 	 * @brief
@@ -48,7 +48,7 @@ public:
 	 * @return
 	 * 	Quotient of @c dividend and @c *this.
 	 */
-	virtual U *const getIntegerQuotientInverse(const T *const dividend) const = 0;
+	virtual U *getIntegerQuotientInverse(const T *dividend) const = 0;
 
 	/**
 	 * @brief
@@ -60,7 +60,7 @@ public:
 	 * @return
 	 * 	Remainder of @c dividend and @c *this  division.
 	 */
-	virtual U *const getInverseRemainder(const T *const dividend) const = 0;
+	virtual U *getInverseRemainder(const T *dividend) const = 0;
 
 
 	virtual ~IntegerArithmetic() {}

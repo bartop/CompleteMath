@@ -14,7 +14,7 @@
 namespace coma {
 namespace numb {
 
-RealNumber *const RealNumber::fromBinaryInString(const std::string &binary){
+RealNumber *RealNumber::fromBinaryInString(const std::string &binary){
 	if(std::find(binary.begin(), binary.end(), '.') == binary.end()){
 		return Integer::fromBinaryInString(binary);
 	}else{
@@ -22,7 +22,7 @@ RealNumber *const RealNumber::fromBinaryInString(const std::string &binary){
 	}
 }
 
-RealNumber *const RealNumber::fromOctalInString(const std::string &octal){
+RealNumber *RealNumber::fromOctalInString(const std::string &octal){
 	if(std::find(octal.begin(), octal.end(), '.') == octal.end()){
 		return Integer::fromOctalInString(octal);
 	}else{
@@ -30,7 +30,7 @@ RealNumber *const RealNumber::fromOctalInString(const std::string &octal){
 	}
 }
 
-RealNumber *const RealNumber::fromDecimalInString(const std::string &decimal){
+RealNumber *RealNumber::fromDecimalInString(const std::string &decimal){
 	if(std::find(decimal.begin(), decimal.end(), '.') == decimal.end()){
 		return Integer::fromDecimalInString(decimal);
 	}else{
@@ -38,7 +38,7 @@ RealNumber *const RealNumber::fromDecimalInString(const std::string &decimal){
 	}
 }
 
-RealNumber *const RealNumber::fromHexadecimalInString(const std::string &hex){
+RealNumber *RealNumber::fromHexadecimalInString(const std::string &hex){
 	if(std::find(hex.begin(), hex.end(), '.') == hex.end()){
 		return Integer::fromHexadecimalInString(hex);
 	}else{
@@ -46,7 +46,7 @@ RealNumber *const RealNumber::fromHexadecimalInString(const std::string &hex){
 	}
 }
 
-const CompareResult RealNumber::compare(const RealNumber *const toCompare) const{
+const CompareResult RealNumber::compare(const RealNumber *toCompare) const{
 	std::unique_ptr<RealNumber> diff { static_cast<RealNumber *>(static_cast<const coma::core::Arithmetic<Number> *>(this)->
 			getDifference(toCompare)) };
 	if(diff->isPositive()) return CompareResult::ThisGreater;
@@ -54,7 +54,7 @@ const CompareResult RealNumber::compare(const RealNumber *const toCompare) const
 	else return CompareResult::ThisLesser;
 }
 
-Number *const RealNumber::getAbsoluteValue() const{
+Number *RealNumber::getAbsoluteValue() const{
 	if(isNegative()) return this->getNegation();
 	else return this->copy();
 }

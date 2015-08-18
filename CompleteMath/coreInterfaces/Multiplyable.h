@@ -18,12 +18,12 @@ namespace core {
 template<class T, class U = T>
 class Multiplyable {
 public:
-	typedef T argument_type;
-	typedef U return_type;
+	using argument_type = T;
+	using return_type = U;
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Multiplyable(){}
 
@@ -37,7 +37,7 @@ public:
 	 * @return
 	 * 	Product of @c *this and @a *toMultiply.
 	 */
-	virtual return_type *const getProduct(const argument_type *const toMultiply) const = 0;
+	virtual return_type *getProduct(const argument_type *toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -46,14 +46,14 @@ public:
 	 * @return
 	 * 	Neutral element of multiplication.
 	 */
-	static constexpr const argument_type *const multiplicationNeutralElement(){ return NEUTRAL_ELEMENT; }
+	static constexpr const argument_type *multiplicationNeutralElement(){ return NEUTRAL_ELEMENT; }
 
 private:
 	/**
 	 * @brief
 	 * 	Neutral element of multiplication.
 	 */
-	static const argument_type *const NEUTRAL_ELEMENT;
+	static const argument_type *NEUTRAL_ELEMENT;
 };
 
 } /* namespace core */

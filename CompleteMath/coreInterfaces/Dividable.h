@@ -30,7 +30,7 @@ public:
 	 * @return
 	 * 	Inversion of @c *this.
 	 */
-	virtual return_type *const getInversion() const = 0;
+	virtual return_type *getInversion() const = 0;
 
 	/**
 	 * @brief
@@ -42,11 +42,11 @@ public:
 	 * @return
 	 * 	Quotient of @c *this and @a toDivide.
 	 */
-	virtual return_type *const getQuotient(const argument_type *const toDivide) const = 0;
+	virtual return_type *getQuotient(const argument_type *toDivide) const = 0;
 
 	/**
 	 * @brief
-	 * 	Dummy virtual destructor.
+	 * 	Default virtual destructor.
 	 */
 	virtual ~Dividable() {}
 };
