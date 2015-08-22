@@ -21,14 +21,14 @@ ConstantSizedMemoryPool::ConstantSizedMemoryPool(const ConstantSizedMemoryPool &
 		m_chunkNumber{toCopy.m_chunkNumber},
 		m_freeChunks{toCopy.m_freeChunks},
 		m_usedChunks{toCopy.m_usedChunks}{
-			if(toCopy.m_storedMemory){
-				m_storedMemory = malloc(m_chunkNumber * m_chunkSize);
-				memcpy(m_storedMemory, toCopy.m_storedMemory, m_chunkNumber * m_chunkSize);
-			}
-		}
+	if(toCopy.m_storedMemory){
+		m_storedMemory = malloc(m_chunkNumber * m_chunkSize);
+		memcpy(m_storedMemory, toCopy.m_storedMemory, m_chunkNumber * m_chunkSize);
+	}
+}
 
 ConstantSizedMemoryPool::~ConstantSizedMemoryPool() noexcept{
-	if(m_storedMemory) free(m_storedMemory);
+	if(m_storedMemory) ::operator delete(m_storedMemory);
 }
 
 ConstantSizedMemoryPool &ConstantSizedMemoryPool::operator=(ConstantSizedMemoryPool toCopy){
@@ -40,7 +40,7 @@ ConstantSizedMemoryPool &ConstantSizedMemoryPool::operator=(ConstantSizedMemoryP
 void *ConstantSizedMemoryPool::allocate(const size_t size){
 	if(!m_storedMemory) initalize();//lazy initialization
 	if(size > m_chunkSize || m_freeChunks.empty()){
-		return malloc(size);
+		return ::operator new(size);
 	}else{
 		void *ret = m_freeChunks.front();
 		m_usedChunks.splice(m_usedChunks.begin(), m_freeChunks, m_freeChunks.begin());
@@ -53,13 +53,13 @@ void ConstantSizedMemoryPool::deallocate(void *toDealloc){
 	if(i != m_usedChunks.end()){
 		m_freeChunks.splice(m_freeChunks.begin(), m_usedChunks, i);
 	}else{
-		free(toDealloc);
+		::operator delete(toDealloc);
 	}
 }
 
 void ConstantSizedMemoryPool::initalize(){
 	if(!m_chunkNumber || !m_chunkSize) return;
-	m_storedMemory = malloc(m_chunkNumber * m_chunkSize);
+	m_storedMemory = ::operator new(m_chunkNumber * m_chunkSize);
 	for(std::size_t j { 0 }; j < m_chunkNumber; ++j){
 		m_freeChunks.push_back(m_storedMemory + j * m_chunkSize);
 	}
