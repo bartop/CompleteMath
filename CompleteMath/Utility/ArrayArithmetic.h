@@ -8,7 +8,7 @@
 #ifndef UTILITY_ARRAYARITHMETIC_H_
 #define UTILITY_ARRAYARITHMETIC_H_
 
-#include "RuntimeArray.h"
+#include "../Technical/RuntimeArray.h"
 
 namespace coma{
 namespace util{
@@ -26,7 +26,8 @@ namespace util{
  * @return
  * 	Copy of given array w/o meaningless chars.
  */
-const RuntimeArray<unsigned char> withoutMeaninglessChars(const RuntimeArray<unsigned char> &array, bool withSign);
+const tech::RuntimeArray<unsigned char> withoutMeaninglessChars(const tech::RuntimeArray<unsigned char> &array,
+		bool withSign);
 
 /**
  * @brief
@@ -38,7 +39,7 @@ const RuntimeArray<unsigned char> withoutMeaninglessChars(const RuntimeArray<uns
  * @return
  * 	New array with reversed ordering.
  */
-const RuntimeArray<unsigned char> reverse(const RuntimeArray<unsigned char> &toReverse);
+const tech::RuntimeArray<unsigned char> reverse(const tech::RuntimeArray<unsigned char> &toReverse);
 
 /**
  * @brief
@@ -47,7 +48,7 @@ const RuntimeArray<unsigned char> reverse(const RuntimeArray<unsigned char> &toR
  * @param toNegate
  * 	Array to negate.
  */
-void negate(RuntimeArray<unsigned char> &toNegate);
+void negate(tech::RuntimeArray<unsigned char> &toNegate);
 
 /**
  * @brief
@@ -62,7 +63,7 @@ void negate(RuntimeArray<unsigned char> &toNegate);
  * @return
  * 	@a lhs after addition.
  */
-RuntimeArray<unsigned char> &operator+=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+tech::RuntimeArray<unsigned char> &operator+=(tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -77,7 +78,7 @@ RuntimeArray<unsigned char> &operator+=(RuntimeArray<unsigned char> &lhs, const 
  * @return
  * 	Array containing sum.
  */
-const RuntimeArray<unsigned char> operator+(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+const tech::RuntimeArray<unsigned char> operator+(const tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -92,7 +93,7 @@ const RuntimeArray<unsigned char> operator+(const RuntimeArray<unsigned char> &l
  * @return
  * 	@a lhs after subtraction.
  */
-RuntimeArray<unsigned char> &operator-=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+tech::RuntimeArray<unsigned char> &operator-=(tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -107,7 +108,7 @@ RuntimeArray<unsigned char> &operator-=(RuntimeArray<unsigned char> &lhs, const 
  * @return
  * 	Array containing difference.
  */
-const RuntimeArray<unsigned char> operator-(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+const tech::RuntimeArray<unsigned char> operator-(const tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -119,7 +120,7 @@ const RuntimeArray<unsigned char> operator-(const RuntimeArray<unsigned char> &l
  * @return
  * 	Negation of @a array.
  */
-const RuntimeArray<unsigned char> operator~(const RuntimeArray<unsigned char> &array);
+const tech::RuntimeArray<unsigned char> operator~(const tech::RuntimeArray<unsigned char> &array);
 
 /**
  * @brief
@@ -131,7 +132,7 @@ const RuntimeArray<unsigned char> operator~(const RuntimeArray<unsigned char> &a
  * @return
  * 	Arithmetic negation of @a array.
  */
-const RuntimeArray<unsigned char> operator-(const RuntimeArray<unsigned char> &array);
+const tech::RuntimeArray<unsigned char> operator-(const tech::RuntimeArray<unsigned char> &array);
 
 /**
  * @brief
@@ -146,7 +147,7 @@ const RuntimeArray<unsigned char> operator-(const RuntimeArray<unsigned char> &a
  * @return
  * 	@a lhs after shift.
  */
-RuntimeArray<unsigned char> &operator<<=(RuntimeArray<unsigned char> &lhs, unsigned long long rhs);
+tech::RuntimeArray<unsigned char> &operator<<=(tech::RuntimeArray<unsigned char> &lhs, unsigned long long rhs);
 
 /**
  * @brief
@@ -161,7 +162,7 @@ RuntimeArray<unsigned char> &operator<<=(RuntimeArray<unsigned char> &lhs, unsig
  * @return
  * 	 New array being result of shift.
  */
-const RuntimeArray<unsigned char> operator<<(const RuntimeArray<unsigned char> &lhs, unsigned long long rhs);
+const tech::RuntimeArray<unsigned char> operator<<(const tech::RuntimeArray<unsigned char> &lhs, unsigned long long rhs);
 
 /**
  * @brief
@@ -176,7 +177,7 @@ const RuntimeArray<unsigned char> operator<<(const RuntimeArray<unsigned char> &
  * @return
  * 	Product of @a lhs and @a rhs stored in @a lhs.
  */
-RuntimeArray<unsigned char> &operator*=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+tech::RuntimeArray<unsigned char> &operator*=(tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -191,7 +192,7 @@ RuntimeArray<unsigned char> &operator*=(RuntimeArray<unsigned char> &lhs, const 
  * @return
  * 	Product of @a lhs and @a rhs.
  */
-const RuntimeArray<unsigned char> operator*(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+const tech::RuntimeArray<unsigned char> operator*(const tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -206,7 +207,7 @@ const RuntimeArray<unsigned char> operator*(const RuntimeArray<unsigned char> &l
  * @return
  * 	Quotient of @a lhs and @a rhs stored in @a lhs.
  */
-RuntimeArray<unsigned char> &operator/=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+tech::RuntimeArray<unsigned char> &operator/=(tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -221,7 +222,7 @@ RuntimeArray<unsigned char> &operator/=(RuntimeArray<unsigned char> &lhs, const 
  * @return
  * 	Quotient of @a lhs and @a rhs.
  */
-const RuntimeArray<unsigned char> operator/(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+const tech::RuntimeArray<unsigned char> operator/(const tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -236,7 +237,7 @@ const RuntimeArray<unsigned char> operator/(const RuntimeArray<unsigned char> &l
  * @return
  * 	Remainder of division stored in @a lhs.
  */
-RuntimeArray<unsigned char> &operator%=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+tech::RuntimeArray<unsigned char> &operator%=(tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 
 /**
  * @brief
@@ -251,7 +252,7 @@ RuntimeArray<unsigned char> &operator%=(RuntimeArray<unsigned char> &lhs, const 
  * @return
  * 	Remainder of division.
  */
-const RuntimeArray<unsigned char> operator%(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs);
+const tech::RuntimeArray<unsigned char> operator%(const tech::RuntimeArray<unsigned char> &lhs, const tech::RuntimeArray<unsigned char> &rhs);
 }
 }
 

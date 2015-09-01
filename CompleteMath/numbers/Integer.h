@@ -10,7 +10,7 @@
 
 #include "RealNumber.h"
 #include "IntegerArithmetic.h"
-#include "../Utility/RuntimeArray.h"
+#include "../Technical/RuntimeArray.h"
 
 namespace coma {
 namespace numb {
@@ -50,7 +50,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Integer *fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Integer *fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -65,7 +65,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Integer *fromBigEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Integer *fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -132,7 +132,7 @@ protected:
 	 * @param endianess
 	 * 	Defines if given number in array uses big- or little-endian notation.
 	 */
-	explicit Integer(const util::RuntimeArray<unsigned char> numbersArray, const Endianess endianess = Endianess::Little);
+	explicit Integer(const tech::RuntimeArray<unsigned char> numbersArray, const Endianess endianess = Endianess::Little);
 
 	/**
 	 * @brief
@@ -141,14 +141,14 @@ protected:
 	 * @return
 	 * 	Stored array.
 	 */
-	const util::RuntimeArray<unsigned char> &getArray() const noexcept;
+	const tech::RuntimeArray<unsigned char> &getArray() const noexcept;
 
 private:
 	/**
 	 * @brief
 	 * 	Array storing very long integer.
 	 */
-	const util::RuntimeArray<unsigned char> m_integer;
+	const tech::RuntimeArray<unsigned char> m_integer;
 };
 
 } /* namespace numb */

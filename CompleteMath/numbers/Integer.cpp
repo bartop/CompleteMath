@@ -19,14 +19,14 @@
 namespace coma{
 namespace numb{
 
-Integer::Integer(const util::RuntimeArray<unsigned char> numbersArray, const Endianess endianess):
-		m_integer{ endianess == Endianess::Little ? numbersArray : util::reverse(numbersArray) }{}
+Integer::Integer(const tech::RuntimeArray<unsigned char> numbersArray, const Endianess endianess):
+		m_integer(endianess == Endianess::Little ? numbersArray : util::reverse(numbersArray)){}
 
-const util::RuntimeArray<unsigned char> &Integer::getArray() const noexcept{
+const tech::RuntimeArray<unsigned char> &Integer::getArray() const noexcept{
 	return m_integer;
 }
 
-Integer *Integer::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned){
+Integer *Integer::fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned){
 	if(!asSigned) return Unsigned::fromLittleEndianArray(array);
 	else{
 		if(array[array.length() - 1] & 0x80) return Signed::fromLittleEndianArray(array);
@@ -34,7 +34,7 @@ Integer *Integer::fromLittleEndianArray(const util::RuntimeArray<unsigned char> 
 	}
 }
 
-Integer *Integer::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array, bool asSigned){
+Integer *Integer::fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned){
 	if(!asSigned) return Unsigned::fromBigEndianArray(array);
 	else{
 		if(array[array.length() - 1] & 0x80) return Signed::fromBigEndianArray(array);

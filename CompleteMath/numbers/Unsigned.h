@@ -34,7 +34,7 @@ public:
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
 	 */
-	static Unsigned *fromBigEndianArray(const util::RuntimeArray<unsigned char> &array);
+	static Unsigned *fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
 	 */
-	static Unsigned *fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array);
+	static Unsigned *fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -281,7 +281,7 @@ private:
 	 * @param endianess
 	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
 	 */
-	explicit Unsigned(const util::RuntimeArray<unsigned char> &array,
+	explicit Unsigned(const tech::RuntimeArray<unsigned char> &array,
 			const Endianess endianess = Endianess::Little);
 };
 

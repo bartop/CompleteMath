@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <utility>
 
+using namespace coma::tech;
 namespace coma{
 namespace util{
 
@@ -89,7 +90,7 @@ const int compare(const RuntimeArray<unsigned char> &lhs, const RuntimeArray<uns
 }
 
 void negate(RuntimeArray<unsigned char> &toNegate){
-	RuntimeArray<unsigned char> one {1,1};
+	RuntimeArray<unsigned char> one(1,1);
 	for(unsigned long long i = 0; i < toNegate.length(); ++i){
 		toNegate[i] = ~toNegate[i];
 	}
@@ -106,7 +107,7 @@ const RuntimeArray<unsigned char> withoutMeaninglessChars(const RuntimeArray<uns
 	}else{
 		while(!array[result - 1] && result > 1) --result;
 	}
-	return { array.begin(), result};
+	return RuntimeArray<unsigned char>(array.cStyleArray(), result);
 }
 
 const RuntimeArray<unsigned char> reverse(const RuntimeArray<unsigned char> &toReverse){
@@ -196,7 +197,7 @@ const RuntimeArray<unsigned char> operator*(const RuntimeArray<unsigned char> &l
 RuntimeArray<unsigned char> &operator/=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
 	RuntimeArray<unsigned char>
 		left = lhs,
-		rema { lhs.length() };
+		rema(lhs.length());
 	std::fill(lhs.begin(), lhs.end(), 0);
 	for(unsigned long long i = 0; i < lhs.length(); ++i){
 		rema <<= 1;
@@ -222,7 +223,7 @@ const RuntimeArray<unsigned char> operator/(const RuntimeArray<unsigned char> &l
 RuntimeArray<unsigned char> &operator%=(RuntimeArray<unsigned char> &lhs, const RuntimeArray<unsigned char> &rhs){
 	RuntimeArray<unsigned char>
 		left = lhs,
-		quot { lhs.length() };
+		quot (lhs.length());
 	std::fill(lhs.begin(), lhs.end(), 0);
 	for(unsigned long long i = 0; i < lhs.length(); ++i){
 		lhs <<= 1;
@@ -247,4 +248,3 @@ const RuntimeArray<unsigned char> operator%(const RuntimeArray<unsigned char> &l
 
 }
 }
-

@@ -9,7 +9,7 @@
 #include "Signed.h"
 #include "../Utility/Numbers.h"
 #include "../Utility/BaseConverter.h"
-#include "../Utility/RuntimeArray.h"
+#include "../Technical/RuntimeArray.h"
 #include "../Utility/ArrayArithmetic.h"
 #include "Unsigned.h"
 #include "FloatingPoint.h"
@@ -24,15 +24,15 @@ namespace numb {
 //---------------SIGNED-----------------
 //======================================
 
-Signed::Signed(const util::RuntimeArray<unsigned char> &array,
+Signed::Signed(const tech::RuntimeArray<unsigned char> &array,
 		const Endianess endianess) :
 				Integer( util::withoutMeaninglessChars(array, true) , endianess){}
 
-Signed *Signed::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
+Signed *Signed::fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array){
 	return new Signed{ array, Endianess::Big };
 }
 
-Signed *Signed::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
+Signed *Signed::fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array){
 	return new Signed{ array, Endianess::Little };
 }
 
@@ -57,7 +57,7 @@ Signed *Signed::fromDecimalInString(const std::string &decimalInString){
 Signed *Signed::fromHexadecimalInString(const std::string &hexadecimalInString){
 	std::unique_ptr<unsigned char[]> chars{ util::numb::arrayFromSignedHexadecimal(hexadecimalInString) };
 	unsigned long long length { util::numb::sizeFromSignedHexadecimal(hexadecimalInString) };
-	return fromLittleEndianArray({chars.get(), length});
+	return fromLittleEndianArray(tech::RuntimeArray<unsigned char>(chars.get(), length));
 }
 
 //======================================
@@ -88,11 +88,12 @@ Number *Signed::getSum(const FloatingPoint *toAdd) const{
 }
 
 Number *Signed::getSum(const Signed *toAdd) const{
+	using namespace util;
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	util::RuntimeArray<unsigned char> tmp1
-		{ 1 + std::max(toAdd->getArray().length(), this->getArray().length()), this->isNegative() ? 0xFF : 0 };
-	util::RuntimeArray<unsigned char> tmp2
-		{ 1 + std::max(toAdd->getArray().length(), this->getArray().length()), toAdd->isNegative() ? 0xFF : 0 };
+	tech::RuntimeArray<unsigned char> tmp1
+		(1 + std::max(toAdd->getArray().length(), this->getArray().length()), this->isNegative() ? 0xFF : 0);
+	tech::RuntimeArray<unsigned char> tmp2
+		(1 + std::max(toAdd->getArray().length(), this->getArray().length()), toAdd->isNegative() ? 0xFF : 0);
 	std::copy(this->getArray().begin(), this->getArray().end(), tmp1.begin());
 	std::copy(toAdd->getArray().begin(), toAdd->getArray().end(), tmp2.begin());
 	tmp1 += tmp2;
@@ -121,10 +122,11 @@ Number *Signed::getProduct(const FloatingPoint *toMultiply) const{
 }
 
 Number *Signed::getProduct(const Signed *toMultiply) const{
+	using namespace util;
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	util::RuntimeArray<unsigned char>
-		tmp1{ this->getArray().length() + toMultiply->getArray().length() + 2, this->isNegative() ? 0xFF : 0 },
-		tmp2{ this->getArray().length() + toMultiply->getArray().length() + 2, toMultiply->isNegative() ? 0xFF : 0 };
+	tech::RuntimeArray<unsigned char>
+		tmp1(this->getArray().length() + toMultiply->getArray().length() + 2, this->isNegative() ? 0xFF : 0),
+		tmp2(this->getArray().length() + toMultiply->getArray().length() + 2, toMultiply->isNegative() ? 0xFF : 0);
 	std::copy(this->getArray().begin(),
 			this->getArray().end(), tmp1.begin());
 	std::copy(toMultiply->getArray().begin(),
@@ -196,7 +198,7 @@ Complex *Signed::getAsComplex() const{
 }
 
 Number *Signed::getNegation() const{
-	util::RuntimeArray<unsigned char> tmp { getArray().length() + 1, isNegative() ? 0xFF : 0 };
+	tech::RuntimeArray<unsigned char> tmp(getArray().length() + 1, isNegative() ? 0xFF : 0);
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	util::negate(tmp);
 	if(isNegative()) return Unsigned::fromLittleEndianArray(tmp);
@@ -246,11 +248,12 @@ Integer *Signed::getInverseRemainder(const Integer *dividend) const{
 }
 
 Integer *Signed::getIntegerQuotient(const Signed *toDivide) const{//TODO optimize
+	using namespace util;
 	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	util::RuntimeArray<unsigned char>
-		left { this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0 },
-		right{ toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0 };
+	tech::RuntimeArray<unsigned char>
+		left (this    ->getArray().length() + 1, this    ->isNegative() ? 0xFF : 0),
+		right(toDivide->getArray().length() + 1, toDivide->isNegative() ? 0xFF : 0);
 	std::copy(this    ->getArray().begin(), this    ->getArray().end(), left .begin());
 	std::copy(toDivide->getArray().begin(), toDivide->getArray().end(), right.begin());
 	if(this    ->isNegative()) util::negate(left);
@@ -261,24 +264,25 @@ Integer *Signed::getIntegerQuotient(const Signed *toDivide) const{//TODO optimiz
 }
 
 Integer *Signed::getRemainder(const Signed *toDivide) const{//TODO test and improve later
+	using namespace util;
 	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	util::RuntimeArray<unsigned char>
-		left { std::max(this->getArray().length(), toDivide->getArray().length()) + 1, this    ->isNegative() ? 0xFF : 0 },
-		right{ std::max(this->getArray().length(), toDivide->getArray().length()) + 1, toDivide->isNegative() ? 0xFF : 0 };
+	tech::RuntimeArray<unsigned char>
+		left(std::max(this->getArray().length(), toDivide->getArray().length()) + 1, this    ->isNegative() ? 0xFF : 0),
+		right(std::max(this->getArray().length(), toDivide->getArray().length()) + 1, toDivide->isNegative() ? 0xFF : 0);
 	std::copy(this    ->getArray().begin(), this    ->getArray().end(), left .begin());
 	std::copy(toDivide->getArray().begin(), toDivide->getArray().end(), right.begin());
 	if(this    ->isNegative()) util::negate(left);
 	if(toDivide->isNegative()) util::negate(right);
 	left %= right;
 	if(this->isNegative() != toDivide->isNegative()){
-		if([](const util::RuntimeArray<unsigned char> &check){
+		if([](const tech::RuntimeArray<unsigned char> &check){
 			for(unsigned long long i = 0; i < check.length(); ++i){
 				if(check[i] != 0) return true;
 			}
 			return false;
 		}(left)){
-			util::RuntimeArray<unsigned char> zero { 1 };
+			tech::RuntimeArray<unsigned char> zero(1);
 			util::negate(left);
 			left += right;
 		}

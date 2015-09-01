@@ -29,7 +29,7 @@ public:
 	 * @return
 	 * 	New Signed object containing value stored in array.
 	 */
-	static Signed *fromBigEndianArray(const util::RuntimeArray<unsigned char> &array);
+	static Signed *fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -41,7 +41,7 @@ public:
 	 * @return
 	 * 	New Signed object containing value stored in array.
 	 */
-	static Signed *fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array);
+	static Signed *fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -277,7 +277,7 @@ private:
 	 * @param endianess
 	 * 	Enum telling if the number in array is stored in big- or little-endian manner.
 	 */
-	explicit Signed(const util::RuntimeArray<unsigned char> &array,
+	explicit Signed(const tech::RuntimeArray<unsigned char> &array,
 			const Endianess endianess = Endianess::Little);
 };
 

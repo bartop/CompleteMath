@@ -51,12 +51,4 @@ public:
 } /* namespace tech */
 } /* namespace coma */
 
-void *operator new(std::size_t size, coma::tech::MemoryPool &pool){
-	return pool.allocate(size);
-}
-
-void operator delete(void *toDelete, coma::tech::MemoryPool &pool){
-	pool.deallocate(toDelete);
-}
-
 #endif /* TECHNICAL_MEMORYPOOL_H_ */

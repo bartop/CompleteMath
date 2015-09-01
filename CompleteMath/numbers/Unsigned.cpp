@@ -27,14 +27,14 @@ namespace numb {
 //--------------UNSIGNED----------------
 //======================================
 
-Unsigned::Unsigned(const util::RuntimeArray<unsigned char> &array, const Endianess endianess) :
+Unsigned::Unsigned(const tech::RuntimeArray<unsigned char> &array, const Endianess endianess) :
 		Integer(util::withoutMeaninglessChars(array, false), endianess){}
 
-Unsigned *Unsigned::fromBigEndianArray(const util::RuntimeArray<unsigned char> &array){
+Unsigned *Unsigned::fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array){
 	return new Unsigned { array, Endianess::Big };
 }
 
-Unsigned *Unsigned::fromLittleEndianArray(const util::RuntimeArray<unsigned char> &array){
+Unsigned *Unsigned::fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array){
 	return new Unsigned { array, Endianess::Little };
 }
 
@@ -89,8 +89,9 @@ Number *Unsigned::getSum(const Signed *toAdd) const{
 }
 
 Number *Unsigned::getSum(const Unsigned *toAdd) const{
+	using namespace util;
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	util::RuntimeArray<unsigned char> tmp{ std::max(this->getArray().length(), toAdd->getArray().length()) + 1 };
+	tech::RuntimeArray<unsigned char> tmp(std::max(this->getArray().length(), toAdd->getArray().length()) + 1);
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	tmp += toAdd->getArray();
 	return fromLittleEndianArray(tmp);
@@ -117,8 +118,9 @@ Number *Unsigned::getProduct(const Signed *toMultiply) const{
 }
 
 Number *Unsigned::getProduct(const Unsigned *toMultiply) const{
+	using namespace util;
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	util::RuntimeArray<unsigned char> tmp{ this->getArray().length() + toMultiply->getArray().length() };
+	tech::RuntimeArray<unsigned char> tmp(this->getArray().length() + toMultiply->getArray().length());
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	tmp *= toMultiply->getArray();
 	return fromLittleEndianArray(tmp);
@@ -165,7 +167,7 @@ Unsigned *Unsigned::getAsUnsignedInteger() const{
 }
 
 Signed *Unsigned::getAsSignedInteger() const{
-	util::RuntimeArray<unsigned char> tmp { getArray().length() + 1 };
+	tech::RuntimeArray<unsigned char> tmp(getArray().length() + 1);
 	std::copy(getArray().begin(), getArray().end(), tmp.begin());
 	return Signed::fromLittleEndianArray(tmp);
 }
@@ -244,17 +246,19 @@ Integer *Unsigned::getInverseRemainder(const Signed *dividend) const{
 }
 
 Integer *Unsigned::getIntegerQuotient(const Unsigned *toDivide) const{
+	using namespace util;
 	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	util::RuntimeArray<unsigned char> result = getArray();
+	tech::RuntimeArray<unsigned char> result = getArray();
 	result /= toDivide->getArray();
 	return fromLittleEndianArray(result);
 }
 
 Integer *Unsigned::getRemainder(const Unsigned *toDivide) const{
+	using namespace util;
 	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	util::RuntimeArray<unsigned char> result = getArray();
+	tech::RuntimeArray<unsigned char> result = getArray();
 	result %= toDivide->getArray();
 	return fromLittleEndianArray(result);
 }
