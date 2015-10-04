@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <initializer_list>
 #include <iterator>
+#include <memory>
 
 #include "../defines.h"
 #include "Iterator.h"
@@ -20,7 +21,7 @@ namespace coma {
 namespace tech {
 
 //Forward declarations of classes
-template<class T>
+template<class T, class A = std::allocator<T> >
 class RuntimeArray;
 
 template<class T>
@@ -617,7 +618,7 @@ private:
  * @brief
  * 	Array with size defined at runtime.
  */
-template<class T>
+template<class T, class A>
 class RuntimeArray {
 public:
 	friend RuntimeArrayIterator<T>;
@@ -625,17 +626,7 @@ public:
 
 	using Iterator = RuntimeArrayIterator<T>;
 	using ConstantIterator = RuntimeArrayConstantIterator<T>;
-
-	/**
-	 * @brief
-	 * 	Constructs array from initializer list.
-	 *
-	 * @param initializer
-	 * 	Initializer list from which array is to be constructed.
-	 */
-	RuntimeArray(const std::initializer_list<T> &initializer) : RuntimeArray(initializer.size()){
-		std::copy(initializer.begin(), initializer.end(), begin());
-	}
+	using Allocator = A;
 
 	/**
  	 * @brief
@@ -647,8 +638,26 @@ public:
  	 * @param filler
  	 * 	Default value of array elements.
  	 */
-	explicit RuntimeArray(size_t size, const T filler = T()) : m_size{size}, m_array{size ? new T[size]{} : nullptr}{
-		if(filler != T() && m_array && m_size) std::fill_n(m_array, size, filler);
+	template<class... Args>
+	explicit RuntimeArray(size_t size, Args &&... args) : m_size{size},
+		m_array{ m_size ? m_allocator.allocate(size) : nullptr}{
+		if(sizeof...(args))
+			for(size_t i = 0; i < m_size; ++i) m_allocator.construct(m_array + i, std::forward<Args>(args)...);
+		else
+			for(size_t i = 0; i < m_size; ++i) m_allocator.construct(m_array + i, T());
+	}
+
+	/**
+	 * @brief
+	 * 	Constructs array from initializer list.
+	 *
+	 * @param initializer
+	 * 	Initializer list from which array is to be constructed.
+	 */
+	RuntimeArray(const std::initializer_list<T> &initializer) : m_size{initializer.size()},
+		m_array{ m_size ? m_allocator.allocate(m_size) : nullptr}{
+		for(auto i = initializer.begin(); i != initializer.end(); ++i)
+			m_allocator.construct(m_array + (i - initializer.begin()), *i);
 	}
 
 	/**
@@ -661,8 +670,9 @@ public:
 	 * @param size
 	 *	Size of given array.
 	 */
-	RuntimeArray(const T *array, size_t size) : RuntimeArray(size){
-		if(m_size && m_array) std::copy(array, array + size, m_array);
+	RuntimeArray(const T *array, size_t size) : m_size{size},
+		m_array{ m_size ? m_allocator.allocate(m_size) : nullptr}{
+		for(size_t i = 0; i < m_size; ++i) m_allocator.construct(m_array + i, array[i]);
 	}
 
 	/**
@@ -689,7 +699,27 @@ public:
 	 * @brief
 	 * 	Destructor freeing memory.
 	 */
-	~RuntimeArray() noexcept{ if(m_array) delete[] m_array; }
+	~RuntimeArray() noexcept{
+		if(m_array){
+			for(size_t i = 0; i < m_size; ++i) m_allocator.destroy(m_array + i);
+			m_allocator.deallocate(m_array, m_size);
+		}
+	}
+
+	/**
+	 * @brief
+	 * 	Copy and swap assign operator.
+	 *
+	 * @param toAssign
+	 * 	RuntimeArray to assign to @c *this.
+	 *
+	 * @return
+	 * 	@c *this after assignment.
+	 */
+	RuntimeArray &operator=(RuntimeArray toAssign) noexcept{
+		swap(toAssign);
+		return *this;
+	}
 
 	/**
 	 * @brief
@@ -809,7 +839,27 @@ public:
 		it.setAtEnd(*this);
 		return it;
 	}
+
+	/**
+	 * @brief
+	 * 	Performs swap on all data members.
+	 *
+	 * @param toSwap
+	 * 	Object to swap with.
+	 */
+	void swap(RuntimeArray &toSwap) noexcept{
+		std::swap(m_allocator, toSwap.m_allocator);
+		std::swap(m_array, toSwap.m_array);
+		std::swap(m_size, toSwap.m_size);
+	}
+
 private:
+	/**
+	 * @brief
+	 * 	Allocator of dynamic memory.
+	 */
+	Allocator m_allocator;
+
 	/**
 	 * @brief
 	 * 	Size of stored array.
