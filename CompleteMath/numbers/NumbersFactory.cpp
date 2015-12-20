@@ -11,9 +11,9 @@
 namespace coma {
 namespace numb {
 
-Pointer<const Number> NumbersFactory::createNumber(std::string numberInString) const{
+Pointer< Number> NumbersFactory::createNumber(std::string numberInString) const{
 	auto found = m_numberMap.find(numberInString);
-	Pointer<const Number> ret;
+	Pointer< Number> ret;
 	if(found == m_numberMap.end()){
 		//TODO finish after Number final work
 	}else{

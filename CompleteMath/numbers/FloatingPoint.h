@@ -41,9 +41,9 @@ public:
 	 * @return
 	 *	New FloatingPoint based on given formula and arguments.
 	 */
-	static Pointer<const FloatingPoint> fromFraction(Pointer<const Integer> numerator,
-			Pointer<const Integer> denominator,
-			Pointer<const Integer> power);
+	static Pointer< FloatingPoint> fromFraction(Pointer< Integer> numerator,
+			Pointer< Integer> denominator,
+			Pointer< Integer> power);
 	/**
 	 * @brief
 	 * 	Creates new FloatingPoint from binary numbers given in strings.
@@ -57,7 +57,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static Pointer<const FloatingPoint> fromBinaryFractionInStrings(const std::string &numerator,
+	static Pointer< FloatingPoint> fromBinaryFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
 
 	/**
@@ -73,7 +73,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static Pointer<const FloatingPoint> fromOctalFractionInStrings(const std::string &numerator,
+	static Pointer< FloatingPoint> fromOctalFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
 
 	/**
@@ -89,7 +89,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static Pointer<const FloatingPoint> fromDecimalFractionInStrings(const std::string &numerator,
+	static Pointer< FloatingPoint> fromDecimalFractionInStrings(const std::string &numerator,
 				const std::string &denominator);
 
 	/**
@@ -105,7 +105,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint based on given numbers.
 	 */
-	static Pointer<const FloatingPoint> fromHexadecimalFractionInStrings(const std::string &numerator,
+	static Pointer< FloatingPoint> fromHexadecimalFractionInStrings(const std::string &numerator,
 			const std::string &denominator);
 
 	/**
@@ -118,7 +118,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static Pointer<const FloatingPoint> fromBinaryFloatInString(const std::string &flaot);
+	static Pointer< FloatingPoint> fromBinaryFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -130,7 +130,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static Pointer<const FloatingPoint> fromOctalFloatInString(const std::string &flaot);
+	static Pointer< FloatingPoint> fromOctalFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -142,7 +142,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static Pointer<const FloatingPoint> fromDecimalFloatInString(const std::string &flaot);
+	static Pointer< FloatingPoint> fromDecimalFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -154,7 +154,7 @@ public:
 	 * @return
 	 * 	New FloatingPoint containing given number in string.
 	 */
-	static Pointer<const FloatingPoint> fromHexadecimalFloatInString(const std::string &flaot);
+	static Pointer< FloatingPoint> fromHexadecimalFloatInString(const std::string &flaot);
 
 	/**
 	 * @brief
@@ -172,7 +172,7 @@ public:
 	 * @param power
 	 *	Power in formula given above.
 	 */
-	FloatingPoint(Pointer<const Integer> numerator, Pointer<const Unsigned> denominator, Pointer<const Integer> power);
+	FloatingPoint(Pointer< Integer> numerator, Pointer< Unsigned> denominator, Pointer< Integer> power);
 
 	/**
 	 * @brief
@@ -184,7 +184,7 @@ public:
 	//--------------COPYABLE----------------
 	//======================================
 
-	virtual Pointer<const Number> copy() const override;
+	virtual Pointer< Number> copy() const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------
@@ -193,11 +193,11 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer<const Number> getSum(Pointer<const Number> toAdd) const override;
-	virtual Pointer<const Number> getSum(Pointer<const Complex> toAdd) const override;
-	virtual Pointer<const Number> getSum(Pointer<const FloatingPoint> toAdd) const override;
-	virtual Pointer<const Number> getSum(Pointer<const Signed> toAdd) const override;
-	virtual Pointer<const Number> getSum(Pointer<const Unsigned> toAdd) const override;
+	virtual Pointer< Number> getSum(Pointer< Number> toAdd) const override;
+	virtual Pointer< Number> getSum(Pointer< Complex> toAdd) const override;
+	virtual Pointer< Number> getSum(Pointer< FloatingPoint> toAdd) const override;
+	virtual Pointer< Number> getSum(Pointer< Signed> toAdd) const override;
+	virtual Pointer< Number> getSum(Pointer< Unsigned> toAdd) const override;
 
 	/**
 	 * @}
@@ -207,11 +207,11 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer<const Number> getProduct(Pointer<const Number> toMultiply) const override;
-	virtual Pointer<const Number> getProduct(Pointer<const Complex> toMultiply) const override;
-	virtual Pointer<const Number> getProduct(Pointer<const FloatingPoint> toMultiply) const override;
-	virtual Pointer<const Number> getProduct(Pointer<const Signed> toMultiply) const override;
-	virtual Pointer<const Number> getProduct(Pointer<const Unsigned> toMultiply) const override;
+	virtual Pointer< Number> getProduct(Pointer< Number> toMultiply) const override;
+	virtual Pointer< Number> getProduct(Pointer< Complex> toMultiply) const override;
+	virtual Pointer< Number> getProduct(Pointer< FloatingPoint> toMultiply) const override;
+	virtual Pointer< Number> getProduct(Pointer< Signed> toMultiply) const override;
+	virtual Pointer< Number> getProduct(Pointer< Unsigned> toMultiply) const override;
 
 	/**
 	 * @}
@@ -241,10 +241,10 @@ public:
 	 *
 	 */
 
-	virtual Pointer<const Unsigned> getAsUnsignedInteger() const override;
-	virtual Pointer<const Signed> getAsSignedInteger() const override;
-	virtual Pointer<const FloatingPoint> getAsFloatingPoint() const override;
-	virtual Pointer<const Complex> getAsComplex() const override;
+	virtual Pointer< Unsigned> getAsUnsignedInteger() const override;
+	virtual Pointer< Signed> getAsSignedInteger() const override;
+	virtual Pointer< FloatingPoint> getAsFloatingPoint() const override;
+	virtual Pointer< Complex> getAsComplex() const override;
 
 	/**
 	 * @}
@@ -254,8 +254,8 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer<const Number> getNegation() const override;
-	virtual Pointer<const Number> getInversion() const override;
+	virtual Pointer< Number> getNegation() const override;
+	virtual Pointer< Number> getInversion() const override;
 
 	/**
 	 * @}
@@ -278,15 +278,15 @@ public:
 
 private:
 
-	static Pointer<const FloatingPoint> fromFloat(const std::string &number,
+	static Pointer< FloatingPoint> fromFloat(const std::string &number,
 			const std::string &base,
-			const std::function<Pointer<const Integer> const(const std::string &)> &numeratorCreator);
+			const std::function<Pointer< Integer> const(const std::string &)> &numeratorCreator);
 
-	Pointer<const FloatingPoint> sharedThis() const;
+	Pointer< FloatingPoint> sharedThis() const;
 
-	Pointer<const Integer> m_numerator;
-	Pointer<const Unsigned> m_denominator;
-	Pointer<const Integer> m_power;
+	Pointer< Integer> m_numerator;
+	Pointer< Unsigned> m_denominator;
+	Pointer< Integer> m_power;
 };
 
 } /* namespace numb */

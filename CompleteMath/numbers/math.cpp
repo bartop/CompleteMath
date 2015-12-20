@@ -10,21 +10,21 @@
 namespace coma {
 namespace numb {
 
-Pointer<const Integer> getGCD(Pointer<const Integer> numberOne, Pointer<const Integer> numberTwo){
-	Pointer<const Integer>
+Pointer< Integer> getGCD(Pointer< Integer> numberOne, Pointer< Integer> numberTwo){
+	Pointer< Integer>
 		one = std::static_pointer_cast<const Integer>(numberOne->getAbsoluteValue()),
 		two = std::static_pointer_cast<const Integer>(numberTwo->getAbsoluteValue());
 	while(!one->isZero()){
-		Pointer<const Integer> tmp = one;
-		one = std::static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(two)->getRemainder(tmp);
+		Pointer< Integer> tmp = one;
+		one = std::static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(two)->getRemainder(tmp);
 		two = tmp;
 	}
 	return two;
 }
 
-Pointer<const Integer> getLCM(Pointer<const Integer> numberOne, Pointer<const Integer> numberTwo){
-	Pointer<const Integer> tmp = getGCD(numberOne, numberTwo);
-	tmp = std::static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(
+Pointer< Integer> getLCM(Pointer< Integer> numberOne, Pointer< Integer> numberTwo){
+	Pointer< Integer> tmp = getGCD(numberOne, numberTwo);
+	tmp = std::static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(
 			numberOne)->getIntegerQuotient(tmp);
 	tmp = std::static_pointer_cast<const Integer>(tmp->getProduct(numberTwo));
 	return tmp;

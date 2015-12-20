@@ -19,77 +19,77 @@ using namespace std;
 //------------FLOATINGPOINT-------------
 //======================================
 
-FloatingPoint::FloatingPoint(Pointer<const Integer> numerator,
-		Pointer<const Unsigned> denominator,
-		Pointer<const Integer> power):
+FloatingPoint::FloatingPoint(Pointer< Integer> numerator,
+		Pointer< Unsigned> denominator,
+		Pointer< Integer> power):
 	m_numerator(numerator),
 	m_denominator(denominator),
 	m_power(power){}
 
-Pointer<const FloatingPoint> FloatingPoint::fromFraction(
-		Pointer<const Integer> numerator,
-		Pointer<const Integer> denominator,
-		Pointer<const Integer> power){
+Pointer< FloatingPoint> FloatingPoint::fromFraction(
+		Pointer< Integer> numerator,
+		Pointer< Integer> denominator,
+		Pointer< Integer> power){
 	if(!numerator || !denominator || !power) REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	if(denominator->isZero()) REPORT_ERROR(exception("Division by zero exception"), nullptr);
 	if(numerator->isZero()) return make_shared<const FloatingPoint>(ZERO(), ONE(), ZERO());
-	Pointer<const Integer>
+	Pointer< Integer>
 		num = static_pointer_cast<const Integer>(numerator->getAbsoluteValue()),
 		den = static_pointer_cast<const Integer>(denominator->getAbsoluteValue()),
 		pow = static_pointer_cast<const Integer>(power->copy()),
 		num256 = Unsigned::fromDecimalInString("256"),
 		rem{},
 		GCD = getGCD(numerator, denominator);
-	num = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(num)->getIntegerQuotient(GCD);
-	den = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(den)->getIntegerQuotient(GCD);
+	num = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(num)->getIntegerQuotient(GCD);
+	den = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(den)->getIntegerQuotient(GCD);
 	if(numerator->isNegative() != denominator->isNegative()){
 		num = static_pointer_cast<const Integer>(num->getNegation());
 	}
-	while(rem = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(num)->getRemainder(num256),
+	while(rem = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(num)->getRemainder(num256),
 			rem->isZero()){
-		num = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(num)->getIntegerQuotient(num256);
+		num = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(num)->getIntegerQuotient(num256);
 		pow = static_pointer_cast<const Integer>(pow->getSum(ONE()));
 	}
-	while(rem = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(den)->getRemainder(num256),
+	while(rem = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(den)->getRemainder(num256),
 			rem->isZero()){
-		den = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(den)->getIntegerQuotient(num256);
+		den = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(den)->getIntegerQuotient(num256);
 		pow = static_pointer_cast<const Integer>(pow->getDifference(ONE()));
 	}
 	return make_shared<const FloatingPoint>(num, static_pointer_cast<const Unsigned>(den), pow);
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromBinaryFractionInStrings(const string &numerator,
+Pointer< FloatingPoint> FloatingPoint::fromBinaryFractionInStrings(const string &numerator,
 		const string &denominator){
-	Pointer<const Integer>
+	Pointer< Integer>
 		num { Integer::fromBinaryInString(numerator) },
 		den { Integer::fromBinaryInString(denominator) };
 	return fromFraction(num, den, ZERO());
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromOctalFractionInStrings(const string &numerator, const string &denominator){
-	Pointer<const Integer>
+Pointer< FloatingPoint> FloatingPoint::fromOctalFractionInStrings(const string &numerator, const string &denominator){
+	Pointer< Integer>
 		num { Integer::fromOctalInString(numerator) },
 		den { Integer::fromOctalInString(denominator) };
 	return fromFraction(num, den, ZERO());
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromDecimalFractionInStrings(const string &numerator, const string &denominator){
-	Pointer<const Integer>
+Pointer< FloatingPoint> FloatingPoint::fromDecimalFractionInStrings(const string &numerator, const string &denominator){
+	Pointer< Integer>
 		num { Integer::fromDecimalInString(numerator) },
 		den { Integer::fromDecimalInString(denominator) };
 	return fromFraction(num, den, ZERO());
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromHexadecimalFractionInStrings(const string &numerator, const string &denominator){
-	Pointer<const Integer>
+Pointer< FloatingPoint> FloatingPoint::fromHexadecimalFractionInStrings(const string &numerator, const string &denominator){
+	Pointer< Integer>
 		num = Integer::fromHexadecimalInString(numerator),
 		den = Integer::fromHexadecimalInString(denominator);
 	return fromFraction(num, den, ZERO());
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromFloat(const string &number,
+Pointer< FloatingPoint> FloatingPoint::fromFloat(const string &number,
 		const string &base,
-		const function<Pointer<const Integer> const(const string &)> &numeratorCreator){
+		const function<Pointer< Integer> const(const string &)> &numeratorCreator){
 	string copy = number;
 	auto iter = find(copy.begin(), copy.end(), '.');
 	unsigned long long position = iter - copy.begin();
@@ -98,7 +98,7 @@ Pointer<const FloatingPoint> FloatingPoint::fromFloat(const string &number,
 		position = copy.length() - position - 1;
 		copy.erase(iter);
 	}
-	Pointer<const Integer>
+	Pointer< Integer>
 			num = numeratorCreator(copy),
 			baseInt = Integer::fromDecimalInString(base),
 			den = static_pointer_cast<const Integer>(ONE()->copy());
@@ -108,19 +108,19 @@ Pointer<const FloatingPoint> FloatingPoint::fromFloat(const string &number,
 	return fromFraction(num, den, ZERO());
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromBinaryFloatInString(const string &number){
+Pointer< FloatingPoint> FloatingPoint::fromBinaryFloatInString(const string &number){
 	return fromFloat(number, "2", Integer::fromBinaryInString);
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromOctalFloatInString(const string &number){
+Pointer< FloatingPoint> FloatingPoint::fromOctalFloatInString(const string &number){
 	return fromFloat(number, "8", Integer::fromOctalInString);
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromDecimalFloatInString(const string &number){
+Pointer< FloatingPoint> FloatingPoint::fromDecimalFloatInString(const string &number){
 	return fromFloat(number, "10", Integer::fromDecimalInString);
 }
 
-Pointer<const FloatingPoint> FloatingPoint::fromHexadecimalFloatInString(const string &number){
+Pointer< FloatingPoint> FloatingPoint::fromHexadecimalFloatInString(const string &number){
 	return fromFloat(number, "16", Integer::fromHexadecimalInString);
 }
 
@@ -131,7 +131,7 @@ FloatingPoint::~FloatingPoint() noexcept{
 //--------------COPYABLE----------------
 //======================================
 
-Pointer<const Number> FloatingPoint::copy() const{
+Pointer< Number> FloatingPoint::copy() const{
 	return getAsFloatingPoint();
 }
 
@@ -139,35 +139,35 @@ Pointer<const Number> FloatingPoint::copy() const{
 //-------------ARITHMETIC---------------
 //======================================
 
-Pointer<const Number> FloatingPoint::getSum(Pointer<const Number> toAdd) const{
+Pointer< Number> FloatingPoint::getSum(Pointer< Number> toAdd) const{
 	if(!toAdd) REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getSum(Pointer<const Complex> toAdd) const{
+Pointer< Number> FloatingPoint::getSum(Pointer< Complex> toAdd) const{
 	if(!toAdd) REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	return toAdd->getSum(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getSum(Pointer<const FloatingPoint> toAdd) const{
+Pointer< Number> FloatingPoint::getSum(Pointer< FloatingPoint> toAdd) const{
 	if(!toAdd) REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	if(m_denominator->compare(toAdd->m_denominator) && this->m_power->compare(toAdd->m_power)){
-		Pointer<const Number> sum = m_numerator->getSum(toAdd->m_numerator);
+		Pointer< Number> sum = m_numerator->getSum(toAdd->m_numerator);
 		return fromFraction(static_pointer_cast<const Integer>(sum), m_denominator, m_power);
 	}else{
-		Pointer<const Integer> GCD = getGCD(this->m_denominator, toAdd->m_denominator);
-		Pointer<const Integer>
-			multiplicand1 = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(
+		Pointer< Integer> GCD = getGCD(this->m_denominator, toAdd->m_denominator);
+		Pointer< Integer>
+			multiplicand1 = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(
 					toAdd->m_denominator)->getIntegerQuotient(GCD),
-			multiplicand2 = static_pointer_cast<const IntegerArithmetic<Pointer<const Integer>>>(
+			multiplicand2 = static_pointer_cast<const IntegerArithmetic<Pointer< Integer>>>(
 					m_denominator)->getIntegerQuotient(GCD);
-		Pointer<const Integer>
+		Pointer< Integer>
 			numerator1 = static_pointer_cast<const Integer>(multiplicand1->getProduct(m_numerator)),
 			numerator2 = static_pointer_cast<const Integer>(multiplicand2->getProduct(toAdd->m_numerator)),
 			denominator = getLCM(m_denominator, toAdd->m_denominator);
-		Pointer<const Integer>
+		Pointer< Integer>
 			powerDiff { static_pointer_cast<const Integer>(m_power->getDifference(toAdd->m_power)) };
-		Pointer<const Number> num256 { Unsigned::fromDecimalInString("256") };
+		Pointer< Number> num256 { Unsigned::fromDecimalInString("256") };
 		while(!(powerDiff->isZero())){
 			if(powerDiff->isNegative()){
 				numerator2 = static_pointer_cast<const Integer>(numerator2->getProduct(num256));
@@ -178,56 +178,56 @@ Pointer<const Number> FloatingPoint::getSum(Pointer<const FloatingPoint> toAdd) 
 				powerDiff = static_pointer_cast<const Integer>(powerDiff->getDifference(ONE()));
 			}
 		}
-		Pointer<const Integer> sum = static_pointer_cast<const Integer>(numerator1->getSum(numerator2));
+		Pointer< Integer> sum = static_pointer_cast<const Integer>(numerator1->getSum(numerator2));
 		return fromFraction(sum,
 				denominator,
-				min(this->m_power, toAdd->m_power, [](const Pointer<const RealNumber>  ptr1,
-														const Pointer<const RealNumber>  ptr2){
+				min(this->m_power, toAdd->m_power, [](const Pointer< RealNumber>  ptr1,
+														const Pointer< RealNumber>  ptr2){
 			return ptr1->compare(ptr2) == CompareResult::ThisLesser;
 		}));
 	}
 }
 
-Pointer<const Number> FloatingPoint::getSum(Pointer<const Signed> toAdd) const{
+Pointer< Number> FloatingPoint::getSum(Pointer< Signed> toAdd) const{
 	if(!toAdd) REPORT_ERROR(exception("Null pointer exception"), nullptr);
-	Pointer<const FloatingPoint> left = toAdd->getAsFloatingPoint();
+	Pointer< FloatingPoint> left = toAdd->getAsFloatingPoint();
 	return left->getSum(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getSum(Pointer<const Unsigned> toAdd) const{
+Pointer< Number> FloatingPoint::getSum(Pointer< Unsigned> toAdd) const{
 	if(!toAdd) REPORT_ERROR(exception("Null pointer exception"), nullptr);
-	Pointer<const FloatingPoint> left = toAdd->getAsFloatingPoint();
+	Pointer< FloatingPoint> left = toAdd->getAsFloatingPoint();
 	return left->getSum(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getProduct(Pointer<const Number> toMultiply) const{
+Pointer< Number> FloatingPoint::getProduct(Pointer< Number> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getProduct(Pointer<const Complex> toMultiply) const{
+Pointer< Number> FloatingPoint::getProduct(Pointer< Complex> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	return toMultiply->getProduct(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getProduct(Pointer<const FloatingPoint> toMultiply) const{
+Pointer< Number> FloatingPoint::getProduct(Pointer< FloatingPoint> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(exception("Null pointer exception"), nullptr);
-	Pointer<const Integer>
+	Pointer< Integer>
 		numerator = static_pointer_cast<const Integer>(m_numerator->getProduct(toMultiply->m_numerator)),
 		denominator = static_pointer_cast<const Integer>(m_denominator->getProduct(toMultiply->m_denominator)),
 		power = static_pointer_cast<const Integer>(m_power->getSum(toMultiply->m_power));
 	return fromFraction(numerator, denominator, power);
 }
 
-Pointer<const Number> FloatingPoint::getProduct(Pointer<const Signed> toMultiply) const{
+Pointer< Number> FloatingPoint::getProduct(Pointer< Signed> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(exception("Null pointer exception"), nullptr);
-	Pointer<const FloatingPoint> left = toMultiply->getAsFloatingPoint();
+	Pointer< FloatingPoint> left = toMultiply->getAsFloatingPoint();
 	return left->getProduct(sharedThis());
 }
 
-Pointer<const Number> FloatingPoint::getProduct(Pointer<const Unsigned> toMultiply) const{
+Pointer< Number> FloatingPoint::getProduct(Pointer< Unsigned> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(exception("Null pointer exception"), nullptr);
-	Pointer<const FloatingPoint> left = toMultiply->getAsFloatingPoint();
+	Pointer< FloatingPoint> left = toMultiply->getAsFloatingPoint();
 	return left->getProduct(sharedThis());
 }
 
@@ -267,36 +267,36 @@ string FloatingPoint::getAsHexadecimal() const{
 	return result;
 }
 
-Pointer<const Unsigned> FloatingPoint::getAsUnsignedInteger() const{
-	Pointer<const Integer>
-		tmp = static_pointer_cast<const coma::numb::IntegerArithmetic<Pointer<const Unsigned>, Pointer<const Integer>>>(
+Pointer< Unsigned> FloatingPoint::getAsUnsignedInteger() const{
+	Pointer< Integer>
+		tmp = static_pointer_cast<const coma::numb::IntegerArithmetic<Pointer< Unsigned>, Pointer< Integer>>>(
 				m_numerator)->getIntegerQuotient(m_denominator);
 	return tmp->getAsUnsignedInteger();
 }
 
-Pointer<const Signed> FloatingPoint::getAsSignedInteger() const{
-	Pointer<const Integer>
-		tmp = static_pointer_cast<const coma::numb::IntegerArithmetic<Pointer<const Unsigned>, Pointer<const Integer>>>(
+Pointer< Signed> FloatingPoint::getAsSignedInteger() const{
+	Pointer< Integer>
+		tmp = static_pointer_cast<const coma::numb::IntegerArithmetic<Pointer< Unsigned>, Pointer< Integer>>>(
 			m_numerator)->getIntegerQuotient(m_denominator);
 	return tmp->getAsSignedInteger();
 }
 
-Pointer<const FloatingPoint> FloatingPoint::getAsFloatingPoint() const{
+Pointer< FloatingPoint> FloatingPoint::getAsFloatingPoint() const{
 	return sharedThis();
 }
 
-Pointer<const Complex> FloatingPoint::getAsComplex() const{
+Pointer< Complex> FloatingPoint::getAsComplex() const{
 	//TODO complete after Complex definition
 }
 
-Pointer<const Number> FloatingPoint::getNegation() const{
+Pointer< Number> FloatingPoint::getNegation() const{
 	return make_shared<FloatingPoint>(
 			static_pointer_cast<const Integer>(m_numerator->getNegation()),
 			m_denominator,
 			m_power);
 }
 
-Pointer<const Number> FloatingPoint::getInversion() const{
+Pointer< Number> FloatingPoint::getInversion() const{
 	if (m_numerator->isZero()) throw 1; //TODO exceptions
 	return fromFraction(m_denominator, m_numerator,
 			static_pointer_cast<const Integer>(m_power->getNegation()));
@@ -314,7 +314,7 @@ bool FloatingPoint::isPositive() const noexcept{
 	return m_numerator->isPositive();
 }
 
-Pointer<const FloatingPoint> FloatingPoint::sharedThis() const{
+Pointer< FloatingPoint> FloatingPoint::sharedThis() const{
 	return static_pointer_cast<const FloatingPoint>(shared_from_this());
 }
 
