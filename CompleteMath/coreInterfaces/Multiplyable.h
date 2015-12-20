@@ -35,9 +35,9 @@ public:
 	 *	Object that is supposed to be multiplied by @c *this.
 	 *
 	 * @return
-	 * 	Product of @c *this and @a *toMultiply.
+	 * 	Product of @c *this and @a toMultiply.
 	 */
-	virtual return_type *getProduct(const argument_type *toMultiply) const = 0;
+	virtual return_type getProduct(argument_type toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -46,14 +46,14 @@ public:
 	 * @return
 	 * 	Neutral element of multiplication.
 	 */
-	static constexpr const argument_type *multiplicationNeutralElement(){ return NEUTRAL_ELEMENT; }
+	static constexpr argument_type multiplicationNeutralElement(){ return MULTIPLICATION_NEUTRAL_ELEMENT; }
 
 private:
 	/**
 	 * @brief
 	 * 	Neutral element of multiplication.
 	 */
-	static const argument_type *NEUTRAL_ELEMENT;
+	static argument_type MULTIPLICATION_NEUTRAL_ELEMENT;
 };
 
 } /* namespace core */

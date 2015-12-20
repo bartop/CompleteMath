@@ -20,25 +20,23 @@ using namespace std;
 //--------------COMPLEX-----------------
 //======================================
 
-Complex *Complex::fromRealAndImaginary(const RealNumber *real, const RealNumber *imaginary){
+Pointer<const Complex> Complex::fromRealAndImaginary(const Pointer<const RealNumber> real, const Pointer<const RealNumber> imaginary){
 	if(!real || !imaginary) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	return new Complex{real, imaginary};
+	return std::make_shared<const Complex>(real, imaginary);
 }
 
-Complex::Complex(const RealNumber *real, const RealNumber *imaginary):
-	m_real{static_cast<const RealNumber *>(real->copy())},
-	m_imaginary{static_cast<const RealNumber *>(imaginary->copy())}{}
+Complex::Complex(const Pointer<const RealNumber> real, const Pointer<const RealNumber> imaginary):
+	m_real{real},
+	m_imaginary{imaginary}{}
 
 Complex::~Complex() noexcept{
-	if(m_imaginary) delete m_imaginary;
-	if(m_real) delete m_real;
 }
 
 //======================================
 //--------------COPYABLE----------------
 //======================================
 
-Number *Complex::copy() const{
+Pointer<const Number> Complex::copy() const{
 	return getAsComplex();
 }
 
@@ -46,129 +44,133 @@ Number *Complex::copy() const{
 //-------------ARITHMETIC---------------
 //======================================
 
-Number *Complex::getSum(const Number *toAdd) const{
+Pointer<const Number> Complex::getSum(Pointer<const Number> toAdd) const{
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	return toAdd->getSum(this);
+	return toAdd->getSum(sharedThis());
 }
 
-Number *Complex::getSum(const Complex *toAdd) const{
+Pointer<const Number> Complex::getSum(Pointer<const Complex> toAdd) const{
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<RealNumber> real { static_cast<RealNumber *>(toAdd->m_real->getSum(this->m_real)) };
-	unique_ptr<RealNumber> im   { static_cast<RealNumber *>(toAdd->m_imaginary->getSum(this->m_imaginary)) };
-	return fromRealAndImaginary(real.get(), im.get());
+	Pointer<const RealNumber> real = std::static_pointer_cast<const RealNumber>(toAdd->m_real->getSum(m_real));
+	Pointer<const RealNumber> im   = std::static_pointer_cast<const RealNumber>(toAdd->m_imaginary->getSum(m_imaginary));
+	return fromRealAndImaginary(real, im);
 }
 
-Number *Complex::getSum(const FloatingPoint *toAdd) const{
+Pointer<const Number> Complex::getSum(Pointer<const FloatingPoint> toAdd) const{
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<Complex> left { toAdd->getAsComplex() };
-	return left->getSum(this);
+	Pointer<const Complex> left = toAdd->getAsComplex();
+	return left->getSum(sharedThis());
 }
 
-Number *Complex::getSum(const Signed *toAdd) const{
+Pointer<const Number> Complex::getSum(Pointer<const Signed> toAdd) const{
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<Complex> left { toAdd->getAsComplex() };
-	return left->getSum(this);
+	Pointer<const Complex> left = toAdd->getAsComplex();
+	return left->getSum(sharedThis());
 }
 
-Number *Complex::getSum(const Unsigned *toAdd) const{
+Pointer<const Number> Complex::getSum(Pointer<const Unsigned> toAdd) const{
 	if(!toAdd) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<Complex> left { toAdd->getAsComplex() };
-	return left->getSum(this);
+	Pointer<const Complex> left = toAdd->getAsComplex();
+	return left->getSum(sharedThis());
 }
 
-Number *Complex::getProduct(const Number *toMultiply) const{
+Pointer<const Number> Complex::getProduct(Pointer<const Number> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	return toMultiply->getProduct(this);
+	return toMultiply->getProduct(sharedThis());
 }
 
-Number *Complex::getProduct(const Complex *toMultiply) const{
+Pointer<const Number> Complex::getProduct(Pointer<const Complex> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<RealNumber>
-		re1{ static_cast<RealNumber *>(m_real->getProduct(toMultiply->m_real)) },
-		re2{ static_cast<RealNumber *>(m_imaginary->getProduct(toMultiply->m_imaginary)) };
-	unique_ptr<RealNumber>
-		im1{ static_cast<RealNumber *>(m_real->getProduct(toMultiply->m_imaginary)) },
-		im2{ static_cast<RealNumber *>(m_imaginary->getProduct(toMultiply->m_real)) };
-	re1.reset(static_cast<RealNumber *>(re1->getDifference(re2.get())));
-	im1.reset(static_cast<RealNumber *>(im1->getSum(im2.get())));
-	return fromRealAndImaginary(re1.get(), im1.get());
+	Pointer<const RealNumber>
+		re1 = std::static_pointer_cast<const RealNumber>(m_real->getProduct(toMultiply->m_real)),
+		re2 = std::static_pointer_cast<const RealNumber>(m_imaginary->getProduct(toMultiply->m_imaginary));
+	Pointer<const RealNumber>
+		im1 = std::static_pointer_cast<const RealNumber>(m_real->getProduct(toMultiply->m_imaginary)),
+		im2 = std::static_pointer_cast<const RealNumber>(m_imaginary->getProduct(toMultiply->m_real));
+	re1 = std::static_pointer_cast<const RealNumber>(re1->getDifference(re2));
+	im1 = std::static_pointer_cast<const RealNumber>(im1->getSum(im2));
+	return fromRealAndImaginary(re1, im1);
 }
 
-Number *Complex::getProduct(const FloatingPoint *toMultiply) const{
+Pointer<const Number> Complex::getProduct(Pointer<const FloatingPoint> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<Complex> left { toMultiply->getAsComplex() };
-	return left->getProduct(this);
+	Pointer<const Complex> left = toMultiply->getAsComplex();
+	return left->getProduct(sharedThis());
 }
 
-Number *Complex::getProduct(const Signed *toMultiply) const{
+Pointer<const Number> Complex::getProduct(Pointer<const Signed> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<Complex> left { toMultiply->getAsComplex() };
-	return left->getProduct(this);
+	Pointer<const Complex> left = toMultiply->getAsComplex();
+	return left->getProduct(sharedThis());
 }
 
-Number *Complex::getProduct(const Unsigned *toMultiply) const{
+Pointer<const Number> Complex::getProduct(Pointer<const Unsigned> toMultiply) const{
 	if(!toMultiply) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	unique_ptr<Complex> left { toMultiply->getAsComplex() };
-	return toMultiply->getProduct(this);
+	Pointer<const Complex> left = toMultiply->getAsComplex();
+	return toMultiply->getProduct(sharedThis());
 }
 
 //======================================
 //---------------NUMBER-----------------
 //======================================
 
-Number *Complex::getAbsoluteValue() const{
+Pointer<const Number> Complex::getAbsoluteValue() const{
 }
 
-const bool Complex::isZero() const noexcept{
+bool Complex::isZero() const noexcept{
 	return m_real->isZero() && m_imaginary->isZero();
 }
 
-const string Complex::getAsBinary() const{
+string Complex::getAsBinary() const{
 	return m_real->getAsBinary() + m_imaginary->getAsBinary() + " * i";
 }
 
-const string Complex::getAsOctal() const{
+string Complex::getAsOctal() const{
 	return m_real->getAsOctal() + m_imaginary->getAsOctal() + " * i";
 }
 
-const string Complex::getAsDecimal() const{
+string Complex::getAsDecimal() const{
 	return m_real->getAsDecimal() + m_imaginary->getAsDecimal() + " * i";
 }
 
-const string Complex::getAsHexadecimal() const{
+string Complex::getAsHexadecimal() const{
 	return m_real->getAsHexadecimal() + m_imaginary->getAsHexadecimal() + " * i";
 }
 
-Unsigned *Complex::getAsUnsignedInteger() const{
+Pointer<const Unsigned> Complex::getAsUnsignedInteger() const{
 	return m_real->getAsUnsignedInteger();
 }
 
-Signed *Complex::getAsSignedInteger() const{
+Pointer<const Signed> Complex::getAsSignedInteger() const{
 	return m_real->getAsSignedInteger();
 }
 
-FloatingPoint *Complex::getAsFloatingPoint() const{
+Pointer<const FloatingPoint> Complex::getAsFloatingPoint() const{
 	return m_real->getAsFloatingPoint();
 }
 
-Complex *Complex::getAsComplex() const{
+Pointer<const Complex> Complex::getAsComplex() const{
 	return fromRealAndImaginary(m_real, m_imaginary);
 }
 
-Number *Complex::getNegation() const{
-	unique_ptr<RealNumber> re{ static_cast<RealNumber *>(m_real->getNegation()) };
-	unique_ptr<RealNumber> im{ static_cast<RealNumber *>(m_imaginary->getNegation()) };
-	return fromRealAndImaginary(re.get(), im.get());
+Pointer<const Number> Complex::getNegation() const{
+	Pointer<const RealNumber> re = std::static_pointer_cast<const RealNumber>(m_real->getNegation()) ;
+	Pointer<const RealNumber> im = std::static_pointer_cast<const RealNumber>(m_imaginary->getNegation());
+	return fromRealAndImaginary(re, im);
 }
 
-Number *Complex::getInversion() const{
-	unique_ptr<RealNumber> re{ static_cast<RealNumber *>(m_real->getProduct(m_real)) };
-	unique_ptr<RealNumber> im{ static_cast<RealNumber *>(m_imaginary->getProduct(m_imaginary)) };
-	re.reset(static_cast<RealNumber *>(re->getSum(im.get())));
-	im.reset(static_cast<RealNumber *>(m_imaginary->getQuotient(re.get())));
-	re.reset(static_cast<RealNumber *>(m_real->getQuotient(re.get())));
-	im.reset(static_cast<RealNumber *>(im->getNegation()));
-	return fromRealAndImaginary(re.get(), im.get());
+Pointer<const Number> Complex::getInversion() const{
+	Pointer<const RealNumber> re = std::static_pointer_cast<const RealNumber>(m_real->getProduct(m_real));
+	Pointer<const RealNumber> im = std::static_pointer_cast<const RealNumber>(m_imaginary->getProduct(m_imaginary));
+	re = std::static_pointer_cast<const RealNumber>(re->getSum(im));
+	im = std::static_pointer_cast<const RealNumber>(m_imaginary->getQuotient(re));
+	re = std::static_pointer_cast<const RealNumber>(m_real->getQuotient(re));
+	im = std::static_pointer_cast<const RealNumber>(im->getNegation());
+	return fromRealAndImaginary(re, im);
+}
+
+Pointer<const Complex> Complex::sharedThis() const{
+	return std::static_pointer_cast<const Complex>(shared_from_this());
 }
 
 } /* namespace numb */

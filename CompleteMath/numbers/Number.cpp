@@ -17,36 +17,36 @@ namespace coma{
 namespace numb{
 
 template<>
-const Number *core::Multiplyable<Number>::NEUTRAL_ELEMENT = numb::Unsigned::fromHexadecimalInString("1");
+Pointer<const Number> core::Multiplyable<Pointer<const Number>>::MULTIPLICATION_NEUTRAL_ELEMENT =
+		numb::Unsigned::fromHexadecimalInString("1");
 
 template<>
-const Number *core::Addable<Number>::NEUTRAL_ELEMENT = numb::Unsigned::fromHexadecimalInString("0");
+Pointer<const Number> core::Addable<Pointer<const Number>>::ADDITION_NEUTRAL_ELEMENT =
+		numb::Unsigned::fromHexadecimalInString("0");
 
-const bool Number::isEqual(const Number *toCompare) const{
+bool Number::isEqual(Pointer<const Number> toCompare) const{
 	if(!toCompare) REPORT_ERROR(std::exception("Null pointer exception"), false);
-	std::unique_ptr<Number> diff{ this->getDifference(toCompare) };
+	Pointer<const Number> diff = getDifference(toCompare);
 	return diff->isZero();
 }
 
-Number *Number::getDifference(const Number *toSubtract) const{
+Pointer<const Number> Number::getDifference(Pointer<const Number> toSubtract) const{
 	if(!toSubtract) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	std::unique_ptr<Number> negation { toSubtract->getNegation() };
-	return negation->getSum(this);
+	return toSubtract->getNegation()->getSum(shared_from_this());
 }
 
-Number *Number::getQuotient(const Number *toDivide) const{
+Pointer<const Number> Number::getQuotient(Pointer<const Number> toDivide) const{
 	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	std::unique_ptr<Number> inversion { toDivide->getInversion() };
-	return this->getQuotient(inversion.get());
+	return this->getQuotient(toDivide->getInversion());
 }
 
-const Unsigned *Number::ZERO() noexcept{
-	return static_cast<const Unsigned *>(additionNeutralElement());
+Pointer<const Unsigned> Number::ZERO() noexcept{
+	return std::static_pointer_cast<const Unsigned>(additionNeutralElement());
 }
 
-const Unsigned *Number::ONE() noexcept{
-	return static_cast<const Unsigned *>(multiplicationNeutralElement());
+Pointer<const Unsigned> Number::ONE() noexcept{
+	return std::static_pointer_cast<const Unsigned>(multiplicationNeutralElement());
 }
 }
 }

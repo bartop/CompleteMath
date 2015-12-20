@@ -30,7 +30,7 @@ public:
 	 * @return
 	 * 	True if objects are equal. False in other situations.
 	 */
-	virtual const bool isEqual(const T *toCompare) const = 0;
+	virtual bool isEqual(T toCompare) const = 0;
 };
 
 }  // namespace core

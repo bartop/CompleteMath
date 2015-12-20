@@ -33,9 +33,9 @@ class Signed;
  */
 class Integer:
 		public RealNumber,
-		public IntegerArithmetic<Integer>,
-		public IntegerArithmetic<Unsigned, Integer>,
-		public IntegerArithmetic<Signed, Integer>{
+		public IntegerArithmetic<Pointer<const Integer>>,
+		public IntegerArithmetic<Pointer<const Unsigned>, Pointer<const Integer>>,
+		public IntegerArithmetic<Pointer<const Signed>, Pointer<const Integer>>{
 public:
 	/**
 	 * @brief
@@ -50,7 +50,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Integer *fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Pointer<const Integer> fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -65,7 +65,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Integer *fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Pointer<const Integer> fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -77,7 +77,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *fromBinaryInString(const std::string &binary);
+	static Pointer<const Integer> fromBinaryInString(const std::string &binary);
 
 	/**
 	 * @brief
@@ -89,7 +89,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *fromOctalInString(const std::string &octal);
+	static Pointer<const Integer> fromOctalInString(const std::string &octal);
 
 	/**
 	 * @brief
@@ -101,7 +101,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *fromDecimalInString(const std::string &decimal);
+	static Pointer<const Integer> fromDecimalInString(const std::string &decimal);
 
 	/**
 	 * @brief
@@ -113,7 +113,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Integer *fromHexadecimalInString(const std::string &hex);
+	static Pointer<const Integer> fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief
@@ -132,7 +132,7 @@ protected:
 	 * @param endianess
 	 * 	Defines if given number in array uses big- or little-endian notation.
 	 */
-	explicit Integer(const tech::RuntimeArray<unsigned char> numbersArray, const Endianess endianess = Endianess::Little);
+	explicit Integer(const tech::RuntimeArray<unsigned char> &numbersArray, const Endianess endianess = Endianess::Little);
 
 	/**
 	 * @brief

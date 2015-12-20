@@ -60,7 +60,7 @@ public:
 	 * @return
 	 * 	#CompareResult adequate to result of the comparison.
 	 */
-	virtual const CompareResult compare(const T *toCompare) const = 0;
+	virtual CompareResult compare(T toCompare) const = 0;
 };
 
 } /* namespace core */

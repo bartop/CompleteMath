@@ -35,9 +35,9 @@ public:
 	 * 	Pointer to object to be added to @c this.
 	 *
 	 * @return
-	 * 	Pointer to sum of @c *this and @a *toAdd.
+	 * 	Pointer to sum of @c *this and @a toAdd.
 	 */
-	virtual return_type *getSum(const argument_type *toAdd) const = 0;
+	virtual return_type getSum(argument_type toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -46,14 +46,14 @@ public:
 	 * @return
 	 * 	Neutral element of addition.
 	 */
-	static constexpr const argument_type *additionNeutralElement(){ return NEUTRAL_ELEMENT; }
+	static constexpr argument_type additionNeutralElement(){ return ADDITION_NEUTRAL_ELEMENT; }
 
 private:
 	/**
 	 * @brief
 	 * 	Neutral element of addition.
 	 */
-	static const argument_type *NEUTRAL_ELEMENT;
+	static argument_type ADDITION_NEUTRAL_ELEMENT;
 };
 
 } /* namespace core */

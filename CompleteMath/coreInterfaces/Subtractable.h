@@ -38,7 +38,7 @@ public:
 	 * @return
 	 * 	Negation of @c *this.
 	 */
-	virtual return_type *getNegation() const = 0;
+	virtual return_type getNegation() const = 0;
 
 	/**
 	 * @brief
@@ -50,7 +50,7 @@ public:
 	 * @return
 	 * 	Difference of @c *this and @a *toSubtract.
 	 */
-	virtual return_type *getDifference(const argument_type *toSubtract) const = 0;
+	virtual return_type getDifference(argument_type toSubtract) const = 0;
 };
 
 } /* namespace core */

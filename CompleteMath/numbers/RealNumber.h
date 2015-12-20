@@ -22,7 +22,7 @@ typedef core::CompareResult CompareResult;
  */
 class RealNumber:
 		public Number,
-		public core::Comparable<RealNumber>{
+		public core::Comparable<Pointer<const RealNumber>>{
 public:
 	/**
 	 * @brief
@@ -34,7 +34,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *fromBinaryInString(const std::string &binary);
+	static Pointer<const RealNumber> fromBinaryInString(const std::string &binary);
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *fromOctalInString(const std::string &octal);
+	static Pointer<const RealNumber> fromOctalInString(const std::string &octal);
 
 	/**
 	 * @brief
@@ -58,7 +58,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *fromDecimalInString(const std::string &decimal);
+	static Pointer<const RealNumber> fromDecimalInString(const std::string &decimal);
 
 	/**
 	 * @brief
@@ -70,7 +70,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static RealNumber *fromHexadecimalInString(const std::string &hex);
+	static Pointer<const RealNumber> fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief
@@ -83,7 +83,7 @@ public:
 	 * 	True if stored value is negative.
 	 * 	False if stored value is non-negative.
 	 */
-	virtual const bool isNegative() const noexcept = 0;
+	virtual bool isNegative() const noexcept = 0;
 
 	/**
 	 * @brief
@@ -95,7 +95,7 @@ public:
 	 * 	True if stored value is positive.
 	 * 	False if stored value is non-positive.
 	 */
-	virtual const bool isPositive() const noexcept = 0;
+	virtual bool isPositive() const noexcept = 0;
 
 	/**
 	 * @brief
@@ -103,8 +103,8 @@ public:
 	 */
 	virtual ~RealNumber(){}
 
-	virtual const CompareResult compare(const RealNumber *toCompare) const override;
-	virtual Number *getAbsoluteValue() const override;
+	virtual CompareResult compare(const Pointer<const RealNumber> toCompare) const override;
+	virtual Pointer<const Number> getAbsoluteValue() const override;
 };
 
 } /* namespace numb */

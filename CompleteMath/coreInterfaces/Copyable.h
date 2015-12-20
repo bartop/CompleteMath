@@ -29,9 +29,9 @@ public:
 	 * 	Function to copy @c this object.
 	 *
 	 * @return
-	 * 	Pointer to copy of @c *this.
+	 * 	Copy of @c *this.
 	 */
-	virtual T *copy() const = 0;
+	virtual T copy() const = 0;
 };
 
 } /* namespace core */

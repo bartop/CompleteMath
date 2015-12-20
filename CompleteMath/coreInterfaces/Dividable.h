@@ -36,7 +36,7 @@ public:
 	 * @return
 	 * 	Inversion of @c *this.
 	 */
-	virtual return_type *getInversion() const = 0;
+	virtual return_type getInversion() const = 0;
 
 	/**
 	 * @brief
@@ -48,7 +48,7 @@ public:
 	 * @return
 	 * 	Quotient of @c *this and @a toDivide.
 	 */
-	virtual return_type *getQuotient(const argument_type *toDivide) const = 0;
+	virtual return_type getQuotient(argument_type toDivide) const = 0;
 };
 
 } /* namespace core */
