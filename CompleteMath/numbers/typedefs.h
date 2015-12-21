@@ -19,7 +19,7 @@ using Pointer = std::shared_ptr<const T>;
 using String = std::string;
 
 template<class T, class U>
-Pointer<T> staticPointerCast(const Pointer<U> toCast){
+Pointer<T> staticPointerCast(const Pointer<U> &toCast){
 	return std::static_pointer_cast<const T>(toCast);
 }
 

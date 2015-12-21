@@ -26,10 +26,10 @@ class Number;
  */
 class NumbersFactory{
 public:
-	using map_type = std::map<std::string, Pointer< Number>>;
+	using map_type = std::map<std::string, Pointer<Number>>;
 	using clean_strategy_type = std::function<bool(const map_type &)>;
 
-	Pointer< Number> createNumber(std::string numberInString) const;
+	Pointer<Number> createNumber(std::string numberInString) const;
 	void cleanMap() const;
 
 	void setCleanStrategy(clean_strategy_type clearStrategy);

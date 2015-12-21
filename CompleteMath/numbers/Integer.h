@@ -33,9 +33,9 @@ class Signed;
  */
 class Integer:
 		public RealNumber,
-		public IntegerArithmetic<Pointer< Integer>>,
-		public IntegerArithmetic<Pointer< Unsigned>, Pointer< Integer>>,
-		public IntegerArithmetic<Pointer< Signed>, Pointer< Integer>>{
+		public IntegerArithmetic<Pointer<Integer>>,
+		public IntegerArithmetic<Pointer<Unsigned>, Pointer<Integer>>,
+		public IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>{
 public:
 	/**
 	 * @brief
@@ -50,7 +50,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Pointer< Integer> fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Pointer<Integer> fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -65,7 +65,7 @@ public:
 	 * @return
 	 * 	New Integer based on passed array.
 	 */
-	static Pointer< Integer> fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
+	static Pointer<Integer> fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned = false);
 
 	/**
 	 * @brief
@@ -77,7 +77,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Pointer< Integer> fromBinaryInString(const std::string &binary);
+	static Pointer<Integer> fromBinaryInString(const std::string &binary);
 
 	/**
 	 * @brief
@@ -89,7 +89,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Pointer< Integer> fromOctalInString(const std::string &octal);
+	static Pointer<Integer> fromOctalInString(const std::string &octal);
 
 	/**
 	 * @brief
@@ -101,7 +101,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Pointer< Integer> fromDecimalInString(const std::string &decimal);
+	static Pointer<Integer> fromDecimalInString(const std::string &decimal);
 
 	/**
 	 * @brief
@@ -113,7 +113,7 @@ public:
 	 * @return
 	 * 	New Integer based on given number in string.
 	 */
-	static Pointer< Integer> fromHexadecimalInString(const std::string &hex);
+	static Pointer<Integer> fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief

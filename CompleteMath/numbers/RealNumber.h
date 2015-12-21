@@ -22,7 +22,7 @@ typedef core::CompareResult CompareResult;
  */
 class RealNumber:
 		public Number,
-		public core::Comparable<Pointer< RealNumber>>{
+		public core::Comparable<Pointer<RealNumber>>{
 public:
 	/**
 	 * @brief
@@ -34,7 +34,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static Pointer< RealNumber> fromBinaryInString(const std::string &binary);
+	static Pointer<RealNumber> fromBinaryInString(const std::string &binary);
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static Pointer< RealNumber> fromOctalInString(const std::string &octal);
+	static Pointer<RealNumber> fromOctalInString(const std::string &octal);
 
 	/**
 	 * @brief
@@ -58,7 +58,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static Pointer< RealNumber> fromDecimalInString(const std::string &decimal);
+	static Pointer<RealNumber> fromDecimalInString(const std::string &decimal);
 
 	/**
 	 * @brief
@@ -70,7 +70,7 @@ public:
 	 * @return
 	 * 	Pointer to RealNumber containing given number.
 	 */
-	static Pointer< RealNumber> fromHexadecimalInString(const std::string &hex);
+	static Pointer<RealNumber> fromHexadecimalInString(const std::string &hex);
 
 	/**
 	 * @brief
@@ -103,8 +103,8 @@ public:
 	 */
 	virtual ~RealNumber(){}
 
-	virtual CompareResult compare(const Pointer< RealNumber> toCompare) const override;
-	virtual Pointer< Number> getAbsoluteValue() const override;
+	virtual CompareResult compare(const Pointer<RealNumber> toCompare) const override;
+	virtual Pointer<Number> getAbsoluteValue() const override;
 };
 
 } /* namespace numb */

@@ -26,7 +26,7 @@ const tech::RuntimeArray<unsigned char> &Integer::getArray() const noexcept{
 	return m_integer;
 }
 
-Pointer< Integer> Integer::fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned){
+Pointer<Integer> Integer::fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned){
 	if(!asSigned) return Unsigned::fromLittleEndianArray(array);
 	else{
 		if(array[array.length() - 1] & 0x80) return Signed::fromLittleEndianArray(array);
@@ -34,7 +34,7 @@ Pointer< Integer> Integer::fromLittleEndianArray(const tech::RuntimeArray<unsign
 	}
 }
 
-Pointer< Integer> Integer::fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned){
+Pointer<Integer> Integer::fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array, bool asSigned){
 	if(!asSigned) return Unsigned::fromBigEndianArray(array);
 	else{
 		if(array[array.length() - 1] & 0x80) return Signed::fromBigEndianArray(array);
@@ -42,7 +42,7 @@ Pointer< Integer> Integer::fromBigEndianArray(const tech::RuntimeArray<unsigned 
 	}
 }
 
-Pointer< Integer> Integer::fromBinaryInString(const std::string &binary){
+Pointer<Integer> Integer::fromBinaryInString(const std::string &binary){
 	if(binary[0] == '-') return Signed::fromBinaryInString(binary);
 	else{
 		if(binary[0] == '+') return Unsigned::fromBinaryInString(binary.substr(1, binary.length() - 1));
@@ -50,7 +50,7 @@ Pointer< Integer> Integer::fromBinaryInString(const std::string &binary){
 	}
 }
 
-Pointer< Integer> Integer::fromOctalInString(const std::string &octal){
+Pointer<Integer> Integer::fromOctalInString(const std::string &octal){
 	if(octal[0] == '-') return Signed::fromOctalInString(octal);
 	else{
 		if(octal[0] == '+') return Unsigned::fromOctalInString(octal.substr(1, octal.length() - 1));
@@ -58,7 +58,7 @@ Pointer< Integer> Integer::fromOctalInString(const std::string &octal){
 	}
 }
 
-Pointer< Integer> Integer::fromDecimalInString(const std::string &decimal){
+Pointer<Integer> Integer::fromDecimalInString(const std::string &decimal){
 	if(decimal[0] == '-') return Signed::fromDecimalInString(decimal);
 	else{
 		if(decimal[0] == '+') return Unsigned::fromDecimalInString(decimal.substr(1, decimal.length() - 1));
@@ -66,7 +66,7 @@ Pointer< Integer> Integer::fromDecimalInString(const std::string &decimal){
 	}
 }
 
-Pointer< Integer> Integer::fromHexadecimalInString(const std::string &hex){
+Pointer<Integer> Integer::fromHexadecimalInString(const std::string &hex){
 	if(hex[0] == '-') return Signed::fromHexadecimalInString(hex);
 	else{
 		if(hex[0] == '+') return Unsigned::fromHexadecimalInString(hex.substr(1, hex.length() - 1));

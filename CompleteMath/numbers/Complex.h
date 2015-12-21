@@ -34,7 +34,7 @@ public:
 	 * @return
 	 * 	New Complex with given real and imaginary part.
 	 */
-	static Pointer< Complex> fromRealAndImaginary(const Pointer< RealNumber> real, const Pointer< RealNumber> imaginary);
+	static Pointer<Complex> fromRealAndImaginary(const Pointer<RealNumber> real, const Pointer<RealNumber> imaginary);
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @param imaginary
 	 * 	Imaginary part of created Complex number.
 	 */
-	Complex(const Pointer< RealNumber> real, const Pointer< RealNumber> imaginary);
+	Complex(const Pointer<RealNumber> real, const Pointer<RealNumber> imaginary);
 
 	/**
 	 * @brief
@@ -58,7 +58,7 @@ public:
 	//--------------COPYABLE----------------
 	//======================================
 
-	virtual Pointer< Number> copy() const override;
+	virtual Pointer<Number> copy() const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------
@@ -67,11 +67,11 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Number> getSum(Pointer< Number> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< Complex> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< FloatingPoint> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< Signed> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< Unsigned> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Number> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Complex> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<FloatingPoint> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Signed> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Unsigned> toAdd) const override;
 
 	/**
 	 * @}
@@ -81,11 +81,11 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Number> getProduct(Pointer< Number> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< Complex> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< FloatingPoint> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< Signed> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< Unsigned> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Number> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Complex> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<FloatingPoint> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Signed> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Unsigned> toMultiply) const override;
 
 	/**
 	 * @}
@@ -95,7 +95,7 @@ public:
 	//---------------NUMBER-----------------
 	//======================================
 
-	virtual Pointer< Number> getAbsoluteValue() const override;
+	virtual Pointer<Number> getAbsoluteValue() const override;
 	virtual bool isZero() const noexcept override;
 
 	/**
@@ -115,10 +115,10 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Unsigned> getAsUnsignedInteger() const override;
-	virtual Pointer< Signed> getAsSignedInteger() const override;
-	virtual Pointer< FloatingPoint> getAsFloatingPoint() const override;
-	virtual Pointer< Complex> getAsComplex() const override;
+	virtual Pointer<Unsigned> getAsUnsignedInteger() const override;
+	virtual Pointer<Signed> getAsSignedInteger() const override;
+	virtual Pointer<FloatingPoint> getAsFloatingPoint() const override;
+	virtual Pointer<Complex> getAsComplex() const override;
 
 	/**
 	 * @}
@@ -128,19 +128,19 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Number> getNegation() const override;
-	virtual Pointer< Number> getInversion() const override;
+	virtual Pointer<Number> getNegation() const override;
+	virtual Pointer<Number> getInversion() const override;
 
 	/**
 	 * @}
 	 */
 
 private:
-	Pointer< RealNumber> m_real = nullptr;
-	Pointer< RealNumber> m_imaginary = nullptr;
+	Pointer<RealNumber> m_real = nullptr;
+	Pointer<RealNumber> m_imaginary = nullptr;
 
 
-	Pointer< Complex> sharedThis() const;
+	Pointer<Complex> sharedThis() const;
 };
 
 } /* namespace numb */

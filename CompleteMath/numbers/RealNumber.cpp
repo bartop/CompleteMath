@@ -14,7 +14,7 @@
 namespace coma {
 namespace numb {
 
-Pointer< RealNumber> RealNumber::fromBinaryInString(const std::string &binary){
+Pointer<RealNumber> RealNumber::fromBinaryInString(const std::string &binary){
 	if(std::find(binary.begin(), binary.end(), '.') == binary.end()){
 		return Integer::fromBinaryInString(binary);
 	}else{
@@ -22,7 +22,7 @@ Pointer< RealNumber> RealNumber::fromBinaryInString(const std::string &binary){
 	}
 }
 
-Pointer< RealNumber> RealNumber::fromOctalInString(const std::string &octal){
+Pointer<RealNumber> RealNumber::fromOctalInString(const std::string &octal){
 	if(std::find(octal.begin(), octal.end(), '.') == octal.end()){
 		return Integer::fromOctalInString(octal);
 	}else{
@@ -30,7 +30,7 @@ Pointer< RealNumber> RealNumber::fromOctalInString(const std::string &octal){
 	}
 }
 
-Pointer< RealNumber> RealNumber::fromDecimalInString(const std::string &decimal){
+Pointer<RealNumber> RealNumber::fromDecimalInString(const std::string &decimal){
 	if(std::find(decimal.begin(), decimal.end(), '.') == decimal.end()){
 		return Integer::fromDecimalInString(decimal);
 	}else{
@@ -38,7 +38,7 @@ Pointer< RealNumber> RealNumber::fromDecimalInString(const std::string &decimal)
 	}
 }
 
-Pointer< RealNumber> RealNumber::fromHexadecimalInString(const std::string &hex){
+Pointer<RealNumber> RealNumber::fromHexadecimalInString(const std::string &hex){
 	if(std::find(hex.begin(), hex.end(), '.') == hex.end()){
 		return Integer::fromHexadecimalInString(hex);
 	}else{
@@ -46,15 +46,15 @@ Pointer< RealNumber> RealNumber::fromHexadecimalInString(const std::string &hex)
 	}
 }
 
-CompareResult RealNumber::compare(const Pointer< RealNumber> toCompare) const{
-	Pointer< RealNumber> diff = std::static_pointer_cast<const RealNumber>(
-			static_cast<const coma::core::Arithmetic<Pointer< Number>> *>(this)->getDifference(toCompare));
+CompareResult RealNumber::compare(const Pointer<RealNumber> toCompare) const{
+	Pointer<RealNumber> diff = staticPointerCast<RealNumber>(
+			static_cast<const coma::core::Arithmetic<Pointer<Number>> *>(this)->getDifference(toCompare));
 	if(diff->isPositive()) return CompareResult::ThisGreater;
 	else if(diff->isZero()) return CompareResult::Equal;
 	else return CompareResult::ThisLesser;
 }
 
-Pointer< Number> RealNumber::getAbsoluteValue() const{
+Pointer<Number> RealNumber::getAbsoluteValue() const{
 	if(isNegative()) return this->getNegation();
 	else return this->copy();
 }

@@ -34,7 +34,7 @@ public:
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
 	 */
-	static Pointer< Unsigned> fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array);
+	static Pointer<Unsigned> fromBigEndianArray(const tech::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	New Unsigned object containing value stored in array.
 	 */
-	static Pointer< Unsigned> fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array);
+	static Pointer<Unsigned> fromLittleEndianArray(const tech::RuntimeArray<unsigned char> &array);
 
 	/**
 	 * @brief
@@ -65,7 +65,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Pointer< Unsigned> fromBinaryInString(const std::string &binaryInString);
+	static Pointer<Unsigned> fromBinaryInString(const std::string &binaryInString);
 
 	/**
 	 * @brief
@@ -84,7 +84,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Pointer< Unsigned> fromOctalInString(const std::string &octalInString);
+	static Pointer<Unsigned> fromOctalInString(const std::string &octalInString);
 
 	/**
 	 * @brief
@@ -103,7 +103,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Pointer< Unsigned> fromDecimalInString(const std::string &decimalInString);
+	static Pointer<Unsigned> fromDecimalInString(const std::string &decimalInString);
 
 	/**
 	 * @brief
@@ -122,7 +122,7 @@ public:
 	 * @return
 	 *	New Unsigned object containing value stored in string.
 	 */
-	static Pointer< Unsigned> fromHexadecimalInString(const std::string &hexadecimalInString);
+	static Pointer<Unsigned> fromHexadecimalInString(const std::string &hexadecimalInString);
 
 	/**
 	 * @brief
@@ -147,7 +147,7 @@ public:
 	//--------------COPYABLE----------------
 	//======================================
 
-	virtual Pointer< Number> copy() const override;
+	virtual Pointer<Number> copy() const override;
 
 	//======================================
 	//-------------ARITHMETIC---------------
@@ -156,11 +156,11 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Number> getSum(Pointer< Number> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< Complex> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< FloatingPoint> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< Signed> toAdd) const override;
-	virtual Pointer< Number> getSum(Pointer< Unsigned> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Number> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Complex> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<FloatingPoint> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Signed> toAdd) const override;
+	virtual Pointer<Number> getSum(Pointer<Unsigned> toAdd) const override;
 
 	/**
 	 * @}
@@ -170,11 +170,11 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Number> getProduct(Pointer< Number> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< Complex> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< FloatingPoint> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< Signed> toMultiply) const override;
-	virtual Pointer< Number> getProduct(Pointer< Unsigned> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Number> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Complex> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<FloatingPoint> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Signed> toMultiply) const override;
+	virtual Pointer<Number> getProduct(Pointer<Unsigned> toMultiply) const override;
 
 	/**
 	 * @}
@@ -204,10 +204,10 @@ public:
 	 *
 	 */
 
-	virtual Pointer< Unsigned> getAsUnsignedInteger() const override;
-	virtual Pointer< Signed> getAsSignedInteger() const override;
-	virtual Pointer< FloatingPoint> getAsFloatingPoint() const override;
-	virtual Pointer< Complex> getAsComplex() const override;
+	virtual Pointer<Unsigned> getAsUnsignedInteger() const override;
+	virtual Pointer<Signed> getAsSignedInteger() const override;
+	virtual Pointer<FloatingPoint> getAsFloatingPoint() const override;
+	virtual Pointer<Complex> getAsComplex() const override;
 
 	/**
 	 * @}
@@ -217,8 +217,8 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Number> getNegation() const override;
-	virtual Pointer< Number> getInversion() const override;
+	virtual Pointer<Number> getNegation() const override;
+	virtual Pointer<Number> getInversion() const override;
 
 	/**
 	 * @}
@@ -247,10 +247,10 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Integer> getIntegerQuotient(Pointer< Integer> toDivide) const override;
-	virtual Pointer< Integer> getRemainder(Pointer< Integer> toDivide) const override;
-	virtual Pointer< Integer> getIntegerQuotientInverse(Pointer< Integer> dividend) const override;
-	virtual Pointer< Integer> getInverseRemainder(Pointer< Integer> dividend) const override;
+	virtual Pointer<Integer> getIntegerQuotient(Pointer<Integer> toDivide) const override;
+	virtual Pointer<Integer> getRemainder(Pointer<Integer> toDivide) const override;
+	virtual Pointer<Integer> getIntegerQuotientInverse(Pointer<Integer> dividend) const override;
+	virtual Pointer<Integer> getInverseRemainder(Pointer<Integer> dividend) const override;
 
 	/**
 	 * @}
@@ -260,10 +260,10 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Integer> getIntegerQuotient(Pointer< Signed> toDivide) const override;
-	virtual Pointer< Integer> getRemainder(Pointer< Signed> toDivide) const override;
-	virtual Pointer< Integer> getIntegerQuotientInverse(Pointer< Signed> dividend) const override;
-	virtual Pointer< Integer> getInverseRemainder(Pointer< Signed> dividend) const override;
+	virtual Pointer<Integer> getIntegerQuotient(Pointer<Signed> toDivide) const override;
+	virtual Pointer<Integer> getRemainder(Pointer<Signed> toDivide) const override;
+	virtual Pointer<Integer> getIntegerQuotientInverse(Pointer<Signed> dividend) const override;
+	virtual Pointer<Integer> getInverseRemainder(Pointer<Signed> dividend) const override;
 
 	/**
 	 * @}
@@ -273,17 +273,17 @@ public:
 	 * @{
 	 */
 
-	virtual Pointer< Integer> getIntegerQuotient(Pointer< Unsigned> toDivide) const override;
-	virtual Pointer< Integer> getRemainder(Pointer< Unsigned> toDivide) const override;
-	virtual Pointer< Integer> getIntegerQuotientInverse(Pointer< Unsigned> dividend) const override;
-	virtual Pointer< Integer> getInverseRemainder(Pointer< Unsigned> dividend) const override;
+	virtual Pointer<Integer> getIntegerQuotient(Pointer<Unsigned> toDivide) const override;
+	virtual Pointer<Integer> getRemainder(Pointer<Unsigned> toDivide) const override;
+	virtual Pointer<Integer> getIntegerQuotientInverse(Pointer<Unsigned> dividend) const override;
+	virtual Pointer<Integer> getInverseRemainder(Pointer<Unsigned> dividend) const override;
 
 	/**
 	 * @}
 	 */
 
 private:
-	Pointer< Unsigned> sharedThis() const;
+	Pointer<Unsigned> sharedThis() const;
 };
 
 } /* namespace numb */

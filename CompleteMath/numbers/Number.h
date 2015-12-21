@@ -31,9 +31,9 @@ class Unsigned;
  *	Polymorphic interface for all numbers.
  */
 class Number:
-	public core::Arithmetic<Pointer< Number>>,
-	public core::Copyable<Pointer< Number>>,
-	public core::TriviallyComparable<Pointer< Number>>,
+	public core::Arithmetic<Pointer<Number>>,
+	public core::Copyable<Pointer<Number>>,
+	public core::TriviallyComparable<Pointer<Number>>,
 	public tech::MemoryPoolObject,
 	public std::enable_shared_from_this<Number>{
 public:
@@ -50,7 +50,7 @@ public:
 	 * @return
 	 * 	Absolute value of @c *this.
 	 */
-	virtual Pointer< Number> getAbsoluteValue() const = 0;
+	virtual Pointer<Number> getAbsoluteValue() const = 0;
 
 	/**
 	 * @brief
@@ -61,7 +61,7 @@ public:
 	 */
 	virtual bool isZero() const noexcept = 0;
 
-	virtual bool isEqual(Pointer< Number> toCompare) const override;
+	virtual bool isEqual(Pointer<Number> toCompare) const override;
 
 	/**
 	 * @{
@@ -129,7 +129,7 @@ public:
 	 * @return
 	 * 	Unsigned representation of @c *this object.
 	 */
-	virtual Pointer< Unsigned> getAsUnsignedInteger() const = 0;
+	virtual Pointer<Unsigned> getAsUnsignedInteger() const = 0;
 
 	/**
 	 * @brief
@@ -140,7 +140,7 @@ public:
 	 * @return
 	 * 	Signed representation of @c *this object.
 	 */
-	virtual Pointer< Signed> getAsSignedInteger() const = 0;
+	virtual Pointer<Signed> getAsSignedInteger() const = 0;
 
 	/**
 	 * @brief
@@ -151,7 +151,7 @@ public:
 	 * @return
 	 * 	FloatingPoint representation of @c *this object.
 	 */
-	virtual Pointer< FloatingPoint> getAsFloatingPoint() const = 0;
+	virtual Pointer<FloatingPoint> getAsFloatingPoint() const = 0;
 
 	/**
 	 * @brief
@@ -162,13 +162,13 @@ public:
 	 * @return
 	 * 	Complex representation of @c *this object.
 	 */
-	virtual Pointer< Complex> getAsComplex() const = 0;
+	virtual Pointer<Complex> getAsComplex() const = 0;
 
 	/**
 	 * @}
 	 */
 
-	using core::Addable<Pointer< Number>>::getSum;
+	using core::Addable<Pointer<Number>>::getSum;
 
 	/**
 	 * @brief
@@ -180,7 +180,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Pointer< Number> getSum(Pointer< Complex> toAdd) const = 0;
+	virtual Pointer<Number> getSum(Pointer<Complex> toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -192,7 +192,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Pointer< Number> getSum(Pointer< FloatingPoint> toAdd) const = 0;
+	virtual Pointer<Number> getSum(Pointer<FloatingPoint> toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -204,7 +204,7 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Pointer< Number> getSum(Pointer< Signed> toAdd) const = 0;
+	virtual Pointer<Number> getSum(Pointer<Signed> toAdd) const = 0;
 
 	/**
 	 * @brief
@@ -216,21 +216,9 @@ public:
 	 * @return
 	 * 	Sum of @a *toAdd and @c *this.
 	 */
-	virtual Pointer< Number> getSum(Pointer< Unsigned> toAdd) const = 0;
+	virtual Pointer<Number> getSum(Pointer<Unsigned> toAdd) const = 0;
 
-	using core::Multiplyable<Pointer< Number>>::getProduct;
-
-	/**
-	 * @brief
-	 * 	Helper method, used to perform double dispatch.
-	 *
-	 * @param toMultiply
-	 * 	Number to multiply by @c *this.
-	 *
-	 * @return
-	 * 	Product of @a *toMultiply and @c *this.
-	 */
-	virtual Pointer< Number> getProduct(Pointer< Complex> toMultiply) const = 0;
+	using core::Multiplyable<Pointer<Number>>::getProduct;
 
 	/**
 	 * @brief
@@ -242,7 +230,7 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Pointer< Number> getProduct(Pointer< FloatingPoint> toMultiply) const = 0;
+	virtual Pointer<Number> getProduct(Pointer<Complex> toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -254,7 +242,7 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Pointer< Number> getProduct(Pointer< Signed> toMultiply) const = 0;
+	virtual Pointer<Number> getProduct(Pointer<FloatingPoint> toMultiply) const = 0;
 
 	/**
 	 * @brief
@@ -266,11 +254,23 @@ public:
 	 * @return
 	 * 	Product of @a *toMultiply and @c *this.
 	 */
-	virtual Pointer< Number> getProduct(Pointer< Unsigned> toMultiply) const = 0;
+	virtual Pointer<Number> getProduct(Pointer<Signed> toMultiply) const = 0;
 
-	virtual Pointer< Number> getDifference(Pointer< Number> toSubtract) const override;
+	/**
+	 * @brief
+	 * 	Helper method, used to perform double dispatch.
+	 *
+	 * @param toMultiply
+	 * 	Number to multiply by @c *this.
+	 *
+	 * @return
+	 * 	Product of @a *toMultiply and @c *this.
+	 */
+	virtual Pointer<Number> getProduct(Pointer<Unsigned> toMultiply) const = 0;
 
-	virtual Pointer< Number> getQuotient(Pointer< Number> toDivide) const override;
+	virtual Pointer<Number> getDifference(Pointer<Number> toSubtract) const override;
+
+	virtual Pointer<Number> getQuotient(Pointer<Number> toDivide) const override;
 
 	/**
 	 * @brief
@@ -279,7 +279,7 @@ public:
 	 * @return
 	 * 	Pointer to Unsigned storing zero.
 	 */
-	static Pointer< Unsigned> ZERO() noexcept;
+	static Pointer<Unsigned> ZERO() noexcept;
 
 	/**
 	 * @brief
@@ -288,7 +288,7 @@ public:
 	 * @return
 	 * 	Pointer to Unsigned storing one.
 	 */
-	static Pointer< Unsigned> ONE() noexcept;
+	static Pointer<Unsigned> ONE() noexcept;
 
 };
 

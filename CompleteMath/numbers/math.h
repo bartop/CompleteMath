@@ -25,7 +25,7 @@ namespace numb {
  * @return
  * 	Greatest common divisor of @a numberOne and @a numberTwo.
  */
-Pointer< Integer> getGCD(Pointer< Integer> numberOne, Pointer< Integer> numberTwo);
+Pointer<Integer> getGCD(Pointer<Integer> numberOne, Pointer<Integer> numberTwo);
 
 /**
  * @brief
@@ -40,7 +40,7 @@ Pointer< Integer> getGCD(Pointer< Integer> numberOne, Pointer< Integer> numberTw
  * @return
  * 	Least common multiple of @a numberOne and @a numberTwo.
  */
-Pointer< Integer> getLCM(Pointer< Integer> numberOne, Pointer< Integer> numberTwo);
+Pointer<Integer> getLCM(Pointer<Integer> numberOne, Pointer<Integer> numberTwo);
 
 
 }  // namespace numb
