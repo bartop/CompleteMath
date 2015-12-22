@@ -179,7 +179,7 @@ Pointer<FloatingPoint> Unsigned::getAsFloatingPoint() const{
 }
 
 Pointer<Complex> Unsigned::getAsComplex() const{
-	//TODO complete after Complex definition
+	return Complex::fromRealAndImaginary(sharedThis(), ZERO());
 }
 
 Pointer<Number> Unsigned::getNegation() const{

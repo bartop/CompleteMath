@@ -286,7 +286,7 @@ Pointer<FloatingPoint> FloatingPoint::getAsFloatingPoint() const{
 }
 
 Pointer<Complex> FloatingPoint::getAsComplex() const{
-	//TODO complete after Complex definition
+	return Complex::fromRealAndImaginary(sharedThis(), ZERO());
 }
 
 Pointer<Number> FloatingPoint::getNegation() const{

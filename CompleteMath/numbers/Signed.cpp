@@ -192,7 +192,7 @@ Pointer<FloatingPoint> Signed::getAsFloatingPoint() const{
 }
 
 Pointer<Complex> Signed::getAsComplex() const{
-	//TODO complete after Complex definition
+	return Complex::fromRealAndImaginary(sharedThis(), ZERO());
 }
 
 Pointer<Number> Signed::getNegation() const{

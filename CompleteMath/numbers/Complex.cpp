@@ -115,6 +115,13 @@ Pointer<Number> Complex::getProduct(Pointer<Unsigned> toMultiply) const{
 //======================================
 
 Pointer<Number> Complex::getAbsoluteValue() const{
+	Pointer<Number> alpha = FloatingPoint::fromDecimalFloatInString("0.96043387");
+	Pointer<Number> beta = FloatingPoint::fromDecimalFloatInString("0.39782473");
+	if(m_imaginary->compare(m_real) == core::CompareResult::ThisGreater){
+		return alpha->getProduct(m_imaginary)->getSum(beta->getProduct(m_real));
+	}else{
+		return alpha->getProduct(m_real)->getSum(beta->getProduct(m_imaginary));
+	}
 }
 
 bool Complex::isZero() const noexcept{
@@ -122,19 +129,19 @@ bool Complex::isZero() const noexcept{
 }
 
 string Complex::getAsBinary() const{
-	return m_real->getAsBinary() + m_imaginary->getAsBinary() + " * i";
+	return m_real->getAsBinary() + " + " + m_imaginary->getAsBinary() + " * i";
 }
 
 string Complex::getAsOctal() const{
-	return m_real->getAsOctal() + m_imaginary->getAsOctal() + " * i";
+	return m_real->getAsOctal() + " + " + m_imaginary->getAsOctal() + " * i";
 }
 
 string Complex::getAsDecimal() const{
-	return m_real->getAsDecimal() + m_imaginary->getAsDecimal() + " * i";
+	return m_real->getAsDecimal() + " + " + m_imaginary->getAsDecimal() + " * i";
 }
 
 string Complex::getAsHexadecimal() const{
-	return m_real->getAsHexadecimal() + m_imaginary->getAsHexadecimal() + " * i";
+	return m_real->getAsHexadecimal() + " + " + m_imaginary->getAsHexadecimal() + " * i";
 }
 
 Pointer<Unsigned> Complex::getAsUnsignedInteger() const{
