@@ -26,7 +26,7 @@ public:
 
 	/**
 	 * @brief
-	 * 	Function to copy @c this object.
+	 * 	Function to copy @c *this object.
 	 *
 	 * @return
 	 * 	Copy of @c *this.

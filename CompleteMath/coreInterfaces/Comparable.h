@@ -55,7 +55,7 @@ public:
 	 * 	Method used to compare objects.
 	 *
 	 * @param toCompare
-	 *	Pointer to object with which @c *this is supposed to be compared.
+	 *	Object with which @c *this is supposed to be compared.
 	 *
 	 * @return
 	 * 	#CompareResult adequate to result of the comparison.

@@ -128,6 +128,10 @@ public:
 	 * @brief
 	 * 	Constructs Unsigned from array of unsigned chars.
 	 *
+	 * @details
+	 * 	Constructor should NOT be used at all! It is public due to problems with cpp standard library.
+	 * 	The constructor will work just fine but it lacks some of useful features like caching.
+	 *
 	 * @param array
 	 *	Array of bytes containing long number.
 	 *

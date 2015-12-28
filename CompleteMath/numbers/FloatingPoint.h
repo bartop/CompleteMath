@@ -15,6 +15,10 @@ namespace numb {
 
 class Integer;
 
+/**
+ * @brief
+ * 	Concrete class representing floating point number.
+ */
 class FloatingPoint final: public RealNumber {
 public:
 	//======================================
@@ -172,7 +176,7 @@ public:
 	 * @param power
 	 *	Power in formula given above.
 	 */
-	FloatingPoint(Pointer<Integer> numerator, Pointer<Unsigned> denominator, Pointer<Integer> power);
+	FloatingPoint(Pointer<Integer> numerator, Pointer<Integer> denominator, Pointer<Integer> power);
 
 	/**
 	 * @brief
@@ -277,16 +281,46 @@ public:
 	 */
 
 private:
+	/**
+	 * @brief
+	 * 	Numerator of a fraction.
+	 */
+	Pointer<Integer> m_numerator;
 
+	/**
+	 * @brief
+	 * 	Denominator of a fraction.
+	 */
+	Pointer<Unsigned> m_denominator;
+
+	/**
+	 * @brief
+	 * 	Power o base 256.
+	 */
+	Pointer<Integer> m_power;
+
+	/**
+	 * @brief
+	 * 	Helper method for factory methods.
+	 *
+	 * @param number
+	 * 	Float in string.
+	 *
+	 * @param base
+	 * 	Base of a system in which number is given.
+	 *
+	 * @param numeratorCreator
+	 * 	Function generating numerator.
+	 *
+	 * @return
+	 * 	Shared pointer to new FloatingPoint.
+	 */
 	static Pointer<FloatingPoint> fromFloat(const std::string &number,
 			const std::string &base,
 			const std::function<Pointer<Integer> const(const std::string &)> &numeratorCreator);
 
 	Pointer<FloatingPoint> sharedThis() const;
-
-	Pointer<Integer> m_numerator;
-	Pointer<Unsigned> m_denominator;
-	Pointer<Integer> m_power;
+	void makeThisZero();
 };
 
 } /* namespace numb */

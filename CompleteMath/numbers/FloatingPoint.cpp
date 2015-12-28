@@ -20,42 +20,50 @@ using namespace std;
 //======================================
 
 FloatingPoint::FloatingPoint(Pointer<Integer> numerator,
-		Pointer<Unsigned> denominator,
-		Pointer<Integer> power):
-	m_numerator(numerator),
-	m_denominator(denominator),
-	m_power(power){}
+		Pointer<Integer> denominator,
+		Pointer<Integer> power){
+	if(!numerator || !denominator || !power){
+		REPORT_CONSTRUCTOR_ERROR(exception("Null pointer exception"), makeThisZero());
+	}
+	if(denominator->isZero()){
+		REPORT_CONSTRUCTOR_ERROR(exception("Division by zero exception"), makeThisZero());
+	}
+	if(numerator->isZero()){
+		makeThisZero();
+		return;
+	}
+	bool negative = numerator->isNegative() != denominator->isNegative();//logical XOR
+	Pointer<Integer>
+		num256 = Unsigned::fromDecimalInString("256"),
+		rem{},
+		GCD = getGCD(numerator, denominator);
+	numerator = staticPointerCast<Integer>(numerator->getAbsoluteValue());
+	denominator = staticPointerCast<Integer>(denominator->getAbsoluteValue());
+	numerator = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(numerator)->getIntegerQuotient(GCD);
+	denominator = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(denominator)->getIntegerQuotient(GCD);
+	if(negative){
+		numerator = staticPointerCast<Integer>(numerator->getNegation());
+	}
+	while(rem = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(numerator)->getRemainder(num256),
+			rem->isZero()){
+		numerator = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(numerator)->getIntegerQuotient(num256);
+		power = staticPointerCast<Integer>(power->getSum(ONE()));
+	}
+	while(rem = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(denominator)->getRemainder(num256),
+			rem->isZero()){
+		denominator = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(denominator)->getIntegerQuotient(num256);
+		power = staticPointerCast<Integer>(power->getDifference(ONE()));
+	}
+	m_numerator = numerator;
+	m_denominator = staticPointerCast<Unsigned>(denominator);
+	m_power = power;
+}
 
 Pointer<FloatingPoint> FloatingPoint::fromFraction(
 		Pointer<Integer> numerator,
 		Pointer<Integer> denominator,
 		Pointer<Integer> power){
-	if(!numerator || !denominator || !power) REPORT_ERROR(exception("Null pointer exception"), nullptr);
-	if(denominator->isZero()) REPORT_ERROR(exception("Division by zero exception"), nullptr);
-	if(numerator->isZero()) return make_shared<const FloatingPoint>(ZERO(), ONE(), ZERO());
-	Pointer<Integer>
-		num = staticPointerCast<Integer>(numerator->getAbsoluteValue()),
-		den = staticPointerCast<Integer>(denominator->getAbsoluteValue()),
-		pow = staticPointerCast<Integer>(power->copy()),
-		num256 = Unsigned::fromDecimalInString("256"),
-		rem{},
-		GCD = getGCD(numerator, denominator);
-	num = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(num)->getIntegerQuotient(GCD);
-	den = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(den)->getIntegerQuotient(GCD);
-	if(numerator->isNegative() != denominator->isNegative()){
-		num = staticPointerCast<Integer>(num->getNegation());
-	}
-	while(rem = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(num)->getRemainder(num256),
-			rem->isZero()){
-		num = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(num)->getIntegerQuotient(num256);
-		pow = staticPointerCast<Integer>(pow->getSum(ONE()));
-	}
-	while(rem = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(den)->getRemainder(num256),
-			rem->isZero()){
-		den = staticPointerCast<IntegerArithmetic<Pointer<Integer>>>(den)->getIntegerQuotient(num256);
-		pow = staticPointerCast<Integer>(pow->getDifference(ONE()));
-	}
-	return make_shared<const FloatingPoint>(num, staticPointerCast<Unsigned>(den), pow);
+	return make_shared<const FloatingPoint>(numerator, denominator, power);
 }
 
 Pointer<FloatingPoint> FloatingPoint::fromBinaryFractionInStrings(const string &numerator,
@@ -150,7 +158,8 @@ Pointer<Number> FloatingPoint::getSum(Pointer<Complex> toAdd) const{
 }
 
 Pointer<Number> FloatingPoint::getSum(Pointer<FloatingPoint> toAdd) const{
-	if(!toAdd) REPORT_ERROR(exception("Null pointer exception"), nullptr);
+	if(!toAdd)
+		REPORT_ERROR(exception("Null pointer exception"), nullptr);
 	if(m_denominator->compare(toAdd->m_denominator) && this->m_power->compare(toAdd->m_power)){
 		Pointer<Number> sum = m_numerator->getSum(toAdd->m_numerator);
 		return fromFraction(staticPointerCast<Integer>(sum), m_denominator, m_power);
@@ -181,10 +190,9 @@ Pointer<Number> FloatingPoint::getSum(Pointer<FloatingPoint> toAdd) const{
 		Pointer<Integer> sum = staticPointerCast<Integer>(numerator1->getSum(numerator2));
 		return fromFraction(sum,
 				denominator,
-				min(this->m_power, toAdd->m_power, [](const Pointer<RealNumber>  ptr1,
-														const Pointer<RealNumber>  ptr2){
-			return ptr1->compare(ptr2) == CompareResult::ThisLesser;
-		}));
+				m_power->compare(toAdd->m_power) == CompareResult::ThisLesser ? m_power :
+						toAdd->m_power
+		);
 	}
 }
 
@@ -286,7 +294,7 @@ Pointer<FloatingPoint> FloatingPoint::getAsFloatingPoint() const{
 }
 
 Pointer<Complex> FloatingPoint::getAsComplex() const{
-	return Complex::fromRealAndImaginary(sharedThis(), ZERO());
+	//TODO complete after Complex definition
 }
 
 Pointer<Number> FloatingPoint::getNegation() const{
@@ -316,6 +324,12 @@ bool FloatingPoint::isPositive() const noexcept{
 
 Pointer<FloatingPoint> FloatingPoint::sharedThis() const{
 	return staticPointerCast<FloatingPoint>(shared_from_this());
+}
+
+void FloatingPoint::makeThisZero(){
+	m_numerator = ZERO();
+	m_denominator = ONE();
+	m_power = ZERO();
 }
 
 } /* namespace numb */

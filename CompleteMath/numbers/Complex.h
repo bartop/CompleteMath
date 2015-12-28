@@ -15,6 +15,10 @@ namespace numb {
 
 class RealNumber;
 
+/**
+ * @brief
+ * 	Concrete class representing complex number.
+ */
 class Complex final:
 		public Number {
 public:
@@ -32,9 +36,66 @@ public:
 	 * 	Imaginary part of created Complex.
 	 *
 	 * @return
-	 * 	New Complex with given real and imaginary part.
+	 * 	Shared pointer to new Complex with given real and imaginary part.
 	 */
-	static Pointer<Complex> fromRealAndImaginary(const Pointer<RealNumber> real, const Pointer<RealNumber> imaginary);
+	static Pointer<Complex> fromRealAndImaginary(const Pointer<RealNumber> real,
+			const Pointer<RealNumber> imaginary);
+
+	/**
+	 * @brief
+	 * 	Factory function creating Complex from string.
+	 *
+	 * @param complex
+	 * 	String containing complex number in given pattern:
+	 * 	real_part + imaginary_part * i
+	 * 	Note that spaces placement is not meaningless.
+	 *
+	 * @return
+	 * 	Shared pointer to new Complex containing value given in string.
+	 */
+	static Pointer<Complex> fromBinaryInString(const String &complex);
+
+	/**
+	 * @brief
+	 * 	Factory function creating Complex from string.
+	 *
+	 * @param complex
+	 * 	String containing complex number in given pattern:
+	 * 	real_part + imaginary_part * i
+	 * 	Note that spaces placement is not meaningless.
+	 *
+	 * @return
+	 * 	Shared pointer to new Complex containing value given in string.
+	 */
+	static Pointer<Complex> fromOctalInString(const String &complex);
+
+	/**
+	 * @brief
+	 * 	Factory function creating Complex from string.
+	 *
+	 * @param complex
+	 * 	String containing complex number in given pattern:
+	 * 	real_part + imaginary_part * i
+	 * 	Note that spaces placement is not meaningless.
+	 *
+	 * @return
+	 * 	Shared pointer to new Complex containing value given in string.
+	 */
+	static Pointer<Complex> fromDecimalInString(const String &complex);
+
+	/**
+	 * @brief
+	 * 	Factory function creating Complex from string.
+	 *
+	 * @param complex
+	 * 	String containing complex number in given pattern:
+	 * 	real_part + imaginary_part * i
+	 * 	Note that spaces placement is not meaningless.
+	 *
+	 * @return
+	 * 	Shared pointer to new Complex containing value given in string.
+	 */
+	static Pointer<Complex> fromHexadecimalInString(const String &complex);
 
 	/**
 	 * @brief
@@ -136,10 +197,25 @@ public:
 	 */
 
 private:
+	/**
+	 * @brief
+	 * 	Real part of complex number.
+	 */
 	Pointer<RealNumber> m_real = nullptr;
+
+	/**
+	 * @brief
+	 * 	Imaginary part of complex number.
+	 */
 	Pointer<RealNumber> m_imaginary = nullptr;
 
-
+	/**
+	 * @brief
+	 * 	Getter of shared pointer to *this.
+	 *
+	 * @return
+	 * 	Shared pointer to *this.
+	 */
 	Pointer<Complex> sharedThis() const;
 };
 

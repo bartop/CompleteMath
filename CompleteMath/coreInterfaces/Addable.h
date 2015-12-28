@@ -32,10 +32,10 @@ public:
 	 * 	Adds two objects.
 	 *
 	 * @param toAdd
-	 * 	Pointer to object to be added to @c this.
+	 * 	Object to be added to @c *this.
 	 *
 	 * @return
-	 * 	Pointer to sum of @c *this and @a toAdd.
+	 * 	Sum of @c *this and @a toAdd.
 	 */
 	virtual return_type getSum(argument_type toAdd) const = 0;
 
@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	Neutral element of addition.
 	 */
-	static constexpr argument_type additionNeutralElement(){ return ADDITION_NEUTRAL_ELEMENT; }
+	static constexpr argument_type additionNeutralElement() noexcept { return ADDITION_NEUTRAL_ELEMENT; }
 
 private:
 	/**

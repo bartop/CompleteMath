@@ -29,7 +29,7 @@ class Signed;
 
 /**
  * @brief
- * 	Interface for integer values.
+ * 	Abstract class representing any type of integer.
  */
 class Integer:
 		public RealNumber,

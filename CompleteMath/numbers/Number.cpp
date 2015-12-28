@@ -32,7 +32,8 @@ bool Number::isEqual(Pointer<Number> toCompare) const{
 
 Pointer<Number> Number::getDifference(Pointer<Number> toSubtract) const{
 	if(!toSubtract) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	return toSubtract->getNegation()->getSum(shared_from_this());
+	Pointer<Number> tmp = getSum(toSubtract->getNegation());
+	return tmp;
 }
 
 Pointer<Number> Number::getQuotient(Pointer<Number> toDivide) const{

@@ -6,6 +6,7 @@
  */
 
 #include <memory>
+#include <algorithm>
 #include "Complex.h"
 #include "FloatingPoint.h"
 #include "Signed.h"
@@ -23,6 +24,38 @@ using namespace std;
 Pointer<Complex> Complex::fromRealAndImaginary(const Pointer<RealNumber> real, const Pointer<RealNumber> imaginary){
 	if(!real || !imaginary) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
 	return std::make_shared<const Complex>(real, imaginary);
+}
+
+Pointer<Complex> Complex::fromBinaryInString(const String &complex){
+	auto plusSign = complex.find(" + ");
+	String re = complex.substr(0, plusSign),
+			im = complex.substr(plusSign + 3, complex.length() - plusSign - 7);
+	return std::make_shared<const Complex>(RealNumber::fromBinaryInString(re),
+			RealNumber::fromBinaryInString(im));
+}
+
+Pointer<Complex> Complex::fromOctalInString(const String &complex){
+	auto plusSign = complex.find(" + ");
+	String re = complex.substr(0, plusSign),
+			im = complex.substr(plusSign + 3, complex.length() - plusSign - 7);
+	return std::make_shared<const Complex>(RealNumber::fromOctalInString(re),
+			RealNumber::fromOctalInString(im));
+}
+
+Pointer<Complex> Complex::fromDecimalInString(const String &complex){
+	auto plusSign = complex.find(" + ");
+	String re = complex.substr(0, plusSign),
+			im = complex.substr(plusSign + 3, complex.length() - plusSign - 7);
+	return std::make_shared<const Complex>(RealNumber::fromDecimalInString(re),
+			RealNumber::fromDecimalInString(im));
+}
+
+Pointer<Complex> Complex::fromHexadecimalInString(const String &complex){
+	auto plusSign = complex.find(" + ");
+	String re = complex.substr(0, plusSign),
+			im = complex.substr(plusSign + 3, complex.length() - plusSign - 7);
+	return std::make_shared<const Complex>(RealNumber::fromHexadecimalInString(re),
+			RealNumber::fromHexadecimalInString(im));
 }
 
 Complex::Complex(const Pointer<RealNumber> real, const Pointer<RealNumber> imaginary):
@@ -115,13 +148,6 @@ Pointer<Number> Complex::getProduct(Pointer<Unsigned> toMultiply) const{
 //======================================
 
 Pointer<Number> Complex::getAbsoluteValue() const{
-	Pointer<Number> alpha = FloatingPoint::fromDecimalFloatInString("0.96043387");
-	Pointer<Number> beta = FloatingPoint::fromDecimalFloatInString("0.39782473");
-	if(m_imaginary->compare(m_real) == core::CompareResult::ThisGreater){
-		return alpha->getProduct(m_imaginary)->getSum(beta->getProduct(m_real));
-	}else{
-		return alpha->getProduct(m_real)->getSum(beta->getProduct(m_imaginary));
-	}
 }
 
 bool Complex::isZero() const noexcept{

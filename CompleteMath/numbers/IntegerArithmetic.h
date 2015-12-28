@@ -11,6 +11,16 @@
 namespace coma {
 namespace numb {
 
+/**
+ * @brief
+ * 	Interface for integer exclusive operations.
+ *
+ * @tparam T
+ * 	Type of arguments in methods.
+ *
+ * @tparam U
+ * 	Type of returned values.
+ */
 template<typename T, typename U = T>
 class IntegerArithmetic {
 public:

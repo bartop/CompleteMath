@@ -182,7 +182,7 @@ Pointer<Unsigned> Signed::getAsUnsignedInteger() const{
 }
 
 Pointer<Signed> Signed::getAsSignedInteger() const{
-	return fromLittleEndianArray(getArray());
+	return sharedThis();
 }
 
 Pointer<FloatingPoint> Signed::getAsFloatingPoint() const{
@@ -192,7 +192,7 @@ Pointer<FloatingPoint> Signed::getAsFloatingPoint() const{
 }
 
 Pointer<Complex> Signed::getAsComplex() const{
-	return Complex::fromRealAndImaginary(sharedThis(), ZERO());
+	//TODO complete after Complex definition
 }
 
 Pointer<Number> Signed::getNegation() const{
@@ -222,34 +222,26 @@ bool Signed::isPositive() const noexcept{
 //======================================
 
 Pointer<Integer> Signed::getIntegerQuotient(Pointer<Integer> toDivide) const{
-	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	return std::static_pointer_cast<
-			const coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
+	return staticPointerCast<
+			coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
 					toDivide)->getIntegerQuotientInverse(sharedThis());
 }
 
 Pointer<Integer> Signed::getRemainder(Pointer<Integer> toDivide) const{
-	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	return std::static_pointer_cast<
-			const coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
+	return staticPointerCast<
+			coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
 					toDivide)->getInverseRemainder(sharedThis());
 }
 
 Pointer<Integer> Signed::getIntegerQuotientInverse(Pointer<Integer> dividend) const{
-	if(!dividend) REPORT_ERROR(std::exception("null pointer exception"), nullptr);
-	if(dividend->isZero()) REPORT_ERROR(std::exception("division by zero exception"), nullptr);
-	return std::static_pointer_cast<
-			const coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
+	return staticPointerCast<
+			coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
 					dividend)->getIntegerQuotient(sharedThis());
 }
 
 Pointer<Integer> Signed::getInverseRemainder(Pointer<Integer> dividend) const{
-	if(!dividend) REPORT_ERROR(std::exception("null pointer exception"), nullptr);
-	if(dividend->isZero()) REPORT_ERROR(std::exception("division by zero exception"), nullptr);
-	return std::static_pointer_cast<
-			const coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
+	return staticPointerCast<
+			coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
 					dividend)->getRemainder(sharedThis());
 }
 
@@ -297,48 +289,36 @@ Pointer<Integer> Signed::getRemainder(Pointer<Signed> toDivide) const{//TODO tes
 }
 
 Pointer<Integer> Signed::getIntegerQuotientInverse(Pointer<Signed> dividend) const{
-	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(dividend->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	return std::static_pointer_cast<
-			const coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
+	return staticPointerCast<
+			coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
 					dividend)->getIntegerQuotient(sharedThis());
 }
 
 Pointer<Integer> Signed::getInverseRemainder(Pointer<Signed> dividend) const{
-	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(dividend->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
-	return std::static_pointer_cast<
-			const coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
+	return staticPointerCast<
+			coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>(
 					dividend)->getRemainder(sharedThis());
 }
 
 Pointer<Integer> Signed::getIntegerQuotient(Pointer<Unsigned> toDivide) const{//TODO tutaj zacznij robotê
-	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	Pointer<coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>
 		left { toDivide->getAsSignedInteger() };
 	return left->getIntegerQuotientInverse(sharedThis());
 }
 
 Pointer<Integer> Signed::getRemainder(Pointer<Unsigned> toDivide) const{
-	if(!toDivide) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(toDivide->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	Pointer<coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>
 		left { toDivide->getAsSignedInteger() };
 	return left->getInverseRemainder(sharedThis());
 }
 
 Pointer<Integer> Signed::getIntegerQuotientInverse(Pointer<Unsigned> dividend) const{
-	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(dividend->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	Pointer<coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>
 		left { dividend->getAsSignedInteger() };
 	return left->getIntegerQuotient(sharedThis());
 }
 
 Pointer<Integer> Signed::getInverseRemainder(Pointer<Unsigned> dividend) const{
-	if(!dividend) REPORT_ERROR(std::exception("Null pointer exception"), nullptr);
-	if(dividend->isZero()) REPORT_ERROR(std::exception("Division by zero exception"), nullptr);
 	Pointer<coma::numb::IntegerArithmetic<Pointer<Signed>, Pointer<Integer>>>
 		left { dividend->getAsSignedInteger() };
 	return left->getRemainder(sharedThis());

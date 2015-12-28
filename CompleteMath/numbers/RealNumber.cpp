@@ -48,7 +48,7 @@ Pointer<RealNumber> RealNumber::fromHexadecimalInString(const std::string &hex){
 
 CompareResult RealNumber::compare(const Pointer<RealNumber> toCompare) const{
 	Pointer<RealNumber> diff = staticPointerCast<RealNumber>(
-			static_cast<const coma::core::Arithmetic<Pointer<Number>> *>(this)->getDifference(toCompare));
+			staticPointerCast<coma::core::Arithmetic<Pointer<Number>>>(shared_from_this())->getDifference(toCompare));
 	if(diff->isPositive()) return CompareResult::ThisGreater;
 	else if(diff->isZero()) return CompareResult::Equal;
 	else return CompareResult::ThisLesser;

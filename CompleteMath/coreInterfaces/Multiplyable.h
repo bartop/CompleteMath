@@ -46,7 +46,7 @@ public:
 	 * @return
 	 * 	Neutral element of multiplication.
 	 */
-	static constexpr argument_type multiplicationNeutralElement(){ return MULTIPLICATION_NEUTRAL_ELEMENT; }
+	static constexpr argument_type multiplicationNeutralElement()noexcept{ return MULTIPLICATION_NEUTRAL_ELEMENT; }
 
 private:
 	/**

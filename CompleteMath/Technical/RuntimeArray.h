@@ -32,66 +32,243 @@ class RuntimeArrayConstantIterator;
 
 //----------------------------------------------------------------------------------------------------------
 //Forward declarations of functions
+
+/**
+ * @brief
+ * 	Moves iterator @a rhs positions forward.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Iterator which is supposed to be changed.
+ *
+ * @param rhs
+ * 	Number of positions to skip.
+ *
+ * @return
+ * 	Reference to iterator after skipping given amount of positions.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 Iterator &operator+=(
 		Iterator &lhs,
 		typename Iterator::DifferenceType rhs);
 
+/**
+ * @brief
+ * 	Moves iterator @a rhs positions backward.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Iterator which is supposed to be changed.
+ *
+ * @param rhs
+ * 	Number of positions to skip.
+ *
+ * @return
+ * 	Reference to iterator after skipping given amount of positions.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 Iterator &operator-=(
 		Iterator &lhs,
 		typename Iterator::DifferenceType rhs);
 
+/**
+ * @brief
+ * 	Creates new iterator which is moved @a rhs positions forward from @a lhs.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Iterator which is base for creation of new one.
+ *
+ * @param rhs
+ * 	Number of positions to skip.
+ *
+ * @return
+ * 	New iterator pointing to element @a rhs positions forward.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 Iterator operator+(
 		const Iterator &lhs,
 		typename Iterator::DifferenceType rhs);
 
+/**
+ * @brief
+ * 	Creates new iterator which is moved @a rhs positions forward from @a lhs.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Iterator which is base for creation of new one.
+ *
+ * @param rhs
+ * 	Number of positions to skip.
+ *
+ * @return
+ * 	New iterator pointing to element @a rhs positions forward.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 Iterator operator-(
 		const Iterator &lhs,
 		typename Iterator::DifferenceType rhs);
 
+/**
+ * @brief
+ * 	Creates new iterator which is moved @a rhs positions backward from @a lhs.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Iterator which is base for creation of new one.
+ *
+ * @param rhs
+ * 	Number of positions to skip.
+ *
+ * @return
+ * 	New iterator pointing to element @a rhs positions backward.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 typename Iterator::DifferenceType operator-(
 		const Iterator &lhs,
 		const Iterator &rhs);
 
+/**
+ * @brief
+ * 	Checks if two iterators point to the same element.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Left operand of comparison.
+ *
+ * @param rhs
+ * 	Right operand of comparison.
+ *
+ * @return
+ * 	True if iterators point to same element. Else returns false.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 bool operator==(
 		const Iterator &lhs,
 		const Iterator &rhs);
 
+/**
+ * @brief
+ * 	Checks if two iterators don't point to the same element.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Left operand of comparison.
+ *
+ * @param rhs
+ * 	Right operand of comparison.
+ *
+ * @return
+ * 	True if iterators don't point to same element. Else returns false.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 bool operator!=(
 		const Iterator &lhs,
 		const Iterator &rhs);
 
+/**
+ * @brief
+ *	Checks which of two iterators points to further element in array.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Left operand of comparison.
+ *
+ * @param rhs
+ * 	Right operand of comparison.
+ *
+ * @return
+ * 	True if @a lhs points to further element. Else returns false.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 bool operator>(
 		const Iterator &lhs,
 		const Iterator &rhs);
 
+/**
+ * @brief
+ *	Checks which of two iterators points to further element in array.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Left operand of comparison.
+ *
+ * @param rhs
+ * 	Right operand of comparison.
+ *
+ * @return
+ * 	True if @a rhs points to further element. Else returns false.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 bool operator<(
 		const Iterator &lhs,
 		const Iterator &rhs);
 
+/**
+ * @brief
+ *	Checks which of two iterators points to further element in array.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Left operand of comparison.
+ *
+ * @param rhs
+ * 	Right operand of comparison.
+ *
+ * @return
+ * 	False if @a rhs points to further element. Else returns true.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 bool operator>=(
 		const Iterator &lhs,
 		const Iterator &rhs);
 
+/**
+ * @brief
+ *	Checks which of two iterators points to further element in array.
+ *
+ * @tparam Iterator
+ * 	Type of iterator to be used.
+ *
+ * @param lhs
+ * 	Left operand of comparison.
+ *
+ * @param rhs
+ * 	Right operand of comparison.
+ *
+ * @return
+ * 	False if @a lhs points to further element. Else returns true.
+ */
 template<class Iterator, class = std::enable_if_t<isSpecialization<Iterator, RuntimeArrayIterator>()
 		|| isSpecialization<Iterator, RuntimeArrayConstantIterator>() > >
 bool operator<=(
@@ -103,6 +280,9 @@ bool operator<=(
 /**
  * @brief
  * 	Iterator for RuntimeArray.
+ *
+ * @tparam T
+ * 	Type of values stored in RuntimeArray.
  */
 template<class T>
 class RuntimeArrayIterator :
@@ -351,6 +531,9 @@ private:
 /**
  * @brief
  * 	ConstantIterator for RuntimeArray.
+ *
+ * @tparam T
+ * 	Type of values stored in RuntimeArray.
  */
 template<class T>
 class RuntimeArrayConstantIterator :
@@ -617,6 +800,12 @@ private:
 /**
  * @brief
  * 	Array with size defined at runtime.
+ *
+ * @tparam T
+ * 	Type of values stored.
+ *
+ * @tparam A
+ * 	Type of allocator used in container.
  */
 template<class T, class A>
 class RuntimeArray {
@@ -635,8 +824,8 @@ public:
  	 * @param size
  	 * 	Size of constructed array.
  	 *
- 	 * @param filler
- 	 * 	Default value of array elements.
+ 	 * @param args
+ 	 * 	Arguments for in place template objects construction.
  	 */
 	template<class... Args>
 	explicit RuntimeArray(size_t size, Args &&... args) : m_size{size},

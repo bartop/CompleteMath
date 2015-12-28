@@ -11,6 +11,10 @@
 namespace coma {
 namespace core {
 
+/**
+ * @brief
+ * 	Interface template for equality checking.
+ */
 template<class T>
 class TriviallyComparable{
 public:

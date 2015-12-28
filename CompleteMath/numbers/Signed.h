@@ -13,6 +13,10 @@
 namespace coma {
 namespace numb {
 
+/**
+ * @brief
+ * 	Concrete class representing signed integer.
+ */
 class Signed final: public Integer {
 public:
 	//======================================
